@@ -1,0 +1,6 @@
+C:\Coded\BookingSystem\BookingSystem.Core\bin\Debug\BookingSystem.Core.dll
+C:\Coded\BookingSystem\BookingSystem.Core\bin\Debug\BookingSystem.Core.pdb
+C:\Coded\BookingSystem\BookingSystem.Core\obj\Debug\BookingSystem.Core.csproj.CoreCompileInputs.cache
+C:\Coded\BookingSystem\BookingSystem.Core\obj\Debug\BookingSystem.Core.dll
+C:\Coded\BookingSystem\BookingSystem.Core\obj\Debug\BookingSystem.Core.pdb
+C:\Coded\BookingSystem\BookingSystem.Core\obj\Debug\BookingSystem.Core.csprojAssemblyReference.cache

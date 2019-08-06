@@ -1,0 +1,48 @@
+﻿@model UserVM
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
+}
+
+<div class="login-page col-md-12">
+    <div class="col-md-6"  style="margin-left:8% !important;  margin-top: 17% !important;">
+        <img src="~/Content/Image/LoginPage2.jpg" style="width: 100% !important;" />
+    </div>
+    <div class="login-box col-md-6" style="margin-left: 8% !important; position: relative; margin-top: 17% !important;">
+        <div class="login-logo">
+            <b>BookingSystem</b>
+        </div>
+        <div class="login-box-body">
+            @Html.ValidationSummary()
+            <p class="login-box-msg">Sign in to start your session</p>
+            @using (Html.BeginForm())
+            {
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(p => p.EMail, new { @class = "form-control", @placeholder = "Email" })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    @Html.ValidationMessageFor(p => p.EMail)
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(p => p.Password, new { @class = "form-control", @placeholder = "Password" })
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    @Html.ValidationMessageFor(p => p.Password)
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox"> Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    </div>
+                </div>
+            }
+
+            <a href="@Url.Action("Register","Account")" class="text-center">Register a new membership</a>
+        </div>
+    </div>
+</div>
