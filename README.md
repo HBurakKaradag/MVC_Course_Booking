@@ -1,19 +1,52 @@
-# MVC_Course_Booking
-MVC DomainDrivenDesign Booking Sample
+# MVC_Course_Booking Sample
+      
+      MVC DomainDrivenDesign Booking Sample
 
 #Neler Öğrendik ?
 
-Domain Driven Design Pattern
+#Design Pattern 
+    
+    Domain Driven Design Pattern
+    Singleton Design Pattern
+    
 
-Interface Kullanımı
-Abstract Base Kullanımı
-CustomAttribute Kullanımı
-Enum Kullanımı
-CodeFirst Database işlemleri
-Migrations İşlemleri
-Extensions Kullanımı
-Template Giydirme
-Model-View-Controller
-Validation Kullanımı
-CustomValidation Kullanımı
-Authentication
+    Interface Kullanımı
+    Abstract Base Kullanımı
+    Extensions Kullanımı
+
+
+#Validations
+    
+     Model Validation
+    Custom Validation
+    
+#Attributes
+
+    Attribute Kavramı
+    Custom Attribute
+
+#WebUI - MVC 
+    
+    Model-View-Controller
+    Template üzerinden Örnekleme
+    Authentication
+    HtmlHelpers
+    CustomHtmlHelpers
+    HtmlPartial
+    Redirect Aksiyonları
+    Actions
+    AcceptVerbs
+    Controller ReturnTypes
+    Enum Kullanımı
+    
+    
+#DataBase
+
+    SqlServer
+    CodeFirst
+    Migrations
+    
+
+
+
+
