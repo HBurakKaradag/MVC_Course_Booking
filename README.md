@@ -2,30 +2,30 @@
       
       MVC DomainDrivenDesign Booking Sample
 
-#Neler Öğrendik ?
+# Neler Öğrendik ?
 
-#Design Pattern 
+# Design Pattern 
     
     Domain Driven Design Pattern
     Singleton Design Pattern
     
 
-    Interface Kullanımı
-    Abstract Base Kullanımı
-    Extensions Kullanımı
+Interface Kullanımı
+Abstract Base Kullanımı
+Extensions Kullanımı
 
 
-#Validations
+# Validations
     
      Model Validation
     Custom Validation
     
-#Attributes
+# Attributes
 
     Attribute Kavramı
     Custom Attribute
 
-#WebUI - MVC 
+# Web - MVC 
     
     Model-View-Controller
     Template üzerinden Örnekleme
@@ -40,7 +40,7 @@
     Enum Kullanımı
     
     
-#DataBase
+# DataBase
 
     SqlServer
     CodeFirst
