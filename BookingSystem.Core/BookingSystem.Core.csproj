@@ -46,6 +46,7 @@
     <Compile Include="CustomAttribute\MapIgnoreAttribute.cs" />
     <Compile Include="CustomValidation\IsSameValue.cs" />
     <Compile Include="EnumDefinitions.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Interfaces\IFormsAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

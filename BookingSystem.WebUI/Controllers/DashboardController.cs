@@ -1,15 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BookingSystem.Service.Services;
 using System.Web.Mvc;
 
 namespace BookingSystem.WebUI.Controllers
 {
     [Authorize]
-    public class DashboardController : Controller
+    public class DashboardController : ControllerBase
     {
-        // GET: Dashboard
+        private readonly DashboardService _dashBoardService;
+
+        public DashboardController()
+        {
+            _dashBoardService = new DashboardService();
+        }
+
+        [ActionName("_GetLeftMenu")]
+        public PartialViewResult GetMenu()
+        {
+            var menuVM = _dashBoardService.GetMenu();
+            return PartialView("_LeftMenu", menuVM);
+        }
+
         public ActionResult Index()
         {
             return View();

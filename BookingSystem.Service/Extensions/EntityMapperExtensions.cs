@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace BookingSystem.Service
+namespace BookingSystem.Service.Extensions
 {
     public static class EntityMapperExtensions
     {

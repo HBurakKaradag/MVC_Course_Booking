@@ -16,7 +16,7 @@ namespace BookingSystem.WebUI.Controllers
       */
 
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private readonly IFormsAuthentication _formsAuthentication;
         private readonly AccountService _accountService;

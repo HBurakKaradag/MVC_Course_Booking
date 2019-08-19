@@ -2,12 +2,13 @@
 using BookingSystem.Data.Context;
 using BookingSystem.Domain.Entity;
 using BookingSystem.Domain.WebUI;
+using BookingSystem.Service.Extensions;
 using System;
 using System.Linq;
 
 namespace BookingSystem.Service.Services
 {
-    public class AccountService
+    public class AccountService : ServiceBase
     {
         public ServiceResultModel<UserVM> LoginUser(UserVM user)
         {
