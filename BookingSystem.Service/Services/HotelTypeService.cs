@@ -1,12 +1,4 @@
-﻿using BookingSystem.Core;
-using BookingSystem.Data.Context;
-using BookingSystem.Domain.Entity;
-using BookingSystem.Domain.WebUI;
-using BookingSystem.Service.Extensions;
-using System;
-using System.Linq;
-
-namespace BookingSystem.Service.Services
+﻿namespace BookingSystem.Service.Services
 {
     public class HotelTypeService : ServiceBase
     {
