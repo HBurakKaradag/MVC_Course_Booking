@@ -1,11 +1,11 @@
 C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\bin\Debug\BookingSystem.Domain.WebUI.dll
 C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\bin\Debug\BookingSystem.Domain.WebUI.pdb
-C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.csprojAssemblyReference.cache
-C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.csproj.CoreCompileInputs.cache
-C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.dll
-C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.pdb
 C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\bin\Debug\BookingSystem.Core.dll
 C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\bin\Debug\BookingSystem.Domain.dll
 C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\bin\Debug\BookingSystem.Core.pdb
 C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\bin\Debug\BookingSystem.Domain.pdb
+C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.csprojAssemblyReference.cache
+C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.csproj.CoreCompileInputs.cache
 C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.csproj.CopyComplete
+C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.dll
+C:\Coded\BookingSystem\BookingSystem.Domain.WebUI\obj\Debug\BookingSystem.Domain.WebUI.pdb

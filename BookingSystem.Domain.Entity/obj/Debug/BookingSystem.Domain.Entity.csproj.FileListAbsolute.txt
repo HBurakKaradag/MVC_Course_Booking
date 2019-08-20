@@ -1,9 +1,9 @@
 C:\Coded\BookingSystem\BookingSystem.Domain.Entity\bin\Debug\BookingSystem.Domain.Entity.dll
 C:\Coded\BookingSystem\BookingSystem.Domain.Entity\bin\Debug\BookingSystem.Domain.Entity.pdb
-C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.csprojAssemblyReference.cache
-C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.csproj.CoreCompileInputs.cache
-C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.dll
-C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.pdb
 C:\Coded\BookingSystem\BookingSystem.Domain.Entity\bin\Debug\BookingSystem.Domain.dll
 C:\Coded\BookingSystem\BookingSystem.Domain.Entity\bin\Debug\BookingSystem.Domain.pdb
+C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.csprojAssemblyReference.cache
+C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.csproj.CoreCompileInputs.cache
 C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.csproj.CopyComplete
+C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.dll
+C:\Coded\BookingSystem\BookingSystem.Domain.Entity\obj\Debug\BookingSystem.Domain.Entity.pdb

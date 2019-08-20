@@ -1,4 +1,5 @@
 ﻿using BookingSystem.Domain.WebUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,17 +19,17 @@ namespace BookingSystem.WebUI.HtmlExtensions
             foreach (var parent in parentItems)
             {
                 menuHtml.Append("<li class='treeview'>");
-                menuHtml.AppendFormat(@"<a href='#'>
+                menuHtml.AppendFormat(@"<a href='{0}'>
                                             <i class='fa fa-dashboard'></i>
-                                            <span>{0}</span>
+                                            <span>{1}</span>
                                               <span class='pull-right-container'>
                                                    <i class='fa fa-angle-left pull-right'></i>
                                               </span>
-                                          </a>", parent.Title);
+                                          </a>", parent.Url, parent.Title);
 
                 List<MenuVM> childItems = parent.SubMenu.Where(a => a.ParentId == parent.Id).OrderBy(c => c.Order).ToList();
                 if (childItems.Count > 0)
-                    AddChildItem(parent, menuHtml);
+                    AddChildItem(helper, parent, menuHtml);
                 menuHtml.Append("</li>");
             }
             menuHtml.Append("</ul>");
@@ -36,14 +37,18 @@ namespace BookingSystem.WebUI.HtmlExtensions
             return MvcHtmlString.Create(menuHtml.ToString());
         }
 
-        private static void AddChildItem(MenuVM childItem, StringBuilder menuHtml)
+        private static void AddChildItem(HtmlHelper helper, MenuVM childItem, StringBuilder menuHtml)
         {
             menuHtml.Append("<ul class='treeview-menu'>");
             List<MenuVM> childItems = childItem.SubMenu;
             foreach (MenuVM child in childItems)
             {
                 menuHtml.Append(child.SubMenu.Any() ? "<li class='treeview'>" : "<li>");
-                menuHtml.AppendFormat(@"<a href='#'> <i class='{0}'></i> {1}", "fa fa-circle-o", child.Title);
+                menuHtml.AppendFormat(@"<a href='{0}'> <i class='{1}'></i> {2}"
+                                                            , new UrlHelper(helper.ViewContext.RequestContext).Action(actionName: child.Url.Split('/')[1]
+                                                                                                                    , controllerName: child.Url.Split('/')[0])
+                                                            , "fa fa-circle-o"
+                                                            , child.Title);
                 if (child.SubMenu.Any())
                 {
                     menuHtml.Append(@"<span class='pull-right-container'> <i class='fa fa-angle-left pull-right'></i></span>");
@@ -53,7 +58,7 @@ namespace BookingSystem.WebUI.HtmlExtensions
                 List<MenuVM> subChilds = child.SubMenu.Where(a => a.ParentId == child.Id).OrderBy(c => c.Order).ToList();
                 if (subChilds.Count > 0)
                 {
-                    AddChildItem(child, menuHtml);
+                    AddChildItem(helper, child, menuHtml);
                 }
                 menuHtml.Append("</li>");
             }

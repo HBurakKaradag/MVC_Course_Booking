@@ -22,6 +22,7 @@ namespace BookingSystem.Domain.WebUI
         public int Order { get; set; }
         public string IconClass { get; set; }
 
+        public string Url { get; set; }
         public bool IsActive { get; set; }
         public List<MenuVM> SubMenu { get; set; }
     }

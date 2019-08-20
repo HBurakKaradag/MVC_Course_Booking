@@ -1,10 +1,6 @@
+C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Service.dll.config
 C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Service.dll
 C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Service.pdb
-C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.csprojAssemblyReference.cache
-C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.csproj.CoreCompileInputs.cache
-C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.dll
-C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.pdb
-C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Service.dll.config
 C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Core.dll
 C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Data.dll
 C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Domain.dll
@@ -20,4 +16,8 @@ C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Domain.WebU
 C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\BookingSystem.Domain.pdb
 C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\EntityFramework.xml
 C:\Coded\BookingSystem\BookingSystem.Service\bin\Debug\EntityFramework.SqlServer.xml
+C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.csprojAssemblyReference.cache
+C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.csproj.CoreCompileInputs.cache
 C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.csproj.CopyComplete
+C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.dll
+C:\Coded\BookingSystem\BookingSystem.Service\obj\Debug\BookingSystem.Service.pdb

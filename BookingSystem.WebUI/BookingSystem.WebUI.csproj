@@ -126,6 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -1565,6 +1566,8 @@
     <Content Include="Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.min.js" />
     <Content Include="Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.css" />
     <Content Include="Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.min.css" />
+    <Content Include="Content\plugins\datatables\datatables.min.css" />
+    <Content Include="Content\plugins\datatables\dataTables.semanticui.min.css" />
     <Content Include="Content\plugins\iCheck\all.css" />
     <Content Include="Content\plugins\iCheck\flat\aero%402x.png" />
     <Content Include="Content\plugins\iCheck\flat\aero.css" />
@@ -1965,9 +1968,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pages\HotelTypes\hoteltypelist.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.min.js" />
+    <Content Include="Scripts\plugins\datatables\datatables.min.js" />
+    <Content Include="Scripts\plugins\datatables\dataTables.semanticui.min.js" />
     <Content Include="Scripts\plugins\iCheck\icheck.js" />
     <Content Include="Scripts\plugins\iCheck\icheck.min.js" />
     <Content Include="Scripts\plugins\input-mask\jquery.inputmask.date.extensions.js" />
@@ -2008,6 +2014,7 @@
     <Content Include="Views\Account\Confirm.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Shared\_LeftMenu.cshtml" />
+    <Content Include="Views\Hotel\HotelTypeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
