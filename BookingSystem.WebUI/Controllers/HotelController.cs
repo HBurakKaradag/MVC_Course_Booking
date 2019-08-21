@@ -1,4 +1,6 @@
 ﻿using BookingSystem.Service.Services;
+using BookingSystem.WebUI.Models.DataTableRequest;
+using BookingSystem.WebUI.Models.Filters;
 using System.Web.Helpers;
 using System.Web.Mvc;
 
@@ -19,7 +21,7 @@ namespace BookingSystem.WebUI.Controllers
             return View();
         }
 
-        public JsonResult GetHotelTypeList()
+        public JsonResult GetHotelTypeList(DataTableRequest<HotelTypeFilter> model)
         {
             return Json("");
         }
