@@ -2040,6 +2040,7 @@
     <Content Include="Views\Shared\_LeftMenu.cshtml" />
     <Content Include="Views\Hotel\HotelTypeList.cshtml" />
     <Content Include="Views\Home\View.cshtml" />
+    <Content Include="Views\Hotel\HotelTypeAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

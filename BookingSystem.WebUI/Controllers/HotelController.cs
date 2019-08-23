@@ -1,4 +1,5 @@
-﻿using BookingSystem.Domain.WebUI.Filters;
+﻿using BookingSystem.Domain.WebUI;
+using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Service.Services;
 using BookingSystem.WebUI.Models.DataTableRequest;
 using BookingSystem.WebUI.Models.DataTableResponse;
@@ -17,11 +18,23 @@ namespace BookingSystem.WebUI.Controllers
             _hotelTypeService = new HotelTypeService();
         }
 
+        #region HotelTypes
+
+        /// <summary>
+        /// HotelTypesList Action
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public ActionResult HotelTypeList()
         {
             return View();
         }
 
+        /// <summary>
+        /// HotelTypeList Action Grid Fill Method
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public JsonResult GetHotelTypeList(DataTableRequest<HotelTypeFilter> model)
         {
             var result = _hotelTypeService.GetHotelTypes(model.FilterRequest);
@@ -31,5 +44,13 @@ namespace BookingSystem.WebUI.Controllers
 
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult SaveHotelType(HotelTypeVM model)
+        {
+            return View(nameof(HotelTypeList));
+        }
+
+        #endregion HotelTypes
     }
 }
