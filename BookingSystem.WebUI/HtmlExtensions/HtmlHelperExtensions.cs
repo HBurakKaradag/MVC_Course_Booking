@@ -99,6 +99,24 @@ namespace BookingSystem.WebUI.HtmlExtensions
             return helper.CheckBox(ExpressionHelper.GetExpressionText(expression), isChecked ?? false, _htmlAttr);
         }
 
+        public static IHtmlString BTextAreaFor<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression, object htmlAttributes, bool? isReadonly = null)
+        {
+            var _htmlAttr = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
+
+            if (!_htmlAttr.ContainsKey("readonly") && isReadonly.HasValue)
+                _htmlAttr.Add("readonly", isReadonly);
+
+            if (!_htmlAttr.ContainsKey("data-model"))
+                _htmlAttr.Add("data-model", metadata.PropertyName);
+
+            // data-type
+            if (!_htmlAttr.ContainsKey("data-type"))
+                _htmlAttr.Add("data-type", metadata.ModelType.Name);
+
+            return TextAreaExtensions.TextAreaFor(helper, expression, new RouteValueDictionary(_htmlAttr));
+        }
+
         public static IHtmlString BTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
                                                                  Expression<Func<TModel, TProperty>> expression,
                                                                  object htmlAttributes = null)
@@ -114,7 +132,7 @@ namespace BookingSystem.WebUI.HtmlExtensions
             // placeHolder
             if (!_htmlAttr.ContainsKey("placeholder"))
             {
-                string textVal = string.Format("{0} Filter", metadata.DisplayName ?? metadata.PropertyName);
+                string textVal = string.Format("{0}", metadata.DisplayName ?? metadata.PropertyName);
                 _htmlAttr.Add("placeholder", textVal);
             }
 

@@ -18,7 +18,9 @@ namespace BookingSystem.WebUI.Controllers
             _hotelTypeService = new HotelTypeService();
         }
 
-        #region HotelTypes
+        #region HotelTypesMethods
+
+        #region List-HotelType
 
         /// <summary>
         /// HotelTypesList Action
@@ -45,12 +47,24 @@ namespace BookingSystem.WebUI.Controllers
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion List-HotelType
+
+        #region Add-HotelType
+
+        [HttpGet]
+        public ActionResult HotelTypeAdd()
+        {
+            return View(new HotelTypeVM());
+        }
+
         [HttpPost]
-        public ActionResult SaveHotelType(HotelTypeVM model)
+        public ActionResult AddHotelType(HotelTypeVM model)
         {
             return View(nameof(HotelTypeList));
         }
 
-        #endregion HotelTypes
+        #endregion Add-HotelType
+
+        #endregion HotelTypesMethods
     }
 }

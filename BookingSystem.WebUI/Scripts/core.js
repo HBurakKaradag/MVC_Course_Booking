@@ -99,13 +99,77 @@
         });
     }
 
+    var fillForm = function (data) {
+        fillFormMain($(document), data);
+    }
+
+    var fillFormMain = function (object, data) {
+        $.each(data, function (name, val) {
+            var $el = $(object).find('[data-model="' + name + '"]'),
+                type = $el.attr('type'),
+                dataType = $el.attr('data-type');
+
+            if ($el.hasClass('easyui-datebox')) {
+                val = moment(val).format("DD.MM.YYYY");
+                $el.datebox('setValue', val);
+                return;
+            }
+            if ($el.hasClass('easyui-combobox')) {
+                $el.combobox('setValue', val);
+                return;
+            }
+            switch (type) {
+                case 'checkbox':
+                    $el.prop('checked', val);
+                    break;
+                case 'radio':
+                    $el.filter('[value="' + val + '"]').attr('checked', 'checked');
+                    break;
+                default:
+                    $el.val(val);
+            }
+            if (dataType === "date") {
+                if (Core.formatDate(val) != 'Invalid date')
+                    $el.datepicker('setDate', Core.formatDate(val));
+                else
+                    $el.datepicker('setDate', val);
+            }
+            else if (dataType === "datetime") {
+                $el.datetimepicker('setDate', moment(val).toDate());
+            }
+            else if (dataType == 'summernote') {
+                $el.summernote("code", val);
+            }
+            else if (dataType == 'switch') {
+                $el.bootstrapSwitch('state', val);
+            }
+            else if (dataType == 'label') {
+                $el.html(val);
+            }
+            else if (dataType == 'select2') {
+                var selectArray = new Array();
+                $.each(val, function (index, item) {
+                    selectArray.push(item.id);
+                });
+                var $select = $($el);
+                var options = $select.data('select2').options.options;
+                options.data = val;
+                $select.select2(options);
+                $('.select2-selection__arrow').hide();
+                $select.val(selectArray).trigger('change');
+            }
+            else if (dataType == 'select2v1') {
+                $el.val(val).trigger('change');
+            }
+        });
+    }
+
     return {
         createModel: createModel,
         clearForm: clearForm,
+        fillForm: fillForm,
         responseStatus: responseStatus,
         init: function () {
-
-
         }
     }
 }();

@@ -20,7 +20,7 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                            //trigger the bootstrap modal
+                            window.location.href = $("#hotelTypeAddUrl").val();
                         }
                     }
                 ],
