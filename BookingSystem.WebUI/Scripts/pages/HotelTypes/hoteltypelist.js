@@ -1,8 +1,4 @@
 ﻿var HotelTypelist = function () {
-    var responseStatus = { Success: 1, Info: 2, Warning: 3, Error: 4 };
-
-    var isRefresh = false;
-
     var fillTable = function () {
         var table = $('#tableHotelTypeList');
 
@@ -11,23 +7,42 @@
         }
 
         table.dataTable({
-            "iDisplayLength": 10,
-            "bLengthChange": false,
             "searching": false,
-            "select": true,
-            "processing": true,
-            "serverSide": true,
-            buttons: [
-
-            ],
+            "responsive": true,
+            "paging": true,
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "pageLength": 10,
+            buttons: {
+                buttons: [
+                    {
+                        text: "New Record",
+                        action: function (e, dt, node, config) {
+                            //trigger the bootstrap modal
+                        }
+                    }
+                ],
+                dom: {
+                    button: {
+                        tag: "button",
+                        className: "btn btn-default dt-AddButton"
+                    },
+                    buttonLiner: {
+                        tag: null
+                    }
+                }
+            },
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             "ajax": {
                 "url": "/Hotel/GetHotelTypeList",
                 "contentType": "application/json",
+                "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    //var req = Core.createModel();
-                    //data.FilterRequest = req;
+                    var req = Core.createModel();
+                    data.FilterRequest = req;
 
                     var request = {
                         model: data
@@ -35,28 +50,28 @@
                     return JSON.stringify(request);
                 },
                 "dataFilter": function (data) {
-                    var json = jQuery.parseJSON(data);
-                    return json.d;
+                    return data;
+                    // var json = JSON.stringify jQuery.parseJSON(data);
+                    // return json.data;
                 }
             },
             "columns": [
-                { "data": "ID", "bSortable": false, "width": 0 },
-                { "data": "Title", "bSortable": false, "width": 150 },
-                { "data": "Description", "bSortable": false },
-                { "data": "Active", "bSortable": true },
-                { "data": "Deleted", "bSortable": false }
+                { "data": "Id", "name": "Id", "bSortable": false },
+                { "data": "Title", "name": "Title", "bSortable": false, "width": "15%" },
+                { "data": "Description", "name": "Description", "bSortable": false, "width": "15%" },
+                { "data": "IsActive", "name": "IsActive", "bSortable": true, "width": "10%" },
+                { "data": "IsDeleted", "name": "IsDeleted", "bSortable": false, "width": "10%" }
             ],
             "columnDefs": [
                 {
                     "targets": [0],
                     "visible": false,
                     "searchable": false
-                }
-                //,
-                //{
-                //    "targets": [0, 1, 2, 3, 4, 5],
-                //    "class": "td-center"
-                //},
+                },
+                {
+                    "targets": [3, 4],
+                    "class": "text-center"
+                },
                 //{
                 //    "render": function (data, type, row) {
                 //        return moment(data).format('DD-MM-YYYY HH:mm:ss');
@@ -65,14 +80,13 @@
                 //    "sWidth": "10%",
                 //    "class": "td-center"
                 //},
-                //{
-                //    "render": function (data, type, row) {
-                //        var actions = "<a href=" + data + " target='_blank'> <img src='../../assets/img/documentIcon.png' style='width: 32px; height: 32px;'/> </a>";
-                //        return actions;
-                //    },
-                //    "targets": [5],
-                //    "class": "td-center"
-                //}
+                {
+                    "render": function (data, type, row) {
+                        return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
+                    },
+                    "targets": [3, 4],
+                    "class": "td-center"
+                }
             ]
         });
     };
@@ -83,57 +97,23 @@
     }
 
     var handleStartup = function () {
-
         $('.box.box-default').boxWidget('toggle');
-
     };
 
     var handleEvents = function () {
-        $('#tableDocumentList').on('select.dt', function (e, dt, type, indexes) {
-            var data = dt.rows(indexes).data();
-            if (!jQuery.isEmptyObject(data) && !jQuery.isEmptyObject(data[0])) {
-                var url = data[0].Url;
-                if (url != null || url != '' || url != 'undefined') {
-                    $('#pdfViewer_frame').attr('src', url);
-                }
-            }
-        });
-
-        $(document).on("keypress", ".numericTextBox", function (evt) {
-            evt = (evt) ? evt : window.event;
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-            return true;
-        });
-
-        $(document).on('click', '.btn-clear', function () {
+        $(document).on('click', '.btnClear', function () {
             Core.clearForm();
-            $('#pdfViewer_frame').attr('src', "images/noPreview.png");
-
-            $('#tableHotelTypeList').DataTable().rows('.selected').deselect();
+            refreshTable();
+            // $('#tableHotelTypeList').DataTable().rows('.selected').deselect();
         });
 
-        $(document).on('click', '#btnSearch', function () {
-            if (isRefresh) {
-                refreshTable();
-            } else {
-                fillTable();
-                isRefresh = true;
-            }
+        $(document).on('click', '.btnSearch', function () {
+            refreshTable();
         });
-
-        //$('.date-picker').datepicker({
-        //    autoclose: true,
-        //    language: 'tr',
-        //    format: 'dd.mm.yyyy'
-        //});
     };
 
     return {
         init: function () {
-           
             if (!jQuery().dataTable) {
                 return;
             }
@@ -141,12 +121,9 @@
             handleEvents();
             handleStartup();
         }
-
-
     };
 }();
 
 jQuery(document).ready(function () {
     HotelTypelist.init();
- 
 });

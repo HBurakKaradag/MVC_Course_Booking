@@ -1,15 +1,21 @@
 ﻿using BookingSystem.Domain.WebUI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
+using System.Web.Routing;
 
 namespace BookingSystem.WebUI.HtmlExtensions
 {
     public static class HtmlHelperExtensions
     {
+        #region Menu
+
         public static IHtmlString GenerateMultiLevelMenu(this HtmlHelper helper, string id, List<MenuVM> menuList)
         {
             var menuHtml = new StringBuilder();
@@ -64,5 +70,65 @@ namespace BookingSystem.WebUI.HtmlExtensions
             }
             menuHtml.Append("</ul>");
         }
+
+        #endregion Menu
+
+        #region HtmlHelpers
+
+        public static IHtmlString BCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool?>> expression, object htmlAttributes = null)
+        {
+            var _htmlAttr = new RouteValueDictionary(htmlAttributes ?? new Dictionary<string, object>());
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
+
+            bool? isChecked = null;
+            if (metadata.Model != null)
+            {
+                bool modelChecked;
+                if (bool.TryParse(metadata.Model.ToString(), out modelChecked))
+                {
+                    isChecked = modelChecked;
+                }
+            }
+            if (!_htmlAttr.ContainsKey("data-model"))
+                _htmlAttr.Add("data-model", metadata.PropertyName);
+
+            // data-type
+            if (!_htmlAttr.ContainsKey("data-type"))
+                _htmlAttr.Add("data-type", metadata.IsNullableValueType ? Nullable.GetUnderlyingType(metadata.ModelType.UnderlyingSystemType).Name : metadata.ModelType.Name);
+
+            return helper.CheckBox(ExpressionHelper.GetExpressionText(expression), isChecked ?? false, _htmlAttr);
+        }
+
+        public static IHtmlString BTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+                                                                 Expression<Func<TModel, TProperty>> expression,
+                                                                 object htmlAttributes = null)
+        {
+            var _htmlAttr = new RouteValueDictionary(htmlAttributes ?? new Dictionary<string, object>());
+
+            // Expression üzerinden gönderilen prop içeriğini elde edelim..
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
+
+            // default attribute'lar kontrol edilip ekleniyor..
+            // Projede bütünlük sağlanması adına çeşitli attribute'lar set ediliyor.
+
+            // placeHolder
+            if (!_htmlAttr.ContainsKey("placeholder"))
+            {
+                string textVal = string.Format("{0} Filter", metadata.DisplayName ?? metadata.PropertyName);
+                _htmlAttr.Add("placeholder", textVal);
+            }
+
+            // data-model
+            if (!_htmlAttr.ContainsKey("data-model"))
+                _htmlAttr.Add("data-model", metadata.PropertyName);
+
+            // data-type
+            if (!_htmlAttr.ContainsKey("data-type"))
+                _htmlAttr.Add("data-type", metadata.ModelType.Name);
+
+            return helper.TextBoxFor(expression: expression, htmlAttributes: _htmlAttr);
+        }
+
+        #endregion HtmlHelpers
     }
 }

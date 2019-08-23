@@ -13,8 +13,8 @@
         <div class="login-logo">
             <b>BookingSystem</b>
         </div>
+        @Html.ValidationSummary()
         <div class="login-box-body">
-            @Html.ValidationSummary()
             <p class="login-box-msg">Sign in to start your session</p>
             @using (Html.BeginForm())
             {

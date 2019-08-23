@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201908192029374_Menu.Designer.cs">
       <DependentUpon>201908192029374_Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908220733516_updatemig.cs" />
+    <Compile Include="Migrations\201908220733516_updatemig.Designer.cs">
+      <DependentUpon>201908220733516_updatemig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +80,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908192029374_Menu.resx">
       <DependentUpon>201908192029374_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908220733516_updatemig.resx">
+      <DependentUpon>201908220733516_updatemig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

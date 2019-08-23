@@ -2,7 +2,7 @@
 
 namespace BookingSystem.Domain.WebUI
 {
-    public class ServiceResultModel<T> where T : IModel
+    public class ServiceResultModel<T> where T : class
     {
         #region Ctor
 

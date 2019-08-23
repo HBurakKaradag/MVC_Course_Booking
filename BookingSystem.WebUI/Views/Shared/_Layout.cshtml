@@ -16,11 +16,11 @@
     <link rel="stylesheet" href='@Url.Content("~/Content/dist/css/AdminLTE.min.css")' />
     <!-- AdminLTE Skins. Choose a skin from the css/skins  folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href='@Url.Content("~/Content/dist/css/skins/_all-skins.min.css")' />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- datatables css -->
-    <link rel="stylesheet" href='@Url.Content("~/Content/plugins/datatables/datatables.min.css")' />
-    <!-- datatables sementic css -->
-    <link rel="stylesheet" href='@Url.Content("~/Content/plugins/datatables/dataTables.semanticui.min.css")' />
+    <!-- Custom Site style -->
+    <link rel="stylesheet" href='@Url.Content("~/Content/Site.css")' />
+
+
+    @Styles.Render("~/bundles/cssDatatables")
 
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -430,16 +430,18 @@
     <!-- AdminLTE for demo purposes -->
     <script src='@Url.Content("~/Scripts/dist/js/demo.js")'></script>
     <!-- DataTables js -->
-    <script src='@Url.Content("~/Scripts/plugins/datatables/datatables.min.js")'></script>
-    <!-- DataTables_sementic js -->
-    <script src='@Url.Content("~/Scripts/plugins/datatables/dataTables.semanticui.min.js")'></script>
+    <!-- Core js -->
+    <script src='@Url.Content("~/Scripts/core.js")'></script>
+
+    @Scripts.Render("~/bundles/jsDatatables")
 
     @RenderSection("PageScripts", false)
 
     <script>
         $(document).ready(function () {
-            $('.sidebar-menu').tree()
-        })
+            $('.sidebar-menu').tree();
+
+        });
     </script>
 </body>
 </html>

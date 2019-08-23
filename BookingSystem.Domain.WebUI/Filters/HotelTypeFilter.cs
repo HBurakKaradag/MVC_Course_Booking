@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace BookingSystem.WebUI.Models.Filters
+namespace BookingSystem.Domain.WebUI.Filters
 {
     public class HotelTypeFilter
     {
@@ -8,6 +8,6 @@ namespace BookingSystem.WebUI.Models.Filters
         public string Title { get; set; }
 
         [DisplayName("Active Records")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

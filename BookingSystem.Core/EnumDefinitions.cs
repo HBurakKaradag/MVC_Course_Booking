@@ -19,6 +19,7 @@
     {
         None = 0,
         EMailIsNotConfirmed = 5001,
-        DuplicateUser = 5002
+        DuplicateUser = 5002,
+        UserNotFound = 5003
     }
 }

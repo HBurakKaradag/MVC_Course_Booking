@@ -1,4 +1,5 @@
 ﻿using BookingSystem.Core.CustomAttribute;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookingSystem.Domain.WebUI

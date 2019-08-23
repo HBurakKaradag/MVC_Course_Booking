@@ -14,6 +14,8 @@ namespace BookingSystem.Data.Context
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<HotelType> HotelTypes { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

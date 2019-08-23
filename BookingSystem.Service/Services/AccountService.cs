@@ -23,8 +23,9 @@ namespace BookingSystem.Service.Services
             if (userInfo == null)
                 return new ServiceResultModel<UserVM>
                 {
+                    Code = ServiceResultCode.UserNotFound,
                     ResultType = OperationResultType.Warn,
-                    Message = "User Not Found",
+                    Message = "User Not Found, Please check UserName and Password",
                     Data = null
                 };
 

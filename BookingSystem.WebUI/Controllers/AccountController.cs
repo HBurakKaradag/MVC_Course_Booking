@@ -45,6 +45,12 @@ namespace BookingSystem.WebUI.Controllers
 
             if (!serviceResult.IsSuccess)
             {
+                if(serviceResult.Code == ServiceResultCode.UserNotFound)
+                {
+                    ModelState.AddModelError("", serviceResult.Message);
+                    return View(user);
+                }
+
                 if (serviceResult.Code == ServiceResultCode.EMailIsNotConfirmed)
                 {
                     return RedirectToAction("Confirm", "Account",

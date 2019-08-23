@@ -1,43 +1,37 @@
-﻿namespace BookingSystem.Service.Services
+﻿using BookingSystem.Core.Extensions;
+using BookingSystem.Data.Context;
+using BookingSystem.Domain.Entity;
+using BookingSystem.Domain.WebUI;
+using BookingSystem.Domain.WebUI.Filters;
+using BookingSystem.Service.Extensions;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace BookingSystem.Service.Services
 {
     public class HotelTypeService : ServiceBase
     {
-        //public ServiceResultModel<HotelTypeVM> LoginUser(HotelTypeVM user)
-        //{
-        //    User userInfo = null;
+        public ServiceResultModel<List<HotelTypeVM>> GetHotelTypes(HotelTypeFilter filter)
+        {
+            List<HotelTypeVM> resultList = new List<HotelTypeVM>();
 
-        //    using (EFBookingContext context = new EFBookingContext())
-        //    {
-        //        userInfo = context.Users.FirstOrDefault(p => p.IsActive && p.EMail == user.EMail &&
-        //                                                          p.Password == user.Password);
-        //    }
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                IQueryable<HotelType> hotelTypeList = context.HotelTypes;
 
-        //    if (userInfo == null)
-        //        return new ServiceResultModel<UserVM>
-        //        {
-        //            ResultType = OperationResultType.Warn,
-        //            Message = "User Not Found",
-        //            Data = null
-        //        };
+                if (filter.Title.IsNotNull())
+                    hotelTypeList = hotelTypeList.Where(p => p.Title.Contains(filter.Title));
 
-        //    if (!userInfo.IsActive)
-        //        return new ServiceResultModel<UserVM>
-        //        {
-        //            ResultType = OperationResultType.Warn,
-        //            Message = "This user is InActive, please contact your administrator",
-        //            Data = userInfo.MapProperties<UserVM>()
-        //        };
+                if (filter.IsActive.HasValue && filter.IsActive.Value)
+                    hotelTypeList = hotelTypeList.Where(p => p.IsActive == filter.IsActive);
 
-        //    if (!userInfo.EmailConfirmation)
-        //        return new ServiceResultModel<UserVM>
-        //        {
-        //            Code = ServiceResultCode.EMailIsNotConfirmed,
-        //            ResultType = OperationResultType.Warn,
-        //            Message = "Please confirm your account, Check mailbox",
-        //            Data = userInfo.MapProperties<UserVM>()
-        //        };
+                hotelTypeList.ToList().ForEach(p =>
+                {
+                    resultList.Add(p.MapProperties<HotelTypeVM>());
+                });
 
-        //    return ServiceResultModel<UserVM>.OK(userInfo.MapProperties<UserVM>());
-        //}
+                return ServiceResultModel<List<HotelTypeVM>>.OK(resultList);
+            }
+        }
     }
 }

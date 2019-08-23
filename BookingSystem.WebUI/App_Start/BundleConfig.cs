@@ -7,6 +7,8 @@ namespace BookingSystem.WebUI
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //BundleTable.EnableOptimizations = true;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -24,6 +26,29 @@ namespace BookingSystem.WebUI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/cssDatatables").Include(
+                 "~/Content/plugins/datatables/datatables.min.css",
+                 "~/Content/plugins/datatables/dataTables.semanticui.min.css",
+                 "~/Content/plugins/datatables/select.semanticui.min.css",
+                 "~/Content/plugins/datatables/buttons.semanticui.min.css",
+                 "~/Content/plugins/datatables/fixedColumns.semanticui.min.css",
+                 "~/Content/plugins/datatables/fixedHeader.semanticui.min.css",
+                 "~/Content/plugins/datatables/jquery.dataTables.min.css",
+                 "~/Content/plugins/datatables/responsive.semanticui.min.css",
+                 "~/Content/plugins/datatables/scroller.semanticui.min.css"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/jsDatatables").Include(
+                  "~/Scripts/plugins/datatables/datatables.min.js",
+                  "~/Scripts/plugins/datatables/dataTables.semanticui.min.js",
+                  "~/Scripts/plugins/datatables/select.semanticui.min.js",
+                  "~/Scripts/plugins/datatables/buttons.semanticui.min.js",
+                  "~/Scripts/plugins/datatables/fixedColumns.semanticui.min.js",
+                  "~/Scripts/plugins/datatables/fixedHeader.semanticui.min.js",
+                  "~/Scripts/plugins/datatables/responsive.semanticui.min.js",
+                  "~/Scripts/plugins/datatables/scroller.semanticui.min.js"
+                ));
         }
     }
 }
