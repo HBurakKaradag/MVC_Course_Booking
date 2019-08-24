@@ -1,4 +1,5 @@
 ﻿var HotelTypelist = function () {
+
     var fillTable = function () {
         var table = $('#tableHotelTypeList');
 
@@ -41,6 +42,7 @@
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
+                    debugger;
                     var req = Core.createModel();
                     data.FilterRequest = req;
 
@@ -101,7 +103,9 @@
     };
 
     var handleEvents = function () {
+
         $(document).on('click', '.btnClear', function () {
+            debugger;
             Core.clearForm();
             refreshTable();
             // $('#tableHotelTypeList').DataTable().rows('.selected').deselect();

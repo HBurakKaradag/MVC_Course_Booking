@@ -43,26 +43,7 @@
                 default:
                     value = upper && ($(this).data("type") != "email") ? $(this).val().toUpperCase() : $(this).val();
             }
-            if ($el.hasClass('easyui-datebox')) {
-                //$el.datebox(); easyui-detabox'ları boşaltıyordu kaldırıldı. MK
-                value = $el.datebox('getValue');
-                value = dateFormatter(value);
-            }
-            if (dataType === "date") {
-                value = dateFormatter(value);
-            }
-            else if (dataType == 'summernote') {
-                value = $el.summernote("code");
-            }
-            else if (dataType === "datetime") {
-                value = moment($el.datetimepicker('getDate')).format();
-            }
-            else if (dataType == 'select2') {
-                value = $(this).select2('data');
-            }
-            else if (dataType == 'select2v1') {
-                value = $(this).select2('data');
-            }
+         
             model[key] = value;
         });
         return model;
@@ -93,9 +74,6 @@
                     $this.val('');
             }
 
-            if ($this.hasClass('select2')) {
-                $this.select2('val', 'ALL');
-            }
         });
     }
 
@@ -109,15 +87,8 @@
                 type = $el.attr('type'),
                 dataType = $el.attr('data-type');
 
-            if ($el.hasClass('easyui-datebox')) {
-                val = moment(val).format("DD.MM.YYYY");
-                $el.datebox('setValue', val);
-                return;
-            }
-            if ($el.hasClass('easyui-combobox')) {
-                $el.combobox('setValue', val);
-                return;
-            }
+          
+          
             switch (type) {
                 case 'checkbox':
                     $el.prop('checked', val);
@@ -128,38 +99,8 @@
                 default:
                     $el.val(val);
             }
-            if (dataType === "date") {
-                if (Core.formatDate(val) != 'Invalid date')
-                    $el.datepicker('setDate', Core.formatDate(val));
-                else
-                    $el.datepicker('setDate', val);
-            }
-            else if (dataType === "datetime") {
-                $el.datetimepicker('setDate', moment(val).toDate());
-            }
-            else if (dataType == 'summernote') {
-                $el.summernote("code", val);
-            }
-            else if (dataType == 'switch') {
-                $el.bootstrapSwitch('state', val);
-            }
-            else if (dataType == 'label') {
+            if (dataType == 'label') {
                 $el.html(val);
-            }
-            else if (dataType == 'select2') {
-                var selectArray = new Array();
-                $.each(val, function (index, item) {
-                    selectArray.push(item.id);
-                });
-                var $select = $($el);
-                var options = $select.data('select2').options.options;
-                options.data = val;
-                $select.select2(options);
-                $('.select2-selection__arrow').hide();
-                $select.val(selectArray).trigger('change');
-            }
-            else if (dataType == 'select2v1') {
-                $el.val(val).trigger('change');
             }
         });
     }

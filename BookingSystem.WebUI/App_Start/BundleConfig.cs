@@ -27,7 +27,7 @@ namespace BookingSystem.WebUI
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/cssDatatables").Include(
+            bundles.Add(new StyleBundle("~/bundles/cssDatatables").Include(
                  "~/Content/plugins/datatables/datatables.min.css",
                  "~/Content/plugins/datatables/dataTables.semanticui.min.css",
                  "~/Content/plugins/datatables/select.semanticui.min.css",
