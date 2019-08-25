@@ -43,7 +43,7 @@
                 default:
                     value = upper && ($(this).data("type") != "email") ? $(this).val().toUpperCase() : $(this).val();
             }
-         
+
             model[key] = value;
         });
         return model;
@@ -73,7 +73,6 @@
                 default:
                     $this.val('');
             }
-
         });
     }
 
@@ -87,8 +86,6 @@
                 type = $el.attr('type'),
                 dataType = $el.attr('data-type');
 
-          
-          
             switch (type) {
                 case 'checkbox':
                     $el.prop('checked', val);
@@ -104,6 +101,13 @@
             }
         });
     }
+
+    //$.notify({
+    //    icon: "img/growl_64x.png",
+    //    message: " I am using an image."
+    //}, {
+    //        icon_type: 'image'
+    //    });
 
     return {
         createModel: createModel,
