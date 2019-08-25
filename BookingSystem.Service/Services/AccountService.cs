@@ -23,7 +23,7 @@ namespace BookingSystem.Service.Services
             if (userInfo == null)
                 return new ServiceResultModel<UserVM>
                 {
-                    Code = ServiceResultCode.UserNotFound,
+                    Code = ServiceResultCode.NotFound,
                     ResultType = OperationResultType.Warn,
                     Message = "User Not Found, Please check UserName and Password",
                     Data = null
@@ -58,7 +58,7 @@ namespace BookingSystem.Service.Services
                 {
                     return new ServiceResultModel<UserVM>
                     {
-                        Code = ServiceResultCode.DuplicateUser,
+                        Code = ServiceResultCode.Duplicate,
                         Message = "Duplicate User",
                         ResultType = OperationResultType.Warn
                     };

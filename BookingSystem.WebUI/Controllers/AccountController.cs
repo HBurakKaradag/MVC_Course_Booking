@@ -45,7 +45,7 @@ namespace BookingSystem.WebUI.Controllers
 
             if (!serviceResult.IsSuccess)
             {
-                if(serviceResult.Code == ServiceResultCode.UserNotFound)
+                if (serviceResult.Code == ServiceResultCode.NotFound)
                 {
                     ModelState.AddModelError("", serviceResult.Message);
                     return View(user);

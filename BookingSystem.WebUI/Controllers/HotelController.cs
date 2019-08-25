@@ -3,6 +3,7 @@ using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Service.Services;
 using BookingSystem.WebUI.Models.DataTableRequest;
 using BookingSystem.WebUI.Models.DataTableResponse;
+using BookingSystem.WebUI.Models.Response;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -58,9 +59,33 @@ namespace BookingSystem.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddHotelType(HotelTypeVM model)
+        public JsonResult SaveHotelType(HotelTypeVM model)
         {
-            return View(nameof(HotelTypeList));
+            if (!ModelState.IsValid)
+                return base.JSonModelStateHandle();
+
+            ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.SaveHotelType(model);
+
+            if (!serviceResult.IsSuccess)
+            {
+                base.UIResponse = new UIResponse
+                {
+                    Message = string.Format("Operation Is Not Completed, {0}", serviceResult.Message),
+                    ResultType = serviceResult.ResultType,
+                    Data = serviceResult.Data
+                };
+            }
+            else
+            {
+                base.UIResponse = new UIResponse
+                {
+                    Data = serviceResult.Data,
+                    ResultType = serviceResult.ResultType,
+                    Message = "Success"
+                };
+            }
+
+            return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
         }
 
         #endregion Add-HotelType

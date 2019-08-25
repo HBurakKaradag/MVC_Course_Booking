@@ -11,7 +11,6 @@ namespace BookingSystem.Domain.WebUI
             this.IsActive = true;
         }
 
-        [Required]
         public int Id { get; set; }
 
         [Required]
