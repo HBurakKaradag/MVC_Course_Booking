@@ -1,5 +1,4 @@
 ﻿var HotelTypelist = function () {
-
     var fillTable = function () {
         var table = $('#tableHotelTypeList');
 
@@ -85,8 +84,7 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        
-                        var actions = '<a href="/EditHotelDetail.aspx?Hotel=' + row.ID + '" class="btn btn-info btn-Edit" data-id="' + row.ID + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+                        var actions = '<a href="/EditHotelType.aspx?Hotel=' + row.ID + '" class="btn btn-info btn-Edit" data-id="' + row.ID + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
                         return actions;
                     },
                     "targets": 5,
@@ -106,7 +104,6 @@
     };
 
     var handleEvents = function () {
-
         $(document).on('click', '.btnClear', function () {
             debugger;
             Core.clearForm();
