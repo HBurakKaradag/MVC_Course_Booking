@@ -32,14 +32,25 @@ Extensions Kullanımı
     Authentication
     HtmlHelpers
     CustomHtmlHelpers
-    HtmlPartial
+    HtmlPartial - Section
     Redirect Aksiyonları
     Actions
     AcceptVerbs
     Controller ReturnTypes
+    ModalState kullanımı - JSonResult ModelState Handle
     Enum Kullanımı
     
-    
+# Jquery - JS
+
+   Jquery-JavaScript Core.js üzerinden işletilmesi
+   Ajax crud işlemleri
+
+# DatatablesNet 
+
+   DatatablesNet ile grid İşlemleri
+   DatatablesNet Jquery implementasyonu
+   DatatablesNet backend Request-Response Modelleme
+   
 # DataBase
 
     SqlServer
