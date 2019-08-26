@@ -1988,6 +1988,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pages\HotelTypes\hoteltypeedit.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypeadd.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypelist.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
@@ -2045,6 +2046,7 @@
     <Content Include="Views\Hotel\HotelTypeList.cshtml" />
     <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Hotel\HotelTypeAdd.cshtml" />
+    <Content Include="Views\Hotel\HotelTypeEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

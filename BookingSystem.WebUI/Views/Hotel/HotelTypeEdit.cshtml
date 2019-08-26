@@ -1,13 +1,13 @@
 ﻿@model HotelTypeVM
 
 @{
-    ViewBag.Title = "HotelTypeAdd";
+    ViewBag.Title = "HotelTypeEdit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section PageScripts
 {
-    <script src='@Url.Content("~/Scripts/pages/HotelTypes/hoteltypeadd.js")'></script>
+    <script src='@Url.Content("~/Scripts/pages/HotelTypes/hoteltypeedit.js")'></script>
 }
 
 <div class="row">
@@ -44,7 +44,7 @@
                         <button type="button" class="btn btn-block btn-danger btnCancel" onclick="location.href='@Url.Action("HotelTypeList", "Hotel")'">Cancel</button>
                     </div>
                     <div style="float:right; padding-right:2px;">
-                        <button type="button" class="btn btn-block btn-primary btnSave">Save</button>
+                        <button type="button" class="btn btn-block btn-primary btnSave">Edit</button>
                     </div>
                 </div>
             </div>
@@ -55,12 +55,11 @@
 <script type="text/javascript">
     var urlList =
     {
-        saveUrlAction: '@Url.Action("SaveHotelType","Hotel")',
-        listPageUrlAction : '@Url.Action("HotelTypeList","Hotel")',
-        deleteUrlAction: '@Url.Action("DeleteHotelType","Hotel")'
+        saveUrlAction: '@Url.Action("UpdateHotelType","Hotel")',
+        listPageUrlAction : '@Url.Action("HotelTypeList","Hotel")'
     };
 
 jQuery(document).ready(function () {
-    HotelTypeAdd.init(urlList);
+    HotelTypeEdit.init(urlList);
 });
 </script>

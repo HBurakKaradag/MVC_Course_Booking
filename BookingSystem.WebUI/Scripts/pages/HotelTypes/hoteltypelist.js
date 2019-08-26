@@ -1,4 +1,9 @@
 ﻿var HotelTypelist = function () {
+
+    var pageInitObject = [];
+
+
+
     var fillTable = function () {
         var table = $('#tableHotelTypeList');
 
@@ -84,7 +89,8 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var actions = '<a href="/EditHotelType.aspx?Hotel=' + row.ID + '" class="btn btn-info btn-Edit" data-id="' + row.ID + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+                        var editUrl = pageInitObject.urls.editUrl + 
+                        var actions = '<a href="/EditHotelType?Hotel=' + row.ID + '" class="btn btn-info btn-Edit" data-id="' + row.ID + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
                         return actions;
                     },
                     "targets": 5,
@@ -117,7 +123,13 @@
     };
 
     return {
-        init: function () {
+        init: function (initObject) {
+            // diğer js 'ler de url'leri direk nesne olarak göndermiştik. Model gibi düşünebilirsiniz.
+            // Burada ise Array objeler halinde gönderildi.
+            // List veya array gibi düşünülebilir. 
+            // ChromeDev Console üzerinden değişkeni çağırıp inceleyiniz.
+            pageInitObject = initObject;
+
             if (!jQuery().dataTable) {
                 return;
             }
@@ -128,6 +140,3 @@
     };
 }();
 
-jQuery(document).ready(function () {
-    HotelTypelist.init();
-});

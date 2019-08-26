@@ -75,3 +75,23 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var initObject = [];
+        var urls = {
+            editUrl = '@Url.Action("EditHotelType","Hotel")',
+            gridLoadUrl = '@Url.Action("GetHotelTypeList", "Hotel")'
+        };
+
+        // obje içerisnde kullanımını görmeniz için ekliyorum
+        var languageItems = {
+            editButtonText = "Edit"
+        };
+
+        initObject.push(urls);
+        initObject.push(languageItems);
+
+        HotelTypelist.init(initObject);
+    });
+</script>
