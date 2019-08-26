@@ -27,7 +27,6 @@
                     break;
                 case 'radio':
                     value = $(this).prop('checked');
-                    //value = $el.filter('[value="' + val + '"]:checked').val();
                     break;
                 case 'number':
                     value = $(this).val();
@@ -102,17 +101,52 @@
         });
     }
 
-    //$.notify({
-    //    icon: "img/growl_64x.png",
-    //    message: " I am using an image."
-    //}, {
-    //        icon_type: 'image'
-    //    });
+    var showNotify = function (title, message, type) {
+        nofifyBase("", "", title, message, null, type);
+    }
+
+    var showNotifyUrl = function (title, message, type, url) {
+        nofifyBase("", "", title, message, url, type)
+    }
+
+    var showNotifyWithIcon = function (icon, icontype, title, message, type) {
+        nofifyBase(icon, icontype, title, message, null, type)
+    }
+
+    function nofifyBase(icon, icontype, title, message, url, type) {
+        type = type.toLowerCase();
+        debugger;
+        $.notify({
+            // options
+            icon: icon,
+            title: title,
+            message: message,
+            url: url,
+            target: '_blank'
+        }, {
+                element: 'body',
+                position: null,
+                type: type,
+                allow_dismiss: true,
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                animate: {
+                    enter: 'animated fadeInDown',
+                    exit: 'animated fadeOutUp'
+                },
+                icon_type: icontype
+            });
+    };
 
     return {
         createModel: createModel,
         clearForm: clearForm,
         fillForm: fillForm,
+        showNotify: showNotify,
+        showNotifyUrl: showNotifyUrl,
+        showNotifyIcon: showNotifyWithIcon,
         responseStatus: responseStatus,
         init: function () {
         }
