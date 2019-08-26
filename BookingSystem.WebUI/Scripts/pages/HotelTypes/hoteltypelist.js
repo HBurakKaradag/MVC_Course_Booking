@@ -61,8 +61,10 @@
                 { "data": "Id", "name": "Id", "bSortable": false },
                 { "data": "Title", "name": "Title", "bSortable": false, "width": "15%" },
                 { "data": "Description", "name": "Description", "bSortable": false, "width": "15%" },
-                { "data": "IsActive", "name": "IsActive", "bSortable": true, "width": "10%" },
-                { "data": "IsDeleted", "name": "IsDeleted", "bSortable": false, "width": "10%" }
+                { "data": "IsActive", "name": "IsActive", "bSortable": true, "width": "5%" },
+                { "data": "IsDeleted", "name": "IsDeleted", "bSortable": false, "width": "5%" },
+                { "data": "#", "name": "#", "bSortable": false, "width": "5%" },
+
             ],
             "columnDefs": [
                 {
@@ -74,20 +76,21 @@
                     "targets": [3, 4],
                     "class": "text-center"
                 },
-                //{
-                //    "render": function (data, type, row) {
-                //        return moment(data).format('DD-MM-YYYY HH:mm:ss');
-                //    },
-                //    "targets": [1],
-                //    "sWidth": "10%",
-                //    "class": "td-center"
-                //},
                 {
                     "render": function (data, type, row) {
                         return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
                     },
                     "targets": [3, 4],
-                    "class": "td-center"
+                    "class": "text-center"
+                },
+                {
+                    "render": function (data, type, row) {
+                        
+                        var actions = '<a href="/EditHotelDetail.aspx?Hotel=' + row.ID + '" class="btn btn-info btn-Edit" data-id="' + row.ID + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+                        return actions;
+                    },
+                    "targets": 5,
+                    "class": "text-center"
                 }
             ]
         });

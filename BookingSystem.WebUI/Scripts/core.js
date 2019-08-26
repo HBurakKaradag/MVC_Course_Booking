@@ -60,7 +60,7 @@
         $(object).find("[data-model]").each(function () {
             var $this = $(this);
             var type = $this.attr('type');
-            debugger;
+            
             switch (type) {
                 case 'checkbox':
                     $this.removeAttr('checked');
@@ -73,6 +73,15 @@
                     $this.val('');
             }
         });
+    }
+
+    var redirectPageAfterSecond = function (url, second) {
+        if (second == null || second == "" || second == "undefined")
+            second = parseInt(2000);
+        window.setTimeout(function () {
+            window.location.href = url;
+        }, second);
+
     }
 
     var fillForm = function (data) {
@@ -115,7 +124,7 @@
 
     function nofifyBase(icon, icontype, title, message, url, type) {
         type = type.toLowerCase();
-        debugger;
+        
         $.notify({
             // options
             icon: icon,
@@ -147,6 +156,7 @@
         showNotify: showNotify,
         showNotifyUrl: showNotifyUrl,
         showNotifyIcon: showNotifyWithIcon,
+        redirectPageAfterSecond: redirectPageAfterSecond,
         responseStatus: responseStatus,
         init: function () {
         }
