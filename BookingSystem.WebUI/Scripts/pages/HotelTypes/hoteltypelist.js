@@ -1,8 +1,6 @@
 ﻿var HotelTypelist = function () {
-
+    var that = this;
     var pageInitObject = [];
-
-
 
     var fillTable = function () {
         var table = $('#tableHotelTypeList');
@@ -13,7 +11,7 @@
 
         table.dataTable({
             "searching": false,
-            "responsive": true,
+            "responsive": false,
             "paging": true,
             "processing": true, // for show progress bar
             "serverSide": true, // for process server side
@@ -41,12 +39,12 @@
             },
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             "ajax": {
-                "url": "/Hotel/GetHotelTypeList",
+                "url": that.pageInitObject.urls.gridLoadUrl,
                 "contentType": "application/json",
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    debugger;
+                    
                     var req = Core.createModel();
                     data.FilterRequest = req;
 
@@ -62,12 +60,12 @@
                 }
             },
             "columns": [
-                { "data": "Id", "name": "Id", "bSortable": false },
-                { "data": "Title", "name": "Title", "bSortable": false, "width": "15%" },
-                { "data": "Description", "name": "Description", "bSortable": false, "width": "15%" },
-                { "data": "IsActive", "name": "IsActive", "bSortable": true, "width": "5%" },
-                { "data": "IsDeleted", "name": "IsDeleted", "bSortable": false, "width": "5%" },
-                { "data": "#", "name": "#", "bSortable": false, "width": "5%" },
+                { "data": "Id", "name": "Id", "bSortable": false, "sWidth": "0" },
+                { "data": "Title", "name": "Title", "bSortable": false, "Width": "10" },
+                { "data": "Description", "name": "Description", "bSortable": false, "Width": "10" },
+                { "data": "IsActive", "name": "IsActive", "bSortable": true, "Width": "5" },
+                { "data": "IsDeleted", "name": "IsDeleted", "bSortable": false, "Width": "5" },
+                { "data": "#", "name": "#", "bSortable": false }
 
             ],
             "columnDefs": [
@@ -89,9 +87,13 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var editUrl = pageInitObject.urls.editUrl + 
-                        var actions = '<a href="/EditHotelType?Hotel=' + row.ID + '" class="btn btn-info btn-Edit" data-id="' + row.ID + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
-                        return actions;
+                        
+                        var editUrl = that.pageInitObject.urls.editButtonUrl + '?Id=' + row.Id;
+
+                        var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+                        var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
+
+                        return (actionsEdit + "&nbsp" + actionsDelete);
                     },
                     "targets": 5,
                     "class": "text-center"
@@ -110,8 +112,46 @@
     };
 
     var handleEvents = function () {
-        $(document).on('click', '.btnClear', function () {
+
+
+
+        $(document).on('click', '.btnDelete', function () {
             debugger;
+            var id = $(this).attr("data-id");
+            var reqObj = { id: id };
+            
+
+            $.ajax({
+                url: that.pageInitObject.urls.deleteUrlAction,
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(reqObj),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                   
+                    if (data.ResultType == Core.responseStatus.Success) {
+                        Core.showNotify("<b>Complate Successfully</b>", "", "success");
+                        refreshTable();
+                    }
+                    else {
+                        Core.showNotify("<b>Warning..</b>", data.Message, "warning");
+                        return;
+                    }
+                },
+                error: function (xhr) {
+                
+                    Core.showNotify("<b>Get an Error</b>", "", "error");
+                }
+            });
+        });
+
+
+
+        $(document).on('click', '.btnClear', function () {
+            
             Core.clearForm();
             refreshTable();
             // $('#tableHotelTypeList').DataTable().rows('.selected').deselect();
@@ -124,11 +164,12 @@
 
     return {
         init: function (initObject) {
+            
             // diğer js 'ler de url'leri direk nesne olarak göndermiştik. Model gibi düşünebilirsiniz.
             // Burada ise Array objeler halinde gönderildi.
-            // List veya array gibi düşünülebilir. 
+            // List veya array gibi düşünülebilir.
             // ChromeDev Console üzerinden değişkeni çağırıp inceleyiniz.
-            pageInitObject = initObject;
+            that.pageInitObject = initObject;
 
             if (!jQuery().dataTable) {
                 return;
@@ -139,4 +180,3 @@
         }
     };
 }();
-

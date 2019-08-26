@@ -77,20 +77,23 @@
 </div>
 
 <script type="text/javascript">
+
     jQuery(document).ready(function () {
         var initObject = [];
         var urls = {
-            editUrl = '@Url.Action("EditHotelType","Hotel")',
-            gridLoadUrl = '@Url.Action("GetHotelTypeList", "Hotel")'
+            editButtonUrl: '@Url.Action("HotelTypeEdit", "Hotel")',
+            deleteUrlAction: '@Url.Action("DeleteHotelType", "Hotel")',
+            gridLoadUrl: '@Url.Action("GetHotelTypeList", "Hotel")'
+
         };
 
         // obje içerisnde kullanımını görmeniz için ekliyorum
         var languageItems = {
-            editButtonText = "Edit"
+            editButtonText : "Edit"
         };
 
-        initObject.push(urls);
-        initObject.push(languageItems);
+        initObject.urls = urls;
+        initObject.languageItems = languageItems;
 
         HotelTypelist.init(initObject);
     });

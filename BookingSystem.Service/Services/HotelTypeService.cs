@@ -13,7 +13,20 @@ namespace BookingSystem.Service.Services
 {
     public class HotelTypeService : ServiceBase
     {
-        public ServiceResultModel<List<HotelTypeVM>> GetHotelTypes(HotelTypeFilter filter)
+        public ServiceResultModel<HotelTypeVM> GetHotelType(int id)
+        {
+            if (id <= 0)
+                return null;
+            HotelTypeVM currentItem = null;
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                currentItem = context.HotelTypes.FirstOrDefault(p => p.Id == id).MapProperties<HotelTypeVM>();
+            }
+
+            return ServiceResultModel<HotelTypeVM>.OK(currentItem);
+        }
+
+        public ServiceResultModel<List<HotelTypeVM>> GetAllHotelTypes(HotelTypeFilter filter)
         {
             List<HotelTypeVM> resultList = new List<HotelTypeVM>();
 
@@ -54,6 +67,57 @@ namespace BookingSystem.Service.Services
                 context.SaveChanges();
 
                 return ServiceResultModel<HotelTypeVM>.OK(model);
+            }
+        }
+
+        public ServiceResultModel<HotelTypeVM> UpdateHotelType(HotelTypeVM model)
+        {
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                var currentItem = context.HotelTypes.FirstOrDefault(p => p.Id == model.Id);
+                if (currentItem != null)
+                {
+                    // mevcut kayıt haricinde title ile aynı kayıt olamaz kontrol ediyoruz
+                    if (context.HotelTypes.Any(p => p.Id != model.Id && p.Title.Equals(model.Title)))
+                    {
+                        return new ServiceResultModel<HotelTypeVM>
+                        {
+                            Code = ServiceResultCode.Duplicate,
+                            Data = currentItem.MapProperties<HotelTypeVM>(),
+                            ResultType = OperationResultType.Warn,
+                            Message = "This title using other records "
+                        };
+                    }
+                    currentItem.Title = model.Title;
+                    currentItem.Description = model.Description;
+
+                    context.Entry<HotelType>(currentItem).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
+                }
+
+                return ServiceResultModel<HotelTypeVM>.OK(currentItem.MapProperties<HotelTypeVM>());
+            }
+        }
+
+        public ServiceResultModel<HotelTypeVM> DeleteHotelType(int id)
+        {
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                var deleteItem = context.HotelTypes.FirstOrDefault(p => p.Id == id);
+                context.HotelTypes.Remove(deleteItem);
+                context.SaveChanges();
+
+                return ServiceResultModel<HotelTypeVM>.OK(deleteItem.MapProperties<HotelTypeVM>());
+                /*
+                 veya bu şeklide de yazabilirsiniz.
+                 EF Tracking sistemi ile çalışır. 2. kodda tracking 'e deleteıtem kaydının Hoteltype tablosunda deleted olarak Track'lendiğini bildiriyoruz.
+                 sonrasında commit 'de ilgili kayıt silinir.
+
+                var deleteItem = context.HotelTypes.FirstOrDefault(p => p.Id == id);
+                context.Entry<HotelType>(deleteItem).State = System.Data.Entity.EntityState.Deleted;
+                context.SaveChanges();
+
+                 */
             }
         }
     }

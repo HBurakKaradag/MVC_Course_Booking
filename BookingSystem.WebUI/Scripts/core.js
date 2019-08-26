@@ -45,6 +45,25 @@
 
             model[key] = value;
         });
+
+        // TODO : Hidden Key Added Model
+        // hidden için CustomHtmlHelper kullanmadık. Bu nedenle Hidden html de data-model attribute olmayak
+        // Bu durumu handle etmek için Custom hidden Helper yazılabilir , cshtml de hidden 'i html olarak yazabilirsiniz data-modal attribute 'de eklersiniz
+        // veya core.js içerisinde manuel handle edebilirsiniz.
+        // farklı örneklendirme olması için burada handle ediyorum.
+
+        $(document).find("[type=hidden]").each(function () {
+            debugger;
+            // each içersinde olduğumuz için this current DOM element olur
+            var $this = $(this);
+            // elemet üzerindeki id attribute u kullanarak DOl element id sini aldık >> @Html.HiddenFor(p  => p.Name) ise key Name olur
+            var key = $this.attr('id');
+            // elimizde Dom element'in id si olduğuna göre başına # koyup element'e id ile erişebiliriz. val ile değerini alırız.
+            var value = $("#" + key).val();
+            // model 'e ekleriz
+            model[key] = value;
+        });
+
         return model;
     }
 
@@ -60,7 +79,7 @@
         $(object).find("[data-model]").each(function () {
             var $this = $(this);
             var type = $this.attr('type');
-            
+
             switch (type) {
                 case 'checkbox':
                     $this.removeAttr('checked');
@@ -81,7 +100,6 @@
         window.setTimeout(function () {
             window.location.href = url;
         }, second);
-
     }
 
     var fillForm = function (data) {
@@ -124,7 +142,7 @@
 
     function nofifyBase(icon, icontype, title, message, url, type) {
         type = type.toLowerCase();
-        
+
         $.notify({
             // options
             icon: icon,

@@ -44,13 +44,13 @@
                     /*
                      Bu kısımlarda data dan dönen obje içerisndeki verileri kullanıp daha anlamlı mesajlar veya farklı aksiyonlar alabilirsiniz.
                      */
-                 
+                    debugger;
                     if (data.ResultType == Core.responseStatus.Success) {
                         Core.showNotify("<b>Complate Successfully</b>", "", "success");
                         Core.redirectPageAfterSecond(jsUrlActions.listPageUrlAction);
                     }
                     else {
-                        Core.showNotify("<b>Complate is not complated</b>", "", "warning");
+                        Core.showNotify("<b>Warning..</b>", data.Message, "warning");
                         return;
                     }
                     

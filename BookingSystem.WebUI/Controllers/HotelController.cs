@@ -40,10 +40,13 @@ namespace BookingSystem.WebUI.Controllers
         /// <returns></returns>
         public JsonResult GetHotelTypeList(DataTableRequest<HotelTypeFilter> model)
         {
-            var result = _hotelTypeService.GetHotelTypes(model.FilterRequest);
-            result.Data.Skip(model.start).Take(model.length);
+            var page = model.start;
+            var rowsPerPage = model.length;
 
-            DataTablesResponse tableResult = new DataTablesResponse(model.draw, result.Data, result.Data.Count, result.Data.Count);
+            var filteredData = _hotelTypeService.GetAllHotelTypes(model.FilterRequest);
+            var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
+
+            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
 
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
@@ -58,6 +61,16 @@ namespace BookingSystem.WebUI.Controllers
             return View(new HotelTypeVM());
         }
 
+        [HttpGet]
+        public ActionResult HotelTypeEdit(int id)
+        {
+            var model = _hotelTypeService.GetHotelType(id);
+            if (model == null)
+                RedirectToAction(nameof(HotelTypeList));
+
+            return View(model.Data);
+        }
+
         [HttpPost]
         public JsonResult SaveHotelType(HotelTypeVM model)
         {
@@ -65,6 +78,58 @@ namespace BookingSystem.WebUI.Controllers
                 return base.JSonModelStateHandle();
 
             ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.SaveHotelType(model);
+
+            if (!serviceResult.IsSuccess)
+            {
+                base.UIResponse = new UIResponse
+                {
+                    Message = string.Format("Operation Is Not Completed, {0}", serviceResult.Message),
+                    ResultType = serviceResult.ResultType,
+                    Data = serviceResult.Data
+                };
+            }
+            else
+            {
+                base.UIResponse = new UIResponse
+                {
+                    Data = serviceResult.Data,
+                    ResultType = serviceResult.ResultType,
+                    Message = "Success"
+                };
+            }
+
+            return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteHotelType(int id)
+        {
+            if (id <= 0)
+                return Json(base.UIResponse = new UIResponse
+                {
+                    ResultType = Core.OperationResultType.Error,
+                    Message = string.Format("id is not valid, this Id = {0}", id)
+                }, JsonRequestBehavior.AllowGet);
+
+            ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.DeleteHotelType(id);
+            return Json(base.UIResponse = new UIResponse
+            {
+                ResultType = serviceResult.ResultType,
+                Data = serviceResult.Data,
+                Message = serviceResult.ResultType == Core.OperationResultType.Success ? "Record Deleted Successfully" : string.Format("Warning.. {0}", serviceResult.Message)
+            });
+        }
+
+        [HttpPost]
+        public JsonResult UpdateHotelType(HotelTypeVM model)
+        {
+            if (model.Id <= 0)
+                RedirectToAction(nameof(HotelTypeList)); // ErrorHandle eklenecek
+
+            if (!ModelState.IsValid)
+                return base.JSonModelStateHandle();
+
+            ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.UpdateHotelType(model);
 
             if (!serviceResult.IsSuccess)
             {
