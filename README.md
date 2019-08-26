@@ -41,15 +41,15 @@ Extensions Kullanımı
     Enum Kullanımı
     
 # Jquery - JS
-
-   Jquery-JavaScript Core.js üzerinden işletilmesi
-   Ajax crud işlemleri
+    
+    JQuery-JavaScript Core.js üzerinden işletilmesi
+    Ajax crud işlemleri
 
 # DatatablesNet 
 
-   DatatablesNet ile grid İşlemleri
-   DatatablesNet Jquery implementasyonu
-   DatatablesNet backend Request-Response Modelleme
+    DatatablesNet ile grid İşlemleri
+    DatatablesNet Jquery implementasyonu
+    DatatablesNet backend Request-Response Modelleme
    
 # DataBase
 
