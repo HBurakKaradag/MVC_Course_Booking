@@ -5,26 +5,6 @@
 
     var pageInitObject = [];
 
-    var initTableEditor = function () {
-        var tableId = $('#tableAttributeList');
-
-        editor = new $.fn.dataTable.Editor({
-            ajax: "Attribute/EditAttribute",
-            table: tableId,
-            fields: [{
-                label: "Name:",
-                name: "name"
-            }, {
-                label: "Description:",
-                name: "Description"
-            }, {
-                label: "Attribute Type:",
-                name: "AttributeType"
-            }
-            ]
-        });
-    }
-
     var fillTable = function () {
         var table = $('#tableAttributeList');
 
@@ -33,7 +13,6 @@
         }
 
         table.dataTable({
-            "select": true,
             "searching": false,
             "responsive": false,
             "paging": true,
@@ -42,6 +21,25 @@
             "filter": true, // this is for disable filter (search box)
             "orderMulti": false, // for disable multiple column at once
             "pageLength": 10,
+            buttons: {
+                buttons: [
+                    {
+                        text: "New Record",
+                        action: function (e, dt, node, config) {
+                            window.location.href = $("#hotelTypeAddUrl").val();
+                        }
+                    }
+                ],
+                dom: {
+                    button: {
+                        tag: "button",
+                        className: "btn btn-default dt-AddButton"
+                    },
+                    buttonLiner: {
+                        tag: null
+                    }
+                }
+            },
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             "ajax": {
                 "url": '/Attribute/GetAttributeList',
@@ -49,7 +47,8 @@
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    var req = Core.createModel();
+                    debugger;
+                    var req = Core.createModel(".box-body.filter");
                     data.FilterRequest = req;
 
                     var request = {
@@ -70,7 +69,6 @@
                 { "data": "AttributeType", "name": "Type", "bSortable": false, "Width": "10" },
                 { "data": "IsActive", "name": "Active", "bSortable": true, "Width": "5" },
                 { "data": "#", "name": "#", "bSortable": false }
-
             ],
             "columnDefs": [
                 {
@@ -82,37 +80,19 @@
                     "targets": [3, 4],
                     "class": "text-center"
                 },
-                //{
-                //    "render": function (data, type, row) {
-                //        return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
-                //    },
-                //    "targets": [3, 4],
-                //    "class": "text-center"
-                //},
-                //{
-                //    "render": function (data, type, row) {
-                //        var editUrl = that.pageInitObject.urls.editButtonUrl + '?Id=' + row.Id;
+                {
+                    "render": function (data, type, row) {
+                        return "";
+                        //var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+                        //var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
 
-                //        var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
-                //        var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
-
-                //        return (actionsEdit + "&nbsp" + actionsDelete);
-                //    },
-                //    "targets": 5,
-                //    "class": "text-center"
-                //}
+                        //return (actionsEdit + "&nbsp" + actionsDelete);
+                    },
+                    "targets": 5,
+                    "class": "text-center"
+                }
             ]
         });
-
-        // Display the buttons
-        new $.fn.dataTable.Buttons(table, [
-            { extend: "create", editor: editor },
-            { extend: "edit", editor: editor },
-            { extend: "remove", editor: editor }
-        ]);
-
-        table.buttons().container()
-            .appendTo($('div.eight.column:eq(0)', table.table().container()));
     };
 
     var refreshTable = function () {
@@ -178,7 +158,6 @@
                 return;
             }
             fillTable();
-            initTableEditor();
             handleEvents();
             handleStartup();
         }

@@ -1996,7 +1996,11 @@
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.min.js" />
+    <Content Include="Scripts\plugins\datatables\buttons.colVis.min.js" />
+    <Content Include="Scripts\plugins\datatables\buttons.jqueryui.min.js" />
     <Content Include="Scripts\plugins\datatables\buttons.semanticui.min.js" />
+    <Content Include="Scripts\plugins\datatables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\plugins\datatables\dataTables.Editor.min.js" />
     <Content Include="Scripts\plugins\datatables\datatables.min.js" />
     <Content Include="Scripts\plugins\datatables\dataTables.semanticui.min.js" />
     <Content Include="Scripts\plugins\datatables\fixedColumns.semanticui.min.js" />

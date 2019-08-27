@@ -40,7 +40,7 @@
                     }
                     break;
                 default:
-                    value = upper && ($(this).data("type") != "email") ? $(this).val().toUpperCase() : $(this).val();
+                    value = $(this).val();
             }
 
             model[key] = value;

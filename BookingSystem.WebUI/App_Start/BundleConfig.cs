@@ -41,6 +41,9 @@ namespace BookingSystem.WebUI
 
             bundles.Add(new ScriptBundle("~/bundles/jsDatatables").Include(
                   "~/Scripts/plugins/datatables/datatables.min.js",
+                  "~/Scripts/plugins/datatables/buttons.jqueryui.min.js",
+                  "~/Scripts/plugins/datatables/buttons.colVis.min.js",
+                  "~/Scripts/plugins/datatables/dataTables.buttons.min.js",
                   "~/Scripts/plugins/datatables/dataTables.semanticui.min.js",
                   "~/Scripts/plugins/datatables/select.semanticui.min.js",
                   "~/Scripts/plugins/datatables/buttons.semanticui.min.js",

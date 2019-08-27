@@ -21,7 +21,7 @@
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
-            <div class="box-body" style="">
+            <div class="box-body filter" style="">
                 <div class="form-group">
                     <div class="col-md-4">
                         @Html.LabelFor(model => model.Name, new { @class = "control-label" })
@@ -59,6 +59,7 @@
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>AttributeType</th>
+                                    <th>IsActive</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
@@ -70,8 +71,61 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default"> Launch Default Modal</button>
 
+<div class="modal fade" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>Name</label>
+                            <div class="form-group">
+                                <input id="Name" name="Name" type="text" data-model="name" data-type="string" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Description</label>
+                            <div class="form-group">
+                                <textarea class="form-control" cols="20" data-model="Description" data-type="String" data-val="true" data-val-required="Description alanı gereklidir." id="Description" name="Description" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>AttributeType</label>
+                            <div class="form-group">
+
+                                <textarea class="form-control" cols="20" data-model="AttributeType" data-type="String" data-val="true" data-val-required="AttributeType alanı gereklidir." id="AttributeType" name="AttributeType" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
     jQuery(document).ready(function () {
         var initObject = [];
         var urls = {
@@ -79,16 +133,16 @@
             deleteUrlAction: '@Url.Action("DeleteHotelType", "Hotel")',
             gridLoadUrl: '@Url.Action("GetHotelTypeList", "Hotel")'
 
-        };
+            };
 
-        // obje içerisnde kullanımını görmeniz için ekliyorum
-        var languageItems = {
+            // obje içerisnde kullanımını görmeniz için ekliyorum
+            var languageItems = {
             editButtonText : "Edit"
-        };
+            };
 
-        initObject.urls = urls;
-        initObject.languageItems = languageItems;
+            initObject.urls = urls;
+            initObject.languageItems = languageItems;
 
-        AttributeList.init();
-    });
+            AttributeList.init();
+            });
 </script>
