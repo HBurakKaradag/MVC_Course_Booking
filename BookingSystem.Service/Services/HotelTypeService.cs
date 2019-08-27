@@ -4,8 +4,8 @@ using BookingSystem.Data.Context;
 using BookingSystem.Domain.Entity;
 using BookingSystem.Domain.WebUI;
 using BookingSystem.Domain.WebUI.Filters;
+using BookingSystem.Domain.WebUI.Hotel;
 using BookingSystem.Service.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

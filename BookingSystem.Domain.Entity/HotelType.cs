@@ -1,6 +1,8 @@
-﻿namespace BookingSystem.Domain.Entity
+﻿using BookingSystem.Domain.Entity.BaseEntity;
+
+namespace BookingSystem.Domain.Entity
 {
-    public class HotelType
+    public class HotelType : EntityBase
     {
         public HotelType()
         {
@@ -8,7 +10,6 @@
             this.IsDeleted = false;
         }
 
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public bool IsDeleted { get; set; }

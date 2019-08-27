@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookingSystem.Domain.WebUI
+namespace BookingSystem.Domain.WebUI.Account
 {
     public class MenuVM : IModel
     {

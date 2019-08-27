@@ -16,6 +16,10 @@ namespace BookingSystem.Data.Context
 
         public DbSet<HotelType> HotelTypes { get; set; }
 
+        public DbSet<HotelRoomTypes> HotelRoomTypes { get; set; }
+
+        public DbSet<Attributes> Attributes { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

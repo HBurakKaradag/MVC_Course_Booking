@@ -42,12 +42,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity\EntityBase.cs" />
+    <Compile Include="Attributes.cs" />
+    <Compile Include="HotelRoomType.cs" />
     <Compile Include="HotelType.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BookingSystem.Core\BookingSystem.Core.csproj">
+      <Project>{4701CC75-A61D-437E-8805-8837212E8103}</Project>
+      <Name>BookingSystem.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookingSystem.Domain\BookingSystem.Domain.csproj">
       <Project>{70c8604e-de38-4fc6-88bc-0589057729c1}</Project>
       <Name>BookingSystem.Domain</Name>

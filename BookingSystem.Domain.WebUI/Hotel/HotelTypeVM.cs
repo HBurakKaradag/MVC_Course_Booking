@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookingSystem.Domain.WebUI
+namespace BookingSystem.Domain.WebUI.Hotel
 {
     public class HotelTypeVM : IModel
     {

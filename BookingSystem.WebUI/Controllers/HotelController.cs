@@ -1,5 +1,6 @@
 ﻿using BookingSystem.Domain.WebUI;
 using BookingSystem.Domain.WebUI.Filters;
+using BookingSystem.Domain.WebUI.Hotel;
 using BookingSystem.Service.Services;
 using BookingSystem.WebUI.Models.DataTableRequest;
 using BookingSystem.WebUI.Models.DataTableResponse;
@@ -53,7 +54,7 @@ namespace BookingSystem.WebUI.Controllers
 
         #endregion List-HotelType
 
-        #region Add-HotelType
+        #region AddEdit-HotelType
 
         [HttpGet]
         public ActionResult HotelTypeAdd()
@@ -153,8 +154,17 @@ namespace BookingSystem.WebUI.Controllers
             return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
         }
 
-        #endregion Add-HotelType
+        #endregion AddEdit-HotelType
 
         #endregion HotelTypesMethods
+
+        #region HotelRoomTypesMethods
+
+        public ActionResult HotelRoomTypeList()
+        {
+            return View();
+        }
+
+        #endregion HotelRoomTypesMethods
     }
 }

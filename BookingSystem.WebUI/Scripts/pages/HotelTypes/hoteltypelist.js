@@ -44,7 +44,6 @@
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    
                     var req = Core.createModel();
                     data.FilterRequest = req;
 
@@ -87,7 +86,6 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        
                         var editUrl = that.pageInitObject.urls.editButtonUrl + '?Id=' + row.Id;
 
                         var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
@@ -112,14 +110,10 @@
     };
 
     var handleEvents = function () {
-
-
-
         $(document).on('click', '.btnDelete', function () {
             debugger;
             var id = $(this).attr("data-id");
             var reqObj = { id: id };
-            
 
             $.ajax({
                 url: that.pageInitObject.urls.deleteUrlAction,
@@ -131,7 +125,6 @@
                 processData: false,
                 cache: false,
                 success: function (data) {
-                   
                     if (data.ResultType == Core.responseStatus.Success) {
                         Core.showNotify("<b>Complate Successfully</b>", "", "success");
                         refreshTable();
@@ -142,16 +135,12 @@
                     }
                 },
                 error: function (xhr) {
-                
                     Core.showNotify("<b>Get an Error</b>", "", "error");
                 }
             });
         });
 
-
-
         $(document).on('click', '.btnClear', function () {
-            
             Core.clearForm();
             refreshTable();
             // $('#tableHotelTypeList').DataTable().rows('.selected').deselect();
@@ -164,7 +153,6 @@
 
     return {
         init: function (initObject) {
-            
             // diğer js 'ler de url'leri direk nesne olarak göndermiştik. Model gibi düşünebilirsiniz.
             // Burada ise Array objeler halinde gönderildi.
             // List veya array gibi düşünülebilir.

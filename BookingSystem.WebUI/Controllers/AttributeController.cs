@@ -1,28 +1,42 @@
-﻿using BookingSystem.Service.Services;
+﻿using BookingSystem.Domain.WebUI;
+using BookingSystem.Domain.WebUI.Attributes;
+using BookingSystem.Domain.WebUI.Filters;
+using BookingSystem.Service.Services;
+using BookingSystem.WebUI.Models.DataTableRequest;
+using BookingSystem.WebUI.Models.DataTableResponse;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace BookingSystem.WebUI.Controllers
 {
     [Authorize]
-    public class DashboardController : ControllerBase
+    public class AttributeController : ControllerBase
     {
-        private readonly DashboardService _dashBoardService;
+        private readonly AttributeService _attributeService;
 
-        public DashboardController()
+        public AttributeController()
         {
-            _dashBoardService = new DashboardService();
+            _attributeService = new AttributeService();
         }
 
-        [ActionName("_GetLeftMenu")]
-        public PartialViewResult GetMenu()
+        [HttpGet]
+        public ActionResult AttributeList()
         {
-            var menuVM = _dashBoardService.GetMenu();
-            return PartialView("_LeftMenu", menuVM);
+            return View(new AttributeFilter());
         }
 
-        public ActionResult Index()
+        [HttpPost]
+        public JsonResult GetAttributeList(DataTableRequest<AttributeFilter> model)
         {
-            return View();
+            int page = model.start;
+            int rowsPerPage = model.length;
+
+            ServiceResultModel<List<AttributesVM>> serviceResult = _attributeService.GetAllAttributeList(model.FilterRequest);
+            var gridRecords = serviceResult.Data.Skip(page).Take(rowsPerPage).ToList();
+            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridRecords, serviceResult.Data.Count, serviceResult.Data.Count);
+
+            return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

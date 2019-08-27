@@ -1,5 +1,5 @@
 ﻿using BookingSystem.Data.Context;
-using BookingSystem.Domain.WebUI;
+using BookingSystem.Domain.WebUI.Account;
 using BookingSystem.Service.Extensions;
 using System.Collections.Generic;
 using System.Linq;

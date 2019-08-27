@@ -126,6 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AttributeController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
@@ -1988,6 +1989,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pages\Attributes\attributelist.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypeedit.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypeadd.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypelist.js" />
@@ -2047,9 +2049,11 @@
     <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Hotel\HotelTypeAdd.cshtml" />
     <Content Include="Views\Hotel\HotelTypeEdit.cshtml" />
+    <Content Include="Views\Attribute\AttributeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Room\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

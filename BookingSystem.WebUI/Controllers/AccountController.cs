@@ -1,6 +1,7 @@
 ﻿using BookingSystem.Core;
 using BookingSystem.Core.Interfaces;
 using BookingSystem.Domain.WebUI;
+using BookingSystem.Domain.WebUI.Account;
 using BookingSystem.Service.Services;
 using BookingSystem.WebUI.WebCore;
 using System.Web.Mvc;

@@ -23,4 +23,11 @@
         NotFound = 5003,
         ValidationError = 5004
     }
+
+    public enum AttributeType
+    {
+        None = 0,
+        Hotel = 1,
+        Room = 2
+    }
 }
