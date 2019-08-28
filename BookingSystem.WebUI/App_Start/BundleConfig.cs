@@ -50,7 +50,9 @@ namespace BookingSystem.WebUI
                   "~/Scripts/plugins/datatables/fixedColumns.semanticui.min.js",
                   "~/Scripts/plugins/datatables/fixedHeader.semanticui.min.js",
                   "~/Scripts/plugins/datatables/responsive.semanticui.min.js",
-                  "~/Scripts/plugins/datatables/scroller.semanticui.min.js"
+                  "~/Scripts/plugins/datatables/scroller.semanticui.min.js",
+                  "~/Scripts/plugins/datatables/dataTables.select.min.js"
+
                 ));
         }
     }

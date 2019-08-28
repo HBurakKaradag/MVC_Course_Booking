@@ -2002,6 +2002,7 @@
     <Content Include="Scripts\plugins\datatables\dataTables.buttons.min.js" />
     <Content Include="Scripts\plugins\datatables\dataTables.Editor.min.js" />
     <Content Include="Scripts\plugins\datatables\datatables.min.js" />
+    <Content Include="Scripts\plugins\datatables\dataTables.select.min.js" />
     <Content Include="Scripts\plugins\datatables\dataTables.semanticui.min.js" />
     <Content Include="Scripts\plugins\datatables\fixedColumns.semanticui.min.js" />
     <Content Include="Scripts\plugins\datatables\fixedHeader.semanticui.min.js" />

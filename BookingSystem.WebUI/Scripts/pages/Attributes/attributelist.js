@@ -1,5 +1,4 @@
 ﻿var AttributeList = function () {
-
     var that = this;
     var pageInitObject = [];
 
@@ -25,6 +24,15 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
+                            debugger;
+                            var btnActionType = node.data("action");
+                            if (btnActionType == "edit") {
+                                var selectedRow = dt.rows({ selected: true }).data()[0];
+                                Core()
+                            }
+
+                            debugger;
+
                             $('#modal-default').modal('show')
                         }
                     }
@@ -57,18 +65,16 @@
                 },
                 "dataFilter": function (data) {
                     return data;
-                    // var json = JSON.stringify jQuery.parseJSON(data);
-                    // return json.data;
                 }
             },
             "columns": [
-                { "data": "[]", "name":"#", "bSortable": false },
+                { "data": "[]", "name": "#", "bSortable": false },
                 { "data": "Id", "name": "Id", "bSortable": false, "Width": "0" },
                 { "data": "Name", "name": "Name", "bSortable": false, "Width": "10" },
                 { "data": "Description", "name": "Description", "bSortable": false, "Width": "10" },
                 { "data": "AttributeType", "name": "Type", "bSortable": false, "Width": "10" },
                 { "data": "IsActive", "name": "Active", "bSortable": true, "Width": "5" }
-              
+
             ],
             "columnDefs": [
                 {
@@ -89,22 +95,24 @@
                 },
                 {
                     "render": function (data, type, row) {
+                        debugger;
+                        var attributeTypeList = that.pageInitObject.AttributeTypeList;
 
-                        
-
-                        var editUrl = that.pageInitObject.urls.editButtonUrl + '?Id=' + row.Id;
-
-                        var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
-                        var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
-
-                        return (actionsEdit + "&nbsp" + actionsDelete);
+                        return data == attributeTypeList.Hotel ? "Hotel" : data == attributeTypeList.Room ? "Room" : "-";
                     },
-                    "targets": 4,
+                    "targets": [4],
+                    "class": "text-center"
+                },
+                {
+                    "render": function (data, type, row) {
+                        return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
+                    },
+                    "targets": [5],
                     "class": "text-center"
                 }
 
-              
-            ],
+            ]
+            ,
             select: {
                 style: 'os',
                 selector: 'td:first-child'
@@ -122,13 +130,23 @@
     };
 
     var handleEvents = function () {
+        $('#tableAttributeList').DataTable().on('select', function (e, dt, type, indexes) {
+            $(".dt-AddButton").html(that.pageInitObject.Languages.BtnEditValue);
+            $(".dt-AddButton").attr("data-action", "edit");
+        });
+
+        $('#tableAttributeList').DataTable().on('deselect', function (e, dt, type, indexes) {
+            $(".dt-AddButton").html(that.pageInitObject.Languages.BtnAddValue);
+            $(".dt-AddButton").attr("data-action", "add");
+        });
+
         $(document).on('click', '.btnDelete', function () {
             debugger;
             var id = $(this).attr("data-id");
             var reqObj = { id: id };
 
             $.ajax({
-                url: that.pageInitObject.urls.deleteUrlAction,
+                url: that.pageInitObject.Urls.deleteUrlAction,
                 dataType: "json",
                 type: "POST",
                 contentType: 'application/json; charset=utf-8',
@@ -164,7 +182,7 @@
     };
 
     return {
-        init: function () {
+        init: function (initObject) {
             // diğer js 'ler de url'leri direk nesne olarak göndermiştik. Model gibi düşünebilirsiniz.
             // Burada ise Array objeler halinde gönderildi.
             // List veya array gibi düşünülebilir.

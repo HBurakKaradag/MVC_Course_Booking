@@ -61,7 +61,6 @@
                                     <th>Description</th>
                                     <th>AttributeType</th>
                                     <th>IsActive</th>
-
                                 </tr>
                             </thead>
                         </table>
@@ -71,7 +70,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="modal fade" id="modal-default" style="display: none;">
     <div class="modal-dialog">
@@ -85,7 +83,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label>Name</label>
                             <div class="form-group">
                                 <input id="Name" name="Name" type="text" data-model="name" data-type="string" class="form-control" />
@@ -95,7 +93,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <label>Description</label>
                             <div class="form-group">
                                 <textarea class="form-control" cols="20" data-model="Description" data-type="String" data-val="true" id="Description" name="Description" rows="2"></textarea>
@@ -105,7 +103,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <label>AttributeType</label>
                             <div class="form-group">
                                 <select class="js-example-placeholder-single js-states">
@@ -122,15 +120,15 @@
                         <div class="col-md-4">
                             <label>IsActive</label>
                             <div class="form-group">
-                               @Html.CheckBox("IsActive",false)
+                                @Html.CheckBox("IsActive", false)
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-success">Save changes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -145,17 +143,23 @@
             editButtonUrl: '@Url.Action("HotelTypeEdit", "Hotel")',
             deleteUrlAction: '@Url.Action("DeleteHotelType", "Hotel")',
             gridLoadUrl: '@Url.Action("GetHotelTypeList", "Hotel")'
-            };
+        };
 
-            // obje içerisnde kullanımını görmeniz için ekliyorum
+        // obje içerisnde kullanımını görmeniz için ekliyorum
         var attributeTypeList = {
             '@BookingSystem.Core.AttributeType.Hotel.ToString()': @((int)BookingSystem.Core.AttributeType.Hotel),
-            '@BookingSystem.Core.AttributeType.Room.ToString()' : @((int)BookingSystem.Core.AttributeType.Room),
-            
-            };
+            '@BookingSystem.Core.AttributeType.Room.ToString()': @((int)BookingSystem.Core.AttributeType.Room),
+        };
 
-            initObject.Urls = urls;
-            initObject.AttributeTypeList = attributeTypeList;
-             AttributeList.init(initObject);
-            });
+        var languages = {
+            BtnAddValue: "New Record",
+            BtnEditValue: "Edit Record"
+        };
+
+        initObject.Urls = urls;
+        initObject.AttributeTypeList = attributeTypeList;
+        initObject.Languages = languages;
+
+        AttributeList.init(initObject);
+    });
 </script>
