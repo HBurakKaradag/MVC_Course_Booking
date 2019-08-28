@@ -86,7 +86,7 @@
                         <div class="col-md-12">
                             <label>Name</label>
                             <div class="form-group">
-                                <input id="Name" name="Name" type="text" data-model="name" data-type="string" class="form-control" />
+                                <input id="Name" name="Name" type="text" data-model="Name" data-type="string" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                         <div class="col-md-12">
                             <label>Description</label>
                             <div class="form-group">
-                                <textarea class="form-control" cols="20" data-model="Description" data-type="String" data-val="true" id="Description" name="Description" rows="2"></textarea>
+                                <textarea class="form-control" cols="20" data-model="Description" data-type="String" id="Description" name="Description" rows="2"></textarea>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                         <div class="col-md-12">
                             <label>AttributeType</label>
                             <div class="form-group">
-                                <select class="js-example-placeholder-single js-states">
+                                <select id="selectAttributeType" class="js-example-placeholder-single js-states" data-model="AttributeType" data-type="select2">
                                     <option></option>
                                     <option value="@((int)BookingSystem.Core.AttributeType.Hotel)">@BookingSystem.Core.AttributeType.Hotel.ToString()</option>
                                     <option value="@((int)BookingSystem.Core.AttributeType.Room)">@BookingSystem.Core.AttributeType.Room.ToString()</option>
@@ -120,7 +120,7 @@
                         <div class="col-md-4">
                             <label>IsActive</label>
                             <div class="form-group">
-                                @Html.CheckBox("IsActive", false)
+                                @Html.CheckBox("IsActive", false, new  { data_model="IsActive", data_type="bool" })
                             </div>
                         </div>
                     </div>

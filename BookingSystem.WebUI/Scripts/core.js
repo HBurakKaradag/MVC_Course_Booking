@@ -102,8 +102,12 @@
         }, second);
     }
 
-    var fillForm = function (data) {
-        fillFormMain($(document), data);
+    var fillForm = function (selector, data) {
+        if (selector != null || !jQuery.isEmptyObject(selector)) {
+            fillFormMain(selector, data);
+        } else {
+            fillFormMain($(document), data);
+        }
     }
 
     var fillFormMain = function (object, data) {
@@ -124,6 +128,8 @@
             }
             if (dataType == 'label') {
                 $el.html(val);
+            } else if (dataType == 'select2') {
+                $el.val(val).trigger('change');
             }
         });
     }

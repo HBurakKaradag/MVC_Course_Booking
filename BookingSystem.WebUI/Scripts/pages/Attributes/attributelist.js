@@ -28,12 +28,11 @@
                             var btnActionType = node.data("action");
                             if (btnActionType == "edit") {
                                 var selectedRow = dt.rows({ selected: true }).data()[0];
-                                Core()
+                                Core.fillForm("#modal-default", selectedRow);
                             }
-
                             debugger;
 
-                            $('#modal-default').modal('show')
+                            $('#modal-default').modal({ cache: false },'show')
                         }
                     }
                 ],
@@ -130,6 +129,20 @@
     };
 
     var handleEvents = function () {
+
+        $('#modal-default').on('show.bs.modal', function () {
+            alert("Show Modal");
+            // do something…
+        });
+
+        $('#modal-default').on('hidden.bs.modal', function () {
+            Core.clearForm();
+        });
+
+      
+
+
+
         $('#tableAttributeList').DataTable().on('select', function (e, dt, type, indexes) {
             $(".dt-AddButton").html(that.pageInitObject.Languages.BtnEditValue);
             $(".dt-AddButton").attr("data-action", "edit");
