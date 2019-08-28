@@ -55,12 +55,13 @@
                         <table id="tableAttributeList" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>AttributeType</th>
                                     <th>IsActive</th>
-                                    <th>#</th>
+
                                 </tr>
                             </thead>
                         </table>
@@ -71,7 +72,6 @@
     </div>
 </div>
 
-<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default"> Launch Default Modal</button>
 
 <div class="modal fade" id="modal-default" style="display: none;">
     <div class="modal-dialog">
@@ -98,7 +98,7 @@
                         <div class="col-md-4">
                             <label>Description</label>
                             <div class="form-group">
-                                <textarea class="form-control" cols="20" data-model="Description" data-type="String" data-val="true" data-val-required="Description alanı gereklidir." id="Description" name="Description" rows="2"></textarea>
+                                <textarea class="form-control" cols="20" data-model="Description" data-type="String" data-val="true" id="Description" name="Description" rows="2"></textarea>
                             </div>
                         </div>
                     </div>
@@ -108,8 +108,21 @@
                         <div class="col-md-4">
                             <label>AttributeType</label>
                             <div class="form-group">
-
-                                <textarea class="form-control" cols="20" data-model="AttributeType" data-type="String" data-val="true" data-val-required="AttributeType alanı gereklidir." id="AttributeType" name="AttributeType" rows="2"></textarea>
+                                <select class="js-example-placeholder-single js-states">
+                                    <option></option>
+                                    <option value="@((int)BookingSystem.Core.AttributeType.Hotel)">@BookingSystem.Core.AttributeType.Hotel.ToString()</option>
+                                    <option value="@((int)BookingSystem.Core.AttributeType.Room)">@BookingSystem.Core.AttributeType.Room.ToString()</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>IsActive</label>
+                            <div class="form-group">
+                               @Html.CheckBox("IsActive",false)
                             </div>
                         </div>
                     </div>
@@ -132,17 +145,17 @@
             editButtonUrl: '@Url.Action("HotelTypeEdit", "Hotel")',
             deleteUrlAction: '@Url.Action("DeleteHotelType", "Hotel")',
             gridLoadUrl: '@Url.Action("GetHotelTypeList", "Hotel")'
-
             };
 
             // obje içerisnde kullanımını görmeniz için ekliyorum
-            var languageItems = {
-            editButtonText : "Edit"
+        var attributeTypeList = {
+            '@BookingSystem.Core.AttributeType.Hotel.ToString()': @((int)BookingSystem.Core.AttributeType.Hotel),
+            '@BookingSystem.Core.AttributeType.Room.ToString()' : @((int)BookingSystem.Core.AttributeType.Room),
+            
             };
 
-            initObject.urls = urls;
-            initObject.languageItems = languageItems;
-
-            AttributeList.init();
+            initObject.Urls = urls;
+            initObject.AttributeTypeList = attributeTypeList;
+             AttributeList.init(initObject);
             });
 </script>

@@ -1,8 +1,6 @@
 ﻿var AttributeList = function () {
-    var editor;
 
     var that = this;
-
     var pageInitObject = [];
 
     var fillTable = function () {
@@ -13,6 +11,7 @@
         }
 
         table.dataTable({
+            "select": true,
             "searching": false,
             "responsive": false,
             "paging": true,
@@ -26,7 +25,7 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                            window.location.href = $("#hotelTypeAddUrl").val();
+                            $('#modal-default').modal('show')
                         }
                     }
                 ],
@@ -63,35 +62,53 @@
                 }
             },
             "columns": [
-                { "data": "Id", "name": "Id", "bSortable": false, "sWidth": "0" },
+                { "data": "[]", "name":"#", "bSortable": false },
+                { "data": "Id", "name": "Id", "bSortable": false, "Width": "0" },
                 { "data": "Name", "name": "Name", "bSortable": false, "Width": "10" },
                 { "data": "Description", "name": "Description", "bSortable": false, "Width": "10" },
                 { "data": "AttributeType", "name": "Type", "bSortable": false, "Width": "10" },
-                { "data": "IsActive", "name": "Active", "bSortable": true, "Width": "5" },
-                { "data": "#", "name": "#", "bSortable": false }
+                { "data": "IsActive", "name": "Active", "bSortable": true, "Width": "5" }
+              
             ],
             "columnDefs": [
                 {
-                    "targets": [0],
+                    "sortable": false,
+                    "searchable": false,
+                    "className": 'select-checkbox',
+                    "targets": [0]
+                },
+                {
+                    "sortable": false,
+                    "targets": [1],
                     "visible": false,
                     "searchable": false
                 },
                 {
-                    "targets": [3, 4],
+                    "targets": [2, 3],
                     "class": "text-center"
                 },
                 {
                     "render": function (data, type, row) {
-                        return "";
-                        //var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
-                        //var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
 
-                        //return (actionsEdit + "&nbsp" + actionsDelete);
+                        
+
+                        var editUrl = that.pageInitObject.urls.editButtonUrl + '?Id=' + row.Id;
+
+                        var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+                        var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
+
+                        return (actionsEdit + "&nbsp" + actionsDelete);
                     },
-                    "targets": 5,
+                    "targets": 4,
                     "class": "text-center"
                 }
-            ]
+
+              
+            ],
+            select: {
+                style: 'os',
+                selector: 'td:first-child'
+            }
         });
     };
 
@@ -152,7 +169,8 @@
             // Burada ise Array objeler halinde gönderildi.
             // List veya array gibi düşünülebilir.
             // ChromeDev Console üzerinden değişkeni çağırıp inceleyiniz.
-            //that.pageInitObject = initObject;
+
+            that.pageInitObject = initObject;
 
             if (!jQuery().dataTable) {
                 return;
