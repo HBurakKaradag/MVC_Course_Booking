@@ -38,7 +38,7 @@ Extensions Kullanımı
     AcceptVerbs
     Controller ReturnTypes
     ModalState kullanımı - JSonResult ModelState Handle
-    Enum Kullanımı
+    Editor Templates Kullanımı
     
 # Cache
 
