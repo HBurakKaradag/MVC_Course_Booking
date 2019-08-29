@@ -44,6 +44,8 @@ Extensions Kullanımı
     
     JQuery-JavaScript Core.js üzerinden işletilmesi
     Ajax crud işlemleri
+    JQuery Validation
+    JQuery Partial Loading
 
 # DatatablesNet 
 
