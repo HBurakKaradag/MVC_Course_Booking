@@ -63,10 +63,10 @@ namespace BookingSystem.Service.Services
                         Message = "This record already exists"
                     };
 
-                context.HotelTypes.Add(model.MapProperties<HotelType>());
+                var recordItem = context.HotelTypes.Add(model.MapProperties<HotelType>());
                 context.SaveChanges();
 
-                return ServiceResultModel<HotelTypeVM>.OK(model);
+                return ServiceResultModel<HotelTypeVM>.OK(recordItem.MapProperties<HotelTypeVM>());
             }
         }
 

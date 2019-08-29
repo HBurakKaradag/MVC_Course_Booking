@@ -81,6 +81,7 @@
                 <h4 class="modal-title">Default Modal</h4>
             </div>
             <div class="modal-body">
+                <input type="hidden" data-model="Id" data-type="int" name="Id" value="" />
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-12">
@@ -120,15 +121,15 @@
                         <div class="col-md-4">
                             <label>IsActive</label>
                             <div class="form-group">
-                                @Html.CheckBox("IsActive", false, new  { data_model="IsActive", data_type="bool" })
+                                @Html.CheckBox("IsActive", false, new { data_model = "IsActive", data_type = "bool" })
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Save changes</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success btnSave">Save changes</button>
+                <button type="button" class="btn btn-danger btnCancel" data-dismiss="modal">Close</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -140,9 +141,8 @@
     jQuery(document).ready(function () {
         var initObject = [];
         var urls = {
-            editButtonUrl: '@Url.Action("HotelTypeEdit", "Hotel")',
-            deleteUrlAction: '@Url.Action("DeleteHotelType", "Hotel")',
-            gridLoadUrl: '@Url.Action("GetHotelTypeList", "Hotel")'
+            gridLoadUrl: '@Url.Action("GetAttributeList", "Attribute")',
+            SaveUrlAction :'@Url.Action("SaveAttribute","Attribute")'
         };
 
         // obje içerisnde kullanımını görmeniz için ekliyorum

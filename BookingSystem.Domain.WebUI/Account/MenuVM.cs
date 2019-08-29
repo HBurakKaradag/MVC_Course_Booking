@@ -10,7 +10,6 @@ namespace BookingSystem.Domain.WebUI.Account
             SubMenu = new List<MenuVM>();
         }
 
-        [Required]
         public int Id { get; set; }
 
         [Required]

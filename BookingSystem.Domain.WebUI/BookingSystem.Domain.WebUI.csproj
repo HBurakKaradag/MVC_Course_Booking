@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\AttributesVM.cs" />
+    <Compile Include="Attributes\AttributeVM.cs" />
     <Compile Include="Filters\AttributeFilter.cs" />
     <Compile Include="Filters\HotelRoomTypeFilter.cs" />
     <Compile Include="Filters\HotelTypeFilter.cs" />

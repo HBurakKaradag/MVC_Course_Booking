@@ -58,6 +58,8 @@
             var $this = $(this);
             // elemet üzerindeki id attribute u kullanarak DOl element id sini aldık >> @Html.HiddenFor(p  => p.Name) ise key Name olur
             var key = $this.attr('id');
+            if (key == "" || key == 'undefined' || key == null)
+                key = $this.attr('data-model');
             // elimizde Dom element'in id si olduğuna göre başına # koyup element'e id ile erişebiliriz. val ile değerini alırız.
             var value = $("#" + key).val();
             // model 'e ekleriz

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookingSystem.Domain.WebUI.Attributes
 {
-    public class AttributesVM : IModel
+    public class AttributeVM : IModel
     {
         public int Id { get; set; }
 

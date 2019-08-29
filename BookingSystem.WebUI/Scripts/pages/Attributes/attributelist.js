@@ -30,9 +30,7 @@
                                 var selectedRow = dt.rows({ selected: true }).data()[0];
                                 Core.fillForm("#modal-default", selectedRow);
                             }
-                            debugger;
-
-                            $('#modal-default').modal({ cache: false },'show')
+                            $('#modal-default').modal({ cache: false }, 'show')
                         }
                     }
                 ],
@@ -48,7 +46,7 @@
             },
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             "ajax": {
-                "url": '/Attribute/GetAttributeList',
+                "url": that.pageInitObject.Urls.gridLoadUrl,
                 "contentType": "application/json",
                 "datatype": "json",
                 "type": "POST",
@@ -129,19 +127,12 @@
     };
 
     var handleEvents = function () {
-
-        $('#modal-default').on('show.bs.modal', function () {
-            alert("Show Modal");
-            // do something…
-        });
+        //$('#modal-default').on('show.bs.modal', function () {
+        //});
 
         $('#modal-default').on('hidden.bs.modal', function () {
             Core.clearForm();
         });
-
-      
-
-
 
         $('#tableAttributeList').DataTable().on('select', function (e, dt, type, indexes) {
             $(".dt-AddButton").html(that.pageInitObject.Languages.BtnEditValue);
@@ -153,34 +144,52 @@
             $(".dt-AddButton").attr("data-action", "add");
         });
 
-        $(document).on('click', '.btnDelete', function () {
+        $(document).on('click', '.btnSave', function () {
             debugger;
-            var id = $(this).attr("data-id");
-            var reqObj = { id: id };
+            
+            var req = Core.createModel("#modal-default");
+            // Manuel Validations
+            if (req.Name == "") {
+                Core.showNotify("<b>Warning</b>", "Name must be requried", "warning");
+                return;
+            }
 
-            $.ajax({
-                url: that.pageInitObject.Urls.deleteUrlAction,
-                dataType: "json",
-                type: "POST",
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(reqObj),
-                async: true,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    if (data.ResultType == Core.responseStatus.Success) {
-                        Core.showNotify("<b>Complate Successfully</b>", "", "success");
-                        refreshTable();
+            if (req.Description == "") {
+                Core.showNotify("<b>Warning</b>", "Description must be requried", "warning");
+                return;
+            }
+
+            if (req.AttributeType == "") {
+                Core.showNotify("<b>Warning</b>", "Attribute Type must be requried", "warning");
+                return;
+            }
+
+            if (!jQuery.isEmptyObject(req)) {
+                $.ajax({
+                    url: that.pageInitObject.Urls.SaveUrlAction,
+                    dataType: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(req),
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        if (data.ResultType == Core.responseStatus.Success) {
+                            Core.showNotify("<b>Complate Successfully</b>", "", "success");
+                            $('#modal-default').modal('toggle');
+                            refreshTable();
+                        }
+                        else {
+                            Core.showNotify("<b>Warning..</b>", data.Message, "warning");
+                            return;
+                        }
+                    },
+                    error: function (xhr) {
+                        Core.showNotify("<b>Get an Error</b>", "", "error");
                     }
-                    else {
-                        Core.showNotify("<b>Warning..</b>", data.Message, "warning");
-                        return;
-                    }
-                },
-                error: function (xhr) {
-                    Core.showNotify("<b>Get an Error</b>", "", "error");
-                }
-            });
+                });
+            }
         });
 
         $(document).on('click', '.btnClear', function () {
