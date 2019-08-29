@@ -40,6 +40,10 @@ Extensions Kullanımı
     ModalState kullanımı - JSonResult ModelState Handle
     Enum Kullanımı
     
+# Cache
+
+    OutputCache
+    
 # Jquery - JS
     
     JQuery-JavaScript Core.js üzerinden işletilmesi
