@@ -13,18 +13,18 @@ namespace BookingSystem.Service.Services
 {
     public class RoomTypeService : ServiceBase
     {
-        //public ServiceResultModel<HotelTypeVM> GetHotelType(int id)
-        //{
-        //    if (id <= 0)
-        //        return null;
-        //    HotelTypeVM currentItem = null;
-        //    using (EFBookingContext context = new EFBookingContext())
-        //    {
-        //        currentItem = context.HotelTypes.FirstOrDefault(p => p.Id == id).MapProperties<HotelTypeVM>();
-        //    }
+        public ServiceResultModel<RoomTypeVM> GetRoomType(int id)
+        {
+            if (id <= 0)
+                return null;
+            RoomTypeVM currentItem = null;
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                currentItem = context.RoomTypes.FirstOrDefault(p => p.Id == id).MapProperties<RoomTypeVM>();
+            }
 
-        //    return ServiceResultModel<HotelTypeVM>.OK(currentItem);
-        //}
+            return ServiceResultModel<RoomTypeVM>.OK(currentItem);
+        }
 
         public ServiceResultModel<List<RoomTypeVM>> GetAllRoomTypes(RoomTypeFilter filter)
         {

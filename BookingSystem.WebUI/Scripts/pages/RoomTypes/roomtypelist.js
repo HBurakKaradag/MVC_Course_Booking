@@ -25,12 +25,9 @@
                         text: "New Record",
                         action: function (e, dt, node, config) {
                             debugger;
-                            var btnActionType = node.data("action");
-                            if (btnActionType == "edit") {
-                                var selectedRow = dt.rows({ selected: true }).data()[0];
-                                Core.fillForm("#modal-default", selectedRow);
-                            }
-                            $('#modal-default').modal({ cache: false }, 'show')
+                            var selectedRow = dt.rows({ selected: true }).data()[0];
+                            var selectedId = !jQuery.isEmptyObject(selectedRow) ? selectedRow.Id : null;
+                            openAddEditDialog(selectedId);
                         }
                     }
                 ],
@@ -115,9 +112,37 @@
         $('.box.box-default').boxWidget('toggle');
     };
 
+    var openAddEditDialog = function (selectedId) {
+        debugger;
+
+       
+        var req = { id: selectedId };
+        //var getUrl = that.pageInitObject.Urls.addEditPartialUrl + "?id=" + req.id;
+
+        $.ajax({
+            url: that.pageInitObject.Urls.addEditPartialUrl,
+            dataType: 'html',
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(req),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                debugger;
+                $("#modal-default .modal-body").html(data);
+                //$("#modal-default #modal-body")
+                //  $('#divSearchResult').html(result);
+                $('#modal-default').modal({ cache: false }, 'show');
+            },
+            error: function (xhr) {
+            }
+        });
+    };
+
     var handleEvents = function () {
-        //$('#modal-default').on('show.bs.modal', function () {
-        //});
+        $('#modal-default').on('show.bs.modal', function () {
+        });
 
         $('#modal-default').on('hidden.bs.modal', function () {
             Core.clearForm();

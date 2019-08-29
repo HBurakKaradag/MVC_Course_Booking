@@ -1,10 +1,9 @@
 ﻿using BookingSystem.Domain.WebUI;
 using BookingSystem.Domain.WebUI.Filters;
-using BookingSystem.Domain.WebUI.Hotel;
+using BookingSystem.Domain.WebUI.Room;
 using BookingSystem.Service.Services;
 using BookingSystem.WebUI.Models.DataTableRequest;
 using BookingSystem.WebUI.Models.DataTableResponse;
-using BookingSystem.WebUI.Models.Response;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -25,6 +24,23 @@ namespace BookingSystem.WebUI.Controllers
         public ActionResult RoomTypeList()
         {
             return View(new RoomTypeFilter());
+        }
+
+        [ActionName("RoomTypeAddEdit")]
+        public PartialViewResult _RoomTypeAddEdit(int? id)
+        {
+            RoomTypeVM roomTypeVm = null;
+
+            if (id.HasValue)
+            {
+                ServiceResultModel<RoomTypeVM> serviceResult = _roomTypeService.GetRoomType(id.Value);
+                if (serviceResult.IsSuccess)
+                    roomTypeVm = serviceResult.Data;
+            }
+
+            roomTypeVm = roomTypeVm ?? new RoomTypeVM();
+
+            return PartialView("_RoomTypeAddEdit", roomTypeVm);
         }
 
         public JsonResult GetRoomTypeList(DataTableRequest<RoomTypeFilter> model)

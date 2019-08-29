@@ -96,14 +96,9 @@
         var initObject = [];
         var urls = {
             gridLoadUrl: '@Url.Action("GetRoomTypeList", "Room")',
+            addEditPartialUrl : '@Url.Action("RoomTypeAddEdit","Room")',
             SaveUrlAction :'@Url.Action("SaveRoomType","Room")'
         };
-
-        // obje içerisnde kullanımını görmeniz için ekliyorum
-        @*var attributeTypeList = {
-            '@BookingSystem.Core.AttributeType.Hotel.ToString()': @((int)BookingSystem.Core.AttributeType.Hotel),
-            '@BookingSystem.Core.AttributeType.Room.ToString()': @((int)BookingSystem.Core.AttributeType.Room),
-        };*@
 
         var languages = {
             BtnAddValue: "New Record",
