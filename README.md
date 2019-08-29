@@ -10,9 +10,9 @@
     Singleton Design Pattern
     
 
-Interface Kullanımı
-Abstract Base Kullanımı
-Extensions Kullanımı
+    Interface Kavramı
+    Abstract Base Kavramı
+    Extensions Kavramı
 
 
 # Validations
