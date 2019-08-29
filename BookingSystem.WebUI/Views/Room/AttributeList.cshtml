@@ -1,0 +1,165 @@
+﻿@model BookingSystem.Domain.WebUI.Filters.AttributeFilter
+
+@{
+    /**/
+
+    ViewBag.Title = "AttributeList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section PageScripts
+{
+    <script src='@Url.Content("~/Scripts/pages/Attributes/attributelist.js")'></script>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-filter"></i> Filters</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body filter" style="">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                        <div class="form-group">
+                            @Html.BTextBoxFor(model => model.Name, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer" style="">
+                <div class="col-md-12">
+                    <div style="float:right; padding-left:2px;">
+                        <button type="button" class="btn btn-block btn-danger btnClear">Clear</button>
+                    </div>
+                    <div style="float:right; padding-right:2px;">
+                        <button type="button" class="btn btn-block btn-primary btnSearch">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+            </div>
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="col-sm-12">
+                        <table id="tableAttributeList" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>AttributeType</th>
+                                    <th>IsActive</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" data-model="Id" data-type="int" name="Id" value="" />
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Name</label>
+                            <div class="form-group">
+                                <input id="Name" name="Name" type="text" data-model="Name" data-type="string" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Description</label>
+                            <div class="form-group">
+                                <textarea class="form-control" cols="20" data-model="Description" data-type="String" id="Description" name="Description" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>AttributeType</label>
+                            <div class="form-group">
+                                <select id="selectAttributeType" class="js-example-placeholder-single js-states" data-model="AttributeType" data-type="select2">
+                                    <option></option>
+                                    <option value="@((int)BookingSystem.Core.AttributeType.Hotel)">@BookingSystem.Core.AttributeType.Hotel.ToString()</option>
+                                    <option value="@((int)BookingSystem.Core.AttributeType.Room)">@BookingSystem.Core.AttributeType.Room.ToString()</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>IsActive</label>
+                            <div class="form-group">
+                                @Html.CheckBox("IsActive", false, new { data_model = "IsActive", data_type = "bool" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btnSave">Save changes</button>
+                <button type="button" class="btn btn-danger btnCancel" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var initObject = [];
+        var urls = {
+            gridLoadUrl: '@Url.Action("GetAttributeList", "Attribute")',
+            SaveUrlAction :'@Url.Action("SaveAttribute","Attribute")'
+        };
+
+        // obje içerisnde kullanımını görmeniz için ekliyorum
+        var attributeTypeList = {
+            '@BookingSystem.Core.AttributeType.Hotel.ToString()': @((int)BookingSystem.Core.AttributeType.Hotel),
+            '@BookingSystem.Core.AttributeType.Room.ToString()': @((int)BookingSystem.Core.AttributeType.Room),
+        };
+
+        var languages = {
+            BtnAddValue: "New Record",
+            BtnEditValue: "Edit Record"
+        };
+
+        initObject.Urls = urls;
+        initObject.AttributeTypeList = attributeTypeList;
+        initObject.Languages = languages;
+
+        AttributeList.init(initObject);
+    });
+</script>
