@@ -3,7 +3,7 @@
 
     var handleEvents = function () {
         $(".btnSave").click(function () {
-            debugger;
+            
 
 
             // manuel js validation
@@ -44,7 +44,7 @@
                     /*
                      Bu kısımlarda data dan dönen obje içerisndeki verileri kullanıp daha anlamlı mesajlar veya farklı aksiyonlar alabilirsiniz.
                      */
-                    debugger;
+                    
                     if (data.ResultType == Core.responseStatus.Success) {
                         Core.showNotify("<b>Complate Successfully</b>", "", "success");
                         Core.redirectPageAfterSecond(jsUrlActions.listPageUrlAction);

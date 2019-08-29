@@ -24,7 +24,7 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                            debugger;
+                            
                             var selectedRow = dt.rows({ selected: true }).data()[0];
                             var selectedId = !jQuery.isEmptyObject(selectedRow) ? selectedRow.Id : null;
                             openAddEditDialog(selectedId);
@@ -48,7 +48,7 @@
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    debugger;
+                    
                     var req = Core.createModel(".box-body.filter");
                     data.FilterRequest = req;
 
@@ -64,7 +64,7 @@
             "columns": [
                 { "data": "[]", "name": "#", "bSortable": false },
                 { "data": "Id", "name": "Id", "bSortable": false, "Width": "0" },
-                { "data": "Name", "name": "Name", "bSortable": false, "Width": "10" },
+                { "data": "Title", "name": "Title", "bSortable": false, "Width": "10" },
                 { "data": "Description", "name": "Description", "bSortable": false, "Width": "10" },
                 { "data": "IsActive", "name": "Active", "bSortable": true, "Width": "5" }
 
@@ -113,9 +113,8 @@
     };
 
     var openAddEditDialog = function (selectedId) {
-        debugger;
+        
 
-       
         var req = { id: selectedId };
         //var getUrl = that.pageInitObject.Urls.addEditPartialUrl + "?id=" + req.id;
 
@@ -129,10 +128,8 @@
             processData: false,
             cache: false,
             success: function (data) {
-                debugger;
+                
                 $("#modal-default .modal-body").html(data);
-                //$("#modal-default #modal-body")
-                //  $('#divSearchResult').html(result);
                 $('#modal-default').modal({ cache: false }, 'show');
             },
             error: function (xhr) {
@@ -159,11 +156,11 @@
         });
 
         $(document).on('click', '.btnSave', function () {
-            debugger;
+            
 
             var req = Core.createModel("#modal-default");
             // Manuel Validations
-            if (req.Name == "") {
+            if (req.Title == "") {
                 Core.showNotify("<b>Warning</b>", "Name must be requried", "warning");
                 return;
             }
@@ -172,15 +169,14 @@
                 Core.showNotify("<b>Warning</b>", "Description must be requried", "warning");
                 return;
             }
-
-            if (req.AttributeType == "") {
-                Core.showNotify("<b>Warning</b>", "Attribute Type must be requried", "warning");
-                return;
-            }
+         
+            // add - or - edit
+            var isSave = (parseInt(req.Id) || 0) <= 0;
 
             if (!jQuery.isEmptyObject(req)) {
                 $.ajax({
-                    url: that.pageInitObject.Urls.SaveUrlAction,
+                    url: isSave ? that.pageInitObject.Urls.SaveUrlAction
+                                : that.pageInitObject.Urls.UpdateUrlAction,
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',

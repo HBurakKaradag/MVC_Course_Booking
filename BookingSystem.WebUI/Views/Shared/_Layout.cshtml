@@ -16,6 +16,9 @@
     <link rel="stylesheet" href='@Url.Content("~/Content/dist/css/AdminLTE.min.css")' />
     <!-- AdminLTE Skins. Choose a skin from the css/skins  folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href='@Url.Content("~/Content/dist/css/skins/_all-skins.min.css")' />
+    <!-- iCheck -->
+    <link rel="stylesheet" href='@Url.Content("~/Content/plugins/iCheck/flat/_all.css")' />
+
     <!-- Custom Site style -->
     <link rel="stylesheet" href='@Url.Content("~/Content/Site.css")' />
 
@@ -429,6 +432,8 @@
     <script src='@Url.Content("~/Scripts/bower_components/jquery-slimscroll/jquery.slimscroll.min.js")'></script>
     <!-- FastClick -->
     <script src='@Url.Content("~/Scripts/bower_components/fastclick/lib/fastclick.js")'></script>
+    <!-- iCheck -->
+    <script src='@Url.Content("~/Scripts/plugins/iCheck/icheck.min.js")'></script>
     <!-- AdminLTE App -->
     <script src='@Url.Content("~/Scripts/dist/js/adminlte.min.js")'></script>
     <!-- AdminLTE for demo purposes -->
@@ -450,6 +455,12 @@
                 allowClear: true,
                 width: '100%'
             });
+
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            })
 
         });
     </script>

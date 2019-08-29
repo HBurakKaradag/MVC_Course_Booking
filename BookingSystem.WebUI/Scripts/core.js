@@ -53,7 +53,7 @@
         // farklı örneklendirme olması için burada handle ediyorum.
 
         $(document).find("[type=hidden]").each(function () {
-            debugger;
+            
             // each içersinde olduğumuz için this current DOM element olur
             var $this = $(this);
             // elemet üzerindeki id attribute u kullanarak DOl element id sini aldık >> @Html.HiddenFor(p  => p.Name) ise key Name olur

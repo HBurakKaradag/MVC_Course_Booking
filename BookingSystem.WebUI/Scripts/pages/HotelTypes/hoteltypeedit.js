@@ -3,7 +3,7 @@
 
     var handleEvents = function () {
         $(".btnEdit").click(function () {
-            debugger;
+            
 
             // manuel js validation
             if ($("#Title").val() == "") {

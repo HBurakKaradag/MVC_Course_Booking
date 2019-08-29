@@ -24,7 +24,7 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                            debugger;
+                            
                             var btnActionType = node.data("action");
                             if (btnActionType == "edit") {
                                 var selectedRow = dt.rows({ selected: true }).data()[0];
@@ -51,7 +51,7 @@
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    debugger;
+                    
                     var req = Core.createModel(".box-body.filter");
                     data.FilterRequest = req;
 
@@ -92,7 +92,7 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        debugger;
+                        
                         var attributeTypeList = that.pageInitObject.AttributeTypeList;
 
                         return data == attributeTypeList.Hotel ? "Hotel" : data == attributeTypeList.Room ? "Room" : "-";
@@ -145,7 +145,7 @@
         });
 
         $(document).on('click', '.btnSave', function () {
-            debugger;
+            
             
             var req = Core.createModel("#modal-default");
             // Manuel Validations

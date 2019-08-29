@@ -28,7 +28,7 @@
         <div class="col-md-4">
             <label>IsActive</label>
             <div class="form-group">
-                @Html.CheckBox("IsActive", false, new { data_model = "IsActive", data_type = "bool" })
+                @Html.CheckBoxFor(model => model.IsActive, new { data_model = "IsActive", data_type = "bool" })
             </div>
         </div>
     </div>

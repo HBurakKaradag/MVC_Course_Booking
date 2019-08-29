@@ -111,7 +111,7 @@
 
     var handleEvents = function () {
         $(document).on('click', '.btnDelete', function () {
-            debugger;
+            
             var id = $(this).attr("data-id");
             var reqObj = { id: id };
 

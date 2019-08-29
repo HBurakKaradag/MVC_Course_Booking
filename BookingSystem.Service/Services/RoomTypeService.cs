@@ -46,76 +46,54 @@ namespace BookingSystem.Service.Services
             }
         }
 
-        //public ServiceResultModel<HotelTypeVM> SaveHotelType(HotelTypeVM model)
-        //{
-        //    using (EFBookingContext context = new EFBookingContext())
-        //    {
-        //        bool isAlreadyExists = context.HotelTypes.Any(p => p.Title == model.Title);
-        //        if (isAlreadyExists)
-        //            return new ServiceResultModel<HotelTypeVM>
-        //            {
-        //                Code = ServiceResultCode.Duplicate,
-        //                Data = null,
-        //                ResultType = OperationResultType.Warn,
-        //                Message = "This record already exists"
-        //            };
+        public ServiceResultModel<RoomTypeVM> SaveRoomType(RoomTypeVM model)
+        {
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                bool isAlreadyExists = context.RoomTypes.Any(p => p.Title == model.Title);
+                if (isAlreadyExists)
+                    return new ServiceResultModel<RoomTypeVM>
+                    {
+                        Code = ServiceResultCode.Duplicate,
+                        Data = null,
+                        ResultType = OperationResultType.Warn,
+                        Message = "This record already exists"
+                    };
 
-        //        var recordItem = context.HotelTypes.Add(model.MapProperties<HotelType>());
-        //        context.SaveChanges();
+                var recordItem = context.RoomTypes.Add(model.MapProperties<RoomType>());
+                context.SaveChanges();
 
-        //        return ServiceResultModel<HotelTypeVM>.OK(recordItem.MapProperties<HotelTypeVM>());
-        //    }
-        //}
+                return ServiceResultModel<RoomTypeVM>.OK(recordItem.MapProperties<RoomTypeVM>());
+            }
+        }
 
-        //public ServiceResultModel<HotelTypeVM> UpdateHotelType(HotelTypeVM model)
-        //{
-        //    using (EFBookingContext context = new EFBookingContext())
-        //    {
-        //        var currentItem = context.HotelTypes.FirstOrDefault(p => p.Id == model.Id);
-        //        if (currentItem != null)
-        //        {
-        //            // mevcut kayıt haricinde title ile aynı kayıt olamaz kontrol ediyoruz
-        //            if (context.HotelTypes.Any(p => p.Id != model.Id && p.Title.Equals(model.Title)))
-        //            {
-        //                return new ServiceResultModel<HotelTypeVM>
-        //                {
-        //                    Code = ServiceResultCode.Duplicate,
-        //                    Data = currentItem.MapProperties<HotelTypeVM>(),
-        //                    ResultType = OperationResultType.Warn,
-        //                    Message = "This title using other records "
-        //                };
-        //            }
-        //            currentItem.Title = model.Title;
-        //            currentItem.Description = model.Description;
+        public ServiceResultModel<RoomTypeVM> UpdateRoomType(RoomTypeVM model)
+        {
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                var currentItem = context.RoomTypes.FirstOrDefault(p => p.Id == model.Id);
+                if (currentItem != null)
+                {
+                    // mevcut kayıt haricinde title ile aynı kayıt olamaz kontrol ediyoruz
+                    if (context.RoomTypes.Any(p => p.Id != model.Id && p.Title.Equals(model.Title)))
+                    {
+                        return new ServiceResultModel<RoomTypeVM>
+                        {
+                            Code = ServiceResultCode.Duplicate,
+                            Data = currentItem.MapProperties<RoomTypeVM>(),
+                            ResultType = OperationResultType.Warn,
+                            Message = "This title using other records "
+                        };
+                    }
+                    currentItem.Title = model.Title;
+                    currentItem.Description = model.Description;
 
-        //            context.Entry<HotelType>(currentItem).State = System.Data.Entity.EntityState.Modified;
-        //            context.SaveChanges();
-        //        }
+                    context.Entry<RoomType>(currentItem).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
+                }
 
-        //        return ServiceResultModel<HotelTypeVM>.OK(currentItem.MapProperties<HotelTypeVM>());
-        //    }
-        //}
-
-        //public ServiceResultModel<HotelTypeVM> DeleteHotelType(int id)
-        //{
-        //    using (EFBookingContext context = new EFBookingContext())
-        //    {
-        //        var deleteItem = context.HotelTypes.FirstOrDefault(p => p.Id == id);
-        //        context.HotelTypes.Remove(deleteItem);
-        //        context.SaveChanges();
-
-        //        return ServiceResultModel<HotelTypeVM>.OK(deleteItem.MapProperties<HotelTypeVM>());
-        //        /*
-        //         veya bu şeklide de yazabilirsiniz.
-        //         EF Tracking sistemi ile çalışır. 2. kodda tracking 'e deleteıtem kaydının Hoteltype tablosunda deleted olarak Track'lendiğini bildiriyoruz.
-        //         sonrasında commit 'de ilgili kayıt silinir.
-
-        //        var deleteItem = context.HotelTypes.FirstOrDefault(p => p.Id == id);
-        //        context.Entry<HotelType>(deleteItem).State = System.Data.Entity.EntityState.Deleted;
-        //        context.SaveChanges();
-
-        //         */
-        //    }
-        //}
+                return ServiceResultModel<RoomTypeVM>.OK(currentItem.MapProperties<RoomTypeVM>());
+            }
+        }
     }
 }
