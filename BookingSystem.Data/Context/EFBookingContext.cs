@@ -14,6 +14,8 @@ namespace BookingSystem.Data.Context
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<RoomType> RoomTypes { get; set; }
+
         public DbSet<HotelType> HotelTypes { get; set; }
 
         public DbSet<HotelRoomTypes> HotelRoomTypes { get; set; }

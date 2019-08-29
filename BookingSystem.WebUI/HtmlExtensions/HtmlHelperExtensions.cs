@@ -74,6 +74,20 @@ namespace BookingSystem.WebUI.HtmlExtensions
 
         #region HtmlHelpers
 
+        public static IHtmlString BHiddenFor<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression, object htmlAttributes = null)
+        {
+            var _htmlAttr = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
+
+            if (!_htmlAttr.ContainsKey("data-model"))
+                _htmlAttr.Add("data-model", metadata.PropertyName);
+
+            if (!_htmlAttr.ContainsKey("data-type"))
+                _htmlAttr.Add("data-type", metadata.ModelType.Name);
+
+            return helper.HiddenFor(expression: expression, htmlAttributes: htmlAttributes);
+        }
+
         public static IHtmlString BCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool?>> expression, object htmlAttributes = null)
         {
             var _htmlAttr = new RouteValueDictionary(htmlAttributes ?? new Dictionary<string, object>());

@@ -1,1 +1,35 @@
-﻿
+﻿@model BookingSystem.Domain.WebUI.Room.RoomTypeVM
+
+@Html.BHiddenFor(p => p.Id)
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label" })
+            <div class="form-group">
+                @Html.BTextBoxFor(model => model.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+            <div class="form-group">
+                @Html.BTextAreaFor(model => model.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-4">
+            <label>IsActive</label>
+            <div class="form-group">
+                @Html.CheckBox("IsActive", false, new { data_model = "IsActive", data_type = "bool" })
+            </div>
+        </div>
+    </div>
+</div>

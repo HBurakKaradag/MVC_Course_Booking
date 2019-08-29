@@ -13,6 +13,7 @@ namespace BookingSystem.WebUI.Controllers
             _dashBoardService = new DashboardService();
         }
 
+        [OutputCache(Duration = 30)]
         [ActionName("_GetLeftMenu")]
         public PartialViewResult GetMenu()
         {

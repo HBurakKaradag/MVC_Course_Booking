@@ -44,6 +44,7 @@
     <Compile Include="BaseEntity\EntityBase.cs" />
     <Compile Include="Attributes.cs" />
     <Compile Include="HotelRoomType.cs" />
+    <Compile Include="RoomType.cs" />
     <Compile Include="HotelType.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

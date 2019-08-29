@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AttributeController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
@@ -1993,6 +1994,7 @@
     <Content Include="Scripts\pages\HotelTypes\hoteltypeedit.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypeadd.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypelist.js" />
+    <Content Include="Scripts\pages\RoomTypes\roomtypelist.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.min.js" />
@@ -2055,10 +2057,11 @@
     <Content Include="Views\Hotel\HotelTypeAdd.cshtml" />
     <Content Include="Views\Hotel\HotelTypeEdit.cshtml" />
     <Content Include="Views\Attribute\AttributeList.cshtml" />
+    <Content Include="Views\Room\RoomTypeList.cshtml" />
+    <Content Include="Views\Room\_RoomTypeAddEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Room\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

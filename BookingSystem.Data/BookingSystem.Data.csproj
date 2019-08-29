@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201908271958564_update.Designer.cs">
       <DependentUpon>201908271958564_update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908291057018_roomtype.cs" />
+    <Compile Include="Migrations\201908291057018_roomtype.Designer.cs">
+      <DependentUpon>201908291057018_roomtype.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -97,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908271958564_update.resx">
       <DependentUpon>201908271958564_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908291057018_roomtype.resx">
+      <DependentUpon>201908291057018_roomtype.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,40 +11,28 @@ using System.Web.Mvc;
 namespace BookingSystem.WebUI.Controllers
 {
     [Authorize]
-    public class HotelController : ControllerBase
+    public class RoomController : ControllerBase
     {
-        private readonly HotelTypeService _hotelTypeService;
+        private readonly RoomTypeService _roomTypeService;
 
-        public HotelController()
+        public RoomController()
         {
-            _hotelTypeService = new HotelTypeService();
+            _roomTypeService = new RoomTypeService();
         }
 
-        #region HotelTypesMethods
+        #region RoomTypesMethods
 
-        #region List-HotelType
-
-        /// <summary>
-        /// HotelTypesList Action
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public ActionResult HotelTypeList()
+        public ActionResult RoomTypeList()
         {
-            return View();
+            return View(new RoomTypeFilter());
         }
 
-        /// <summary>
-        /// HotelTypeList Action Grid Fill Method
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public JsonResult GetHotelTypeList(DataTableRequest<HotelTypeFilter> model)
+        public JsonResult GetRoomTypeList(DataTableRequest<RoomTypeFilter> model)
         {
             var page = model.start;
             var rowsPerPage = model.length;
 
-            var filteredData = _hotelTypeService.GetAllHotelTypes(model.FilterRequest);
+            var filteredData = _roomTypeService.GetAllRoomTypes(model.FilterRequest);
             var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
 
             DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
@@ -52,119 +40,153 @@ namespace BookingSystem.WebUI.Controllers
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
 
-        #endregion List-HotelType
+        #endregion RoomTypesMethods
 
-        #region AddEdit-HotelType
+        //#region HotelTypesMethods
 
-        [HttpGet]
-        public ActionResult HotelTypeAdd()
-        {
-            return View(new HotelTypeVM());
-        }
+        //#region List-HotelType
 
-        [HttpGet]
-        public ActionResult HotelTypeEdit(int id)
-        {
-            var model = _hotelTypeService.GetHotelType(id);
-            if (model == null)
-                RedirectToAction(nameof(HotelTypeList));
+        ///// <summary>
+        ///// HotelTypesList Action
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet]
+        //public ActionResult HotelTypeList()
+        //{
+        //    return View();
+        //}
 
-            return View(model.Data);
-        }
+        ///// <summary>
+        ///// HotelTypeList Action Grid Fill Method
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //public JsonResult GetHotelTypeList(DataTableRequest<HotelTypeFilter> model)
+        //{
+        //    var page = model.start;
+        //    var rowsPerPage = model.length;
 
-        [HttpPost]
-        public JsonResult SaveHotelType(HotelTypeVM model)
-        {
-            if (!ModelState.IsValid)
-                return base.JSonModelStateHandle();
+        //    var filteredData = _hotelTypeService.GetAllHotelTypes(model.FilterRequest);
+        //    var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
 
-            ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.SaveHotelType(model);
+        //    DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
 
-            if (!serviceResult.IsSuccess)
-            {
-                base.UIResponse = new UIResponse
-                {
-                    Message = string.Format("Operation Is Not Completed, {0}", serviceResult.Message),
-                    ResultType = serviceResult.ResultType,
-                    Data = serviceResult.Data
-                };
-            }
-            else
-            {
-                base.UIResponse = new UIResponse
-                {
-                    Data = serviceResult.Data,
-                    ResultType = serviceResult.ResultType,
-                    Message = "Success"
-                };
-            }
+        //    return Json(tableResult, JsonRequestBehavior.AllowGet);
+        //}
 
-            return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
-        }
+        //#endregion List-HotelType
 
-        [HttpPost]
-        public JsonResult DeleteHotelType(int id)
-        {
-            if (id <= 0)
-                return Json(base.UIResponse = new UIResponse
-                {
-                    ResultType = Core.OperationResultType.Error,
-                    Message = string.Format("id is not valid, this Id = {0}", id)
-                }, JsonRequestBehavior.AllowGet);
+        //#region AddEdit-HotelType
 
-            ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.DeleteHotelType(id);
-            return Json(base.UIResponse = new UIResponse
-            {
-                ResultType = serviceResult.ResultType,
-                Data = serviceResult.Data,
-                Message = serviceResult.ResultType == Core.OperationResultType.Success ? "Record Deleted Successfully" : string.Format("Warning.. {0}", serviceResult.Message)
-            });
-        }
+        //[HttpGet]
+        //public ActionResult HotelTypeAdd()
+        //{
+        //    return View(new HotelTypeVM());
+        //}
 
-        [HttpPost]
-        public JsonResult UpdateHotelType(HotelTypeVM model)
-        {
-            if (model.Id <= 0)
-                RedirectToAction(nameof(HotelTypeList)); // ErrorHandle eklenecek
+        //[HttpGet]
+        //public ActionResult HotelTypeEdit(int id)
+        //{
+        //    var model = _hotelTypeService.GetHotelType(id);
+        //    if (model == null)
+        //        RedirectToAction(nameof(HotelTypeList));
 
-            if (!ModelState.IsValid)
-                return base.JSonModelStateHandle();
+        //    return View(model.Data);
+        //}
 
-            ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.UpdateHotelType(model);
+        //[HttpPost]
+        //public JsonResult SaveHotelType(HotelTypeVM model)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return base.JSonModelStateHandle();
 
-            if (!serviceResult.IsSuccess)
-            {
-                base.UIResponse = new UIResponse
-                {
-                    Message = string.Format("Operation Is Not Completed, {0}", serviceResult.Message),
-                    ResultType = serviceResult.ResultType,
-                    Data = serviceResult.Data
-                };
-            }
-            else
-            {
-                base.UIResponse = new UIResponse
-                {
-                    Data = serviceResult.Data,
-                    ResultType = serviceResult.ResultType,
-                    Message = "Success"
-                };
-            }
+        //    ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.SaveHotelType(model);
 
-            return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
-        }
+        //    if (!serviceResult.IsSuccess)
+        //    {
+        //        base.UIResponse = new UIResponse
+        //        {
+        //            Message = string.Format("Operation Is Not Completed, {0}", serviceResult.Message),
+        //            ResultType = serviceResult.ResultType,
+        //            Data = serviceResult.Data
+        //        };
+        //    }
+        //    else
+        //    {
+        //        base.UIResponse = new UIResponse
+        //        {
+        //            Data = serviceResult.Data,
+        //            ResultType = serviceResult.ResultType,
+        //            Message = "Success"
+        //        };
+        //    }
 
-        #endregion AddEdit-HotelType
+        //    return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
+        //}
 
-        #endregion HotelTypesMethods
+        //[HttpPost]
+        //public JsonResult DeleteHotelType(int id)
+        //{
+        //    if (id <= 0)
+        //        return Json(base.UIResponse = new UIResponse
+        //        {
+        //            ResultType = Core.OperationResultType.Error,
+        //            Message = string.Format("id is not valid, this Id = {0}", id)
+        //        }, JsonRequestBehavior.AllowGet);
 
-        #region HotelRoomTypesMethods
+        //    ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.DeleteHotelType(id);
+        //    return Json(base.UIResponse = new UIResponse
+        //    {
+        //        ResultType = serviceResult.ResultType,
+        //        Data = serviceResult.Data,
+        //        Message = serviceResult.ResultType == Core.OperationResultType.Success ? "Record Deleted Successfully" : string.Format("Warning.. {0}", serviceResult.Message)
+        //    });
+        //}
 
-        public ActionResult HotelRoomTypeList()
-        {
-            return View();
-        }
+        //[HttpPost]
+        //public JsonResult UpdateHotelType(HotelTypeVM model)
+        //{
+        //    if (model.Id <= 0)
+        //        RedirectToAction(nameof(HotelTypeList)); // ErrorHandle eklenecek
 
-        #endregion HotelRoomTypesMethods
+        //    if (!ModelState.IsValid)
+        //        return base.JSonModelStateHandle();
+
+        //    ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.UpdateHotelType(model);
+
+        //    if (!serviceResult.IsSuccess)
+        //    {
+        //        base.UIResponse = new UIResponse
+        //        {
+        //            Message = string.Format("Operation Is Not Completed, {0}", serviceResult.Message),
+        //            ResultType = serviceResult.ResultType,
+        //            Data = serviceResult.Data
+        //        };
+        //    }
+        //    else
+        //    {
+        //        base.UIResponse = new UIResponse
+        //        {
+        //            Data = serviceResult.Data,
+        //            ResultType = serviceResult.ResultType,
+        //            Message = "Success"
+        //        };
+        //    }
+
+        //    return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
+        //}
+
+        //#endregion AddEdit-HotelType
+
+        //#endregion HotelTypesMethods
+
+        //#region HotelRoomTypesMethods
+
+        ////public ActionResult HotelRoomTypeList()
+        ////{
+        ////    return View();
+        ////}
+
+        //#endregion HotelRoomTypesMethods
     }
 }

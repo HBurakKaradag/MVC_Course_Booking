@@ -51,6 +51,7 @@
     <Compile Include="Extensions\EntityMapperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AttributeService.cs" />
+    <Compile Include="Services\RoomTypeService.cs" />
     <Compile Include="Services\HotelTypeService.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\DashboardService.cs" />
