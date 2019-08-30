@@ -136,6 +136,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlExtensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Models\BrandCrumbModel.cs" />
     <Compile Include="Models\DataTableRequest\Column_Request.cs" />
     <Compile Include="Models\DataTableRequest\DataTableRequest.cs" />
     <Compile Include="Models\DataTableRequest\Order.cs" />

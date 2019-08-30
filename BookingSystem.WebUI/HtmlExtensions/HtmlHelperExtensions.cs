@@ -160,6 +160,35 @@ namespace BookingSystem.WebUI.HtmlExtensions
             return helper.TextBoxFor(expression: expression, htmlAttributes: _htmlAttr);
         }
 
+        public static IHtmlString BuildBrandCrumb(this HtmlHelper helper)
+        {
+            var routeData = helper.ViewContext.RouteData;
+            StringBuilder _sb = new StringBuilder();
+            _sb.Append("<ol class='breadcrumb'>");
+
+            // Get default Route
+            var defaultRoute = ((Route)routeData.Route).Defaults;
+            //_sb.AppendFormat("<li><a href='{0}'><i class='fa fa-home'></i> {1} </a></li>"
+            //                                    , helper.ActionLink( new UrlHelper(helper.ViewContext.RequestContext).Action(actionName: defaultRoute["action"].ToString()
+            //                                                                                             , controllerName: defaultRoute["controller"].ToString())
+            //                                                                                             , defaultRoute["controller"]);
+
+            // Farklı bir sayfa açıldıysa ekleyelim
+            if (defaultRoute["controller"] != routeData.Values["controller"] && defaultRoute["action"] != routeData.Values["action"])
+            {
+                _sb.AppendFormat("<li><a href='{0}'>{1}</a></li>"
+                                               , string.Format("{0}/{1}", routeData.Values["controller"], routeData.Values["action"].ToString())
+                                               , routeData.Values["controller"]);
+
+                _sb.AppendFormat("<li class='active'>{0}</li>"
+                                               , helper.ViewBag?.Title);
+            }
+
+            _sb.Append("</ol>");
+
+            return MvcHtmlString.Create(_sb.ToString());
+        }
+
         #endregion HtmlHelpers
     }
 }
