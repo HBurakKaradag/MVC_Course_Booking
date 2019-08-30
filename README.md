@@ -10,9 +10,9 @@
     Singleton Design Pattern
     
 
-Interface Kullanımı
-Abstract Base Kullanımı
-Extensions Kullanımı
+    Interface Kavramı
+    Abstract Base Kavramı
+    Extensions Kavramı
 
 
 # Validations
@@ -38,12 +38,18 @@ Extensions Kullanımı
     AcceptVerbs
     Controller ReturnTypes
     ModalState kullanımı - JSonResult ModelState Handle
-    Enum Kullanımı
+    Editor Templates Kullanımı
+    
+# Cache
+
+    OutputCache
     
 # Jquery - JS
     
     JQuery-JavaScript Core.js üzerinden işletilmesi
     Ajax crud işlemleri
+    JQuery Validation
+    JQuery Partial Loading
 
 # DatatablesNet 
 
