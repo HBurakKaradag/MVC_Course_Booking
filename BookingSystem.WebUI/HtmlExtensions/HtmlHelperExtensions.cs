@@ -1,4 +1,5 @@
-﻿using BookingSystem.Domain.WebUI.Account;
+﻿using BookingSystem.Core.Extensions;
+using BookingSystem.Domain.WebUI.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace BookingSystem.WebUI.HtmlExtensions
             menuHtml.Append("<li class='header'>MENU NAVIGATION</li>");
             foreach (var parent in parentItems)
             {
-                menuHtml.Append("<li class='treeview'>");
+                menuHtml.Append("<li class='elementliStatus'>");
                 menuHtml.AppendFormat(@"<a href='{0}'>
                                             <i class='fa fa-dashboard'></i>
                                             <span>{1}</span>
@@ -33,27 +34,51 @@ namespace BookingSystem.WebUI.HtmlExtensions
                                           </a>", parent.Url, parent.Title);
 
                 List<MenuVM> childItems = parent.SubMenu.Where(a => a.ParentId == parent.Id).OrderBy(c => c.Order).ToList();
+                bool isSelected = false;
                 if (childItems.Count > 0)
-                    AddChildItem(helper, parent, menuHtml);
+                    AddChildItem(helper, parent, menuHtml, ref isSelected);
                 menuHtml.Append("</li>");
+                menuHtml.Replace("elementliStatus", isSelected ? "treeview menu-open active" : "treeview");
             }
             menuHtml.Append("</ul>");
 
             return MvcHtmlString.Create(menuHtml.ToString());
         }
 
-        private static void AddChildItem(HtmlHelper helper, MenuVM childItem, StringBuilder menuHtml)
+        private static void AddChildItem(HtmlHelper helper, MenuVM childItem, StringBuilder menuHtml, ref bool isSelected)
         {
             menuHtml.Append("<ul class='treeview-menu'>");
             List<MenuVM> childItems = childItem.SubMenu;
             foreach (MenuVM child in childItems)
             {
-                menuHtml.Append(child.SubMenu.Any() ? "<li class='treeview'>" : "<li>");
+                bool childSelected = false;
+                if (child.Url.IsNotNull())
+                {
+                    var urlPath = helper.ViewContext.HttpContext.Session["ActiveMenuPath"].ToString();
+                    var pathArray = urlPath?.Split('/').Where(p => p.IsNotNull()).ToArray();
+
+                    if (pathArray.Any())
+                    {
+                        string controllerName = pathArray.ElementAtOrDefault(0) != null ? pathArray[0] : string.Empty;
+                        string actionName = pathArray.ElementAtOrDefault(1) != null ? pathArray[1] : string.Empty;
+
+                        if (string.Format("{0}/{1}", controllerName, actionName) == child.Url)
+                        {
+                            childSelected = true;
+                            isSelected = true;
+                        }
+
+                    }
+                }
+
+                menuHtml.Append(child.SubMenu.Any() ? "<li class='treeview'>" : "<li class='elementliUrlStatus'>");
                 menuHtml.AppendFormat(@"<a href='{0}'> <i class='{1}'></i> {2}"
                                                             , new UrlHelper(helper.ViewContext.RequestContext).Action(actionName: child.Url.Split('/')[1]
                                                                                                                     , controllerName: child.Url.Split('/')[0])
                                                             , "fa fa-circle-o"
                                                             , child.Title);
+                menuHtml.Replace("elementliUrlStatus", childSelected ? "active" : string.Empty);
+
                 if (child.SubMenu.Any())
                 {
                     menuHtml.Append(@"<span class='pull-right-container'> <i class='fa fa-angle-left pull-right'></i></span>");
@@ -63,7 +88,8 @@ namespace BookingSystem.WebUI.HtmlExtensions
                 List<MenuVM> subChilds = child.SubMenu.Where(a => a.ParentId == child.Id).OrderBy(c => c.Order).ToList();
                 if (subChilds.Count > 0)
                 {
-                    AddChildItem(helper, child, menuHtml);
+                    isSelected = false;
+                    AddChildItem(helper, child, menuHtml, ref isSelected);
                 }
                 menuHtml.Append("</li>");
             }
@@ -168,16 +194,19 @@ namespace BookingSystem.WebUI.HtmlExtensions
 
             // Get default Route
             var defaultRoute = ((Route)routeData.Route).Defaults;
-            //_sb.AppendFormat("<li><a href='{0}'><i class='fa fa-home'></i> {1} </a></li>"
-            //                                    , helper.ActionLink( new UrlHelper(helper.ViewContext.RequestContext).Action(actionName: defaultRoute["action"].ToString()
-            //                                                                                             , controllerName: defaultRoute["controller"].ToString())
-            //                                                                                             , defaultRoute["controller"]);
+            var defActionName = defaultRoute["action"].ToString();
+            var defControllerName = defaultRoute["controller"].ToString();
+
+            _sb.AppendFormat("<li><a href='{0}'><i class='fa fa-home'></i> {1} </a></li>",
+                new UrlHelper(helper.ViewContext.RequestContext).Action(actionName: defActionName, controllerName: defControllerName)
+                , defControllerName);
 
             // Farklı bir sayfa açıldıysa ekleyelim
             if (defaultRoute["controller"] != routeData.Values["controller"] && defaultRoute["action"] != routeData.Values["action"])
             {
                 _sb.AppendFormat("<li><a href='{0}'>{1}</a></li>"
-                                               , string.Format("{0}/{1}", routeData.Values["controller"], routeData.Values["action"].ToString())
+                                               , new UrlHelper(helper.ViewContext.RequestContext).Action(actionName: routeData.Values["action"].ToString(),
+                                                                                                         controllerName: routeData.Values["controller"].ToString())
                                                , routeData.Values["controller"]);
 
                 _sb.AppendFormat("<li class='active'>{0}</li>"

@@ -8,6 +8,11 @@ namespace BookingSystem.WebUI.Controllers
 {
     public abstract class ControllerBase : Controller
     {
+        public ControllerBase()
+        {
+     
+        }
+
         public UIResponse UIResponse { get; set; }
 
         public JsonResult JSonModelStateHandle()

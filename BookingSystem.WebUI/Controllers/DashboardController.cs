@@ -13,10 +13,11 @@ namespace BookingSystem.WebUI.Controllers
             _dashBoardService = new DashboardService();
         }
 
-        [OutputCache(Duration = 30)]
         [ActionName("_GetLeftMenu")]
         public PartialViewResult GetMenu()
         {
+
+            Session["ActiveMenuPath"] = HttpContext.Request.Path;
             var menuVM = _dashBoardService.GetMenu();
             return PartialView("_LeftMenu", menuVM);
         }
