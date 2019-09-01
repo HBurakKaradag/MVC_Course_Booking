@@ -1,16 +1,9 @@
 ﻿using BookingSystem.Core.CustomAttribute;
 using BookingSystem.Domain.WebUI.Account;
-using BookingSystem.Domain.WebUI.AuditLog;
-using BookingSystem.Service.Services;
-using BookingSystem.WebUI.WebCore;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
 
 namespace BookingSystem.WebUI.Filters.ActionFilters

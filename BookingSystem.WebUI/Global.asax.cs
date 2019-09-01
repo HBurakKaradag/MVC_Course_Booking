@@ -2,8 +2,6 @@
 using BookingSystem.WebUI.Controllers;
 using BookingSystem.WebUI.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -40,9 +38,8 @@ namespace BookingSystem.WebUI
                 actionName = httpStatusCode == 404 ? "Http404Error" :
                              httpStatusCode == 500 ? "Http500Error" : "Error";
             }
-            else if(ex.GetType() == typeof(DatabaseException) ||   ex.InnerException.GetType() == typeof(DatabaseException) )
+            else if (ex.GetType() == typeof(DatabaseException) || ex.InnerException.GetType() == typeof(DatabaseException))
             {
-
             }
 
             RouteData routeData = new RouteData();

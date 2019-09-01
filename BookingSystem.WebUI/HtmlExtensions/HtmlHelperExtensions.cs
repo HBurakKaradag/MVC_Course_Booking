@@ -67,7 +67,6 @@ namespace BookingSystem.WebUI.HtmlExtensions
                             childSelected = true;
                             isSelected = true;
                         }
-
                     }
                 }
 

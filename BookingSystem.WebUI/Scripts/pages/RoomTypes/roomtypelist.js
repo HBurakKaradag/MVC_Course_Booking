@@ -60,11 +60,12 @@
                 }
             },
             "columns": [
-                { "data": "[]", "name": "#", "bSortable": false },
+                { "data": "[]", "name": "", "bSortable": false },
                 { "data": "Id", "name": "Id", "bSortable": false, "Width": "0" },
                 { "data": "Title", "name": "Title", "bSortable": false, "Width": "10" },
                 { "data": "Description", "name": "Description", "bSortable": false, "Width": "10" },
-                { "data": "IsActive", "name": "Active", "bSortable": true, "Width": "5" }
+                { "data": "IsActive", "name": "Active", "bSortable": true, "Width": "5" },
+                { "data": "[]", "name": "#", "bSortable": true, "Width": "5" }
 
             ],
             "columnDefs": [
@@ -89,6 +90,14 @@
                         return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
                     },
                     "targets": [4],
+                    "class": "text-center"
+                },
+                {
+                    "render": function (data, type, row) {
+                        var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
+                        return actionsDelete;
+                    },
+                    "targets": 5,
                     "class": "text-center"
                 }
 
@@ -149,6 +158,35 @@
         $('#tableRoomTypeList').DataTable().on('deselect', function (e, dt, type, indexes) {
             $(".dt-AddButton").html(that.pageInitObject.Languages.BtnAddValue);
             $(".dt-AddButton").attr("data-action", "add");
+        });
+
+        $(document).on('click', '.btnDelete', function () {
+            var id = $(this).attr("data-id");
+            var reqObj = { id: id };
+
+            $.ajax({
+                url: that.pageInitObject.Urls.DeleteUrlAction,
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(reqObj),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if (data.ResultType == Core.responseStatus.Success) {
+                        Core.showNotify("<b>Complate Successfully</b>", "", "success");
+                        refreshTable();
+                    }
+                    else {
+                        Core.showNotify("<b>Warning..</b>", data.Message, "warning");
+                        return;
+                    }
+                },
+                error: function (xhr) {
+                    Core.showNotify("<b>Get an Error</b>", "", "error");
+                }
+            });
         });
 
         $(document).on('click', '.btnSave', function () {

@@ -60,6 +60,25 @@ namespace BookingSystem.WebUI.Controllers
         #endregion RoomTypesMethods
 
         [HttpPost]
+        public JsonResult DeleteRoomType(int id)
+        {
+            if (id <= 0)
+                return Json(base.UIResponse = new UIResponse
+                {
+                    ResultType = Core.OperationResultType.Error,
+                    Message = string.Format("id is not valid, this Id = {0}", id)
+                }, JsonRequestBehavior.AllowGet);
+
+            ServiceResultModel<RoomTypeVM> serviceResult = _roomTypeService.DeleteHotelType(id);
+            return Json(base.UIResponse = new UIResponse
+            {
+                ResultType = serviceResult.ResultType,
+                Data = serviceResult.Data,
+                Message = serviceResult.ResultType == Core.OperationResultType.Success ? "Record Deleted Successfully" : string.Format("Warning.. {0}", serviceResult.Message)
+            });
+        }
+
+        [HttpPost]
         public JsonResult SaveRoomType(RoomTypeVM model)
         {
             if (!ModelState.IsValid)

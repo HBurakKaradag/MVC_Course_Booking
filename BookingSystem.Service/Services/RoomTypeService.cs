@@ -95,5 +95,16 @@ namespace BookingSystem.Service.Services
                 return ServiceResultModel<RoomTypeVM>.OK(currentItem.MapProperties<RoomTypeVM>());
             }
         }
+
+        public ServiceResultModel<RoomTypeVM> DeleteHotelType(int id)
+        {
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                var deleteItem = context.RoomTypes.FirstOrDefault(p => p.Id == id);
+                context.RoomTypes.Remove(deleteItem);
+                context.SaveChanges();
+                return ServiceResultModel<RoomTypeVM>.OK(deleteItem.MapProperties<RoomTypeVM>());
+            }
+        }
     }
 }

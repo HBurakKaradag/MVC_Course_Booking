@@ -58,11 +58,12 @@
                         <table id="tableRoomTypeList" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th></th>
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>IsActive</th>
+                                    <th>#</th>
                                 </tr>
                             </thead>
                         </table>
@@ -102,8 +103,8 @@
             gridLoadUrl: '@Url.Action("GetRoomTypeList", "Room")',
             addEditPartialUrl : '@Url.Action("RoomTypeAddEdit","Room")',
             SaveUrlAction: '@Url.Action("SaveRoomType","Room")',
-            UpdateUrlAction :'@Url.Action("UpdateRoomType","Room")'
-
+            UpdateUrlAction: '@Url.Action("UpdateRoomType","Room")',
+            DeleteUrlAction :'@Url.Action("DeleteRoomType","Room")'
         };
 
         var languages = {
@@ -112,7 +113,6 @@
         };
 
         initObject.Urls = urls;
-        //initObject.AttributeTypeList = attributeTypeList;
         initObject.Languages = languages;
 
         RoomTypeList.init(initObject);

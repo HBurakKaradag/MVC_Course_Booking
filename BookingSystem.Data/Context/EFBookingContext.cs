@@ -21,7 +21,7 @@ namespace BookingSystem.Data.Context
             }
             catch (Exception ex)
             {
-                // çzelleştir
+                // özelleştir
                 throw new DatabaseException("DataBaseExcetion", ex);
             }
             return result;
