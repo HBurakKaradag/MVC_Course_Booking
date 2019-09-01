@@ -33,3 +33,14 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.CreateDate, new { @class = "control-label" })
+            <div class="form-group">
+                @Html.BTextBoxFor(model => model.CreateDate, new { @class = "form-control", @type="date" })
+                @Html.ValidationMessageFor(model => model.CreateDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,19 +2,19 @@ namespace BookingSystem.Data.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    public partial class roomtype : DbMigration
+    public partial class AuditLogtablesAdded : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.RoomTypes",
+                "dbo.AuditLogs",
                 c => new
                 {
                     Id = c.Int(nullable: false, identity: true),
-                    Title = c.String(),
-                    Description = c.String(),
-                    IsDeleted = c.Boolean(nullable: false),
-                    IsActive = c.Boolean(nullable: false),
+                    SessionId = c.String(),
+                    ControllerName = c.String(),
+                    ActionName = c.String(),
+                    CreateDateTime = c.DateTime(nullable: false),
                     CreateDate = c.DateTime(nullable: false),
                 })
                 .PrimaryKey(t => t.Id);
@@ -22,7 +22,7 @@ namespace BookingSystem.Data.Migrations
 
         public override void Down()
         {
-            DropTable("dbo.RoomTypes");
+            DropTable("dbo.AuditLogs");
         }
     }
 }

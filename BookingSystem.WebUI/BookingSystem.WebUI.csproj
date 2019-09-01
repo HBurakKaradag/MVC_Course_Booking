@@ -127,11 +127,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AttributeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Filters\ActionFilters\AuditLogAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -142,6 +144,7 @@
     <Compile Include="Models\DataTableRequest\Order.cs" />
     <Compile Include="Models\DataTableRequest\Search_Request.cs" />
     <Compile Include="Models\DataTableResponse\DataTableResponse.cs" />
+    <Compile Include="Models\DateTimeModelBinder.cs" />
     <Compile Include="Models\Response\Errors.cs" />
     <Compile Include="Models\Response\UIResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1992,6 +1995,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\pages\Attributes\attributelist.js" />
+    <Content Include="Scripts\pages\Dashboard\auditloglist.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypeedit.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypeadd.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypelist.js" />
@@ -2060,6 +2064,9 @@
     <Content Include="Views\Attribute\AttributeList.cshtml" />
     <Content Include="Views\Room\RoomTypeList.cshtml" />
     <Content Include="Views\Room\_RoomTypeAddEdit.cshtml" />
+    <Content Include="Views\Dashboard\AuditLog.cshtml" />
+    <Content Include="Views\Error\Http500Error.cshtml" />
+    <Content Include="Views\Error\Http404Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

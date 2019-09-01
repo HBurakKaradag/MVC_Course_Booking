@@ -1,4 +1,6 @@
-﻿using BookingSystem.Domain.Entity;
+﻿using BookingSystem.Core.CustomException;
+using BookingSystem.Domain.Entity;
+using System;
 using System.Data.Entity;
 
 namespace BookingSystem.Data.Context
@@ -10,6 +12,22 @@ namespace BookingSystem.Data.Context
         {
         }
 
+        public override int SaveChanges()
+        {
+            var result = 0;
+            try
+            {
+                result = base.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // çzelleştir
+                throw new DatabaseException("DataBaseExcetion", ex);
+            }
+            return result;
+        }
+
+        public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<Menu> Menus { get; set; }
 
         public DbSet<User> Users { get; set; }

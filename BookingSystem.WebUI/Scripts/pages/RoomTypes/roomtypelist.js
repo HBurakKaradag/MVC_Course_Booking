@@ -24,7 +24,6 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                            
                             var selectedRow = dt.rows({ selected: true }).data()[0];
                             var selectedId = !jQuery.isEmptyObject(selectedRow) ? selectedRow.Id : null;
                             openAddEditDialog(selectedId);
@@ -48,7 +47,6 @@
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    
                     var req = Core.createModel(".box-body.filter");
                     data.FilterRequest = req;
 
@@ -113,8 +111,6 @@
     };
 
     var openAddEditDialog = function (selectedId) {
-        
-
         var req = { id: selectedId };
         //var getUrl = that.pageInitObject.Urls.addEditPartialUrl + "?id=" + req.id;
 
@@ -128,7 +124,7 @@
             processData: false,
             cache: false,
             success: function (data) {
-                
+                debugger;
                 $("#modal-default .modal-body").html(data);
                 $('#modal-default').modal({ cache: false }, 'show');
             },
@@ -156,8 +152,6 @@
         });
 
         $(document).on('click', '.btnSave', function () {
-            
-
             var req = Core.createModel("#modal-default");
             // Manuel Validations
             if (req.Title == "") {
@@ -169,14 +163,14 @@
                 Core.showNotify("<b>Warning</b>", "Description must be requried", "warning");
                 return;
             }
-         
+
             // add - or - edit
             var isSave = (parseInt(req.Id) || 0) <= 0;
 
             if (!jQuery.isEmptyObject(req)) {
                 $.ajax({
                     url: isSave ? that.pageInitObject.Urls.SaveUrlAction
-                                : that.pageInitObject.Urls.UpdateUrlAction,
+                        : that.pageInitObject.Urls.UpdateUrlAction,
                     dataType: "json",
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',

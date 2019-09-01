@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomAttribute\AuditLogIgnore.cs" />
     <Compile Include="CustomAttribute\MapIgnoreAttribute.cs" />
+    <Compile Include="CustomException\DatabaseException.cs" />
     <Compile Include="CustomValidation\IsSameValue.cs" />
     <Compile Include="EnumDefinitions.cs" />
     <Compile Include="Extensions\StringExtension.cs" />

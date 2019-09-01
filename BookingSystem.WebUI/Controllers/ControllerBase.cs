@@ -1,4 +1,5 @@
 ﻿using BookingSystem.Core;
+using BookingSystem.WebUI.Filters.ActionFilters;
 using BookingSystem.WebUI.Models.Response;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,11 @@ using System.Web.Mvc;
 
 namespace BookingSystem.WebUI.Controllers
 {
+    [AuditLog]
     public abstract class ControllerBase : Controller
     {
         public ControllerBase()
         {
-     
         }
 
         public UIResponse UIResponse { get; set; }

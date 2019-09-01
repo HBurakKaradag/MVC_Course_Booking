@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201908291057018_roomtype.Designer.cs">
       <DependentUpon>201908291057018_roomtype.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908311236269_AuditLog tables Added.cs" />
+    <Compile Include="Migrations\201908311236269_AuditLog tables Added.Designer.cs">
+      <DependentUpon>201908311236269_AuditLog tables Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +85,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BookingSystem.Core\BookingSystem.Core.csproj">
+      <Project>{4701CC75-A61D-437E-8805-8837212E8103}</Project>
+      <Name>BookingSystem.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookingSystem.Domain.Entity\BookingSystem.Domain.Entity.csproj">
       <Project>{8A99C402-7936-467F-916C-CCEB259E175F}</Project>
       <Name>BookingSystem.Domain.Entity</Name>
@@ -104,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908291057018_roomtype.resx">
       <DependentUpon>201908291057018_roomtype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908311236269_AuditLog tables Added.resx">
+      <DependentUpon>201908311236269_AuditLog tables Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

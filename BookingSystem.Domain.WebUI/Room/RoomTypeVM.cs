@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookingSystem.Domain.WebUI.Room
 {
@@ -20,5 +21,6 @@ namespace BookingSystem.Domain.WebUI.Room
 
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

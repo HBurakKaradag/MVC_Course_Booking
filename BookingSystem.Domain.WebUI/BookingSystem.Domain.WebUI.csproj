@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AttributeVM.cs" />
+    <Compile Include="AuditLog\AuiditLogVM.cs" />
     <Compile Include="Filters\AttributeFilter.cs" />
     <Compile Include="Filters\HotelRoomTypeFilter.cs" />
     <Compile Include="Filters\RoomTypeFilter.cs" />
