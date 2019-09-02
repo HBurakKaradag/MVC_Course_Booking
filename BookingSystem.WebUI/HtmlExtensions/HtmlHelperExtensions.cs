@@ -99,18 +99,45 @@ namespace BookingSystem.WebUI.HtmlExtensions
 
         #region HtmlHelpers
 
+        private static void AddDefaultAttribute(ref RouteValueDictionary htmlAttr, ModelMetadata metaData)
+        {
+            if (!htmlAttr.ContainsKey("data-model"))
+                htmlAttr.Add("data-model", metaData.PropertyName);
+
+            if (!htmlAttr.ContainsKey("data-type"))
+                htmlAttr.Add("data-type", metaData.ModelType.Name);
+        }
+
         public static IHtmlString BHiddenFor<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression, object htmlAttributes = null)
         {
             var _htmlAttr = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
-            if (!_htmlAttr.ContainsKey("data-model"))
-                _htmlAttr.Add("data-model", metadata.PropertyName);
-
-            if (!_htmlAttr.ContainsKey("data-type"))
-                _htmlAttr.Add("data-type", metadata.ModelType.Name);
+            AddDefaultAttribute(ref _htmlAttr, metadata);
 
             return helper.HiddenFor(expression: expression, htmlAttributes: htmlAttributes);
+        }
+
+        public static IHtmlString BDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+                                                             Expression<Func<TModel, TProperty>> expression,
+                                                             IEnumerable<SelectListItem> data,
+                                                             object htmlAttributes = null)
+        {
+            var _htmlAttr = new RouteValueDictionary(htmlAttributes ?? new Dictionary<string, object>());
+
+            // Expression üzerinden gönderilen prop içeriğini elde edelim..
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
+
+            AddDefaultAttribute(ref _htmlAttr, metadata);
+
+            // placeHolder
+            if (!_htmlAttr.ContainsKey("placeholder"))
+            {
+                string textVal = string.Format("{0}", metadata.DisplayName ?? metadata.PropertyName);
+                _htmlAttr.Add("placeholder", textVal);
+            }
+
+            return helper.DropDownListFor(expression: expression, selectList: data, htmlAttributes: _htmlAttr);
         }
 
         public static IHtmlString BCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool?>> expression, object htmlAttributes = null)
@@ -142,15 +169,10 @@ namespace BookingSystem.WebUI.HtmlExtensions
             var _htmlAttr = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
+            AddDefaultAttribute(ref _htmlAttr, metadata);
+
             if (!_htmlAttr.ContainsKey("readonly") && isReadonly.HasValue)
                 _htmlAttr.Add("readonly", isReadonly);
-
-            if (!_htmlAttr.ContainsKey("data-model"))
-                _htmlAttr.Add("data-model", metadata.PropertyName);
-
-            // data-type
-            if (!_htmlAttr.ContainsKey("data-type"))
-                _htmlAttr.Add("data-type", metadata.ModelType.Name);
 
             return TextAreaExtensions.TextAreaFor(helper, expression, new RouteValueDictionary(_htmlAttr));
         }
@@ -167,20 +189,14 @@ namespace BookingSystem.WebUI.HtmlExtensions
             // default attribute'lar kontrol edilip ekleniyor..
             // Projede bütünlük sağlanması adına çeşitli attribute'lar set ediliyor.
 
+            AddDefaultAttribute(ref _htmlAttr, metadata);
+
             // placeHolder
             if (!_htmlAttr.ContainsKey("placeholder"))
             {
                 string textVal = string.Format("{0}", metadata.DisplayName ?? metadata.PropertyName);
                 _htmlAttr.Add("placeholder", textVal);
             }
-
-            // data-model
-            if (!_htmlAttr.ContainsKey("data-model"))
-                _htmlAttr.Add("data-model", metadata.PropertyName);
-
-            // data-type
-            if (!_htmlAttr.ContainsKey("data-type"))
-                _htmlAttr.Add("data-type", metadata.ModelType.Name);
 
             return helper.TextBoxFor(expression: expression, htmlAttributes: _htmlAttr);
         }

@@ -46,8 +46,10 @@
     <Compile Include="AuditLog\AuiditLogVM.cs" />
     <Compile Include="Filters\AttributeFilter.cs" />
     <Compile Include="Filters\HotelRoomTypeFilter.cs" />
+    <Compile Include="Filters\HotelFilter.cs" />
     <Compile Include="Filters\RoomTypeFilter.cs" />
     <Compile Include="Filters\HotelTypeFilter.cs" />
+    <Compile Include="Hotel\HotelDefinitionVM.cs" />
     <Compile Include="Hotel\HotelTypeVM.cs" />
     <Compile Include="Account\MenuVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

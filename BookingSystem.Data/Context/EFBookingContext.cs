@@ -36,6 +36,8 @@ namespace BookingSystem.Data.Context
 
         public DbSet<HotelType> HotelTypes { get; set; }
 
+        public DbSet<HotelDefinition> HotelDefinitions { get; set; }
+
         public DbSet<HotelRoomTypes> HotelRoomTypes { get; set; }
 
         public DbSet<Attributes> Attributes { get; set; }

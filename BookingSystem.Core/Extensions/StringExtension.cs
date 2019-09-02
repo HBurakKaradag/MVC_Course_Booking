@@ -1,4 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 
 namespace BookingSystem.Core.Extensions
 {
@@ -17,6 +20,14 @@ namespace BookingSystem.Core.Extensions
         public static bool IsValidEmail(this string p)
         {
             return new EmailAddressAttribute().IsValid(p);
+        }
+
+        public static string Titilize(this string p)
+        {
+            if (p.IsNull())
+                return "";
+
+            return string.Join("", p.Normalize(NormalizationForm.FormD).Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)).Replace("ı", "i");
         }
     }
 }

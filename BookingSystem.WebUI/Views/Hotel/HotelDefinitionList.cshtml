@@ -52,53 +52,46 @@
         </div>
     </div>
 </div>
-@*<div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                @Html.Hidden("hotelTypeAddUrl", Url.Action("HotelTypeAdd", "Hotel"))
-                <div class="box-header">
-                </div>
-                <div class="box-body">
-                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="col-sm-12">
-                            <table id="tableHotelTypeList" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th>IsActive</th>
-                                        <th>IsDeleted</th>
-                                        <th>#</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+            </div>
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="col-sm-12">
+                        <table id="tableHotelDefinitionList" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>IsActive</th>
+                                    <th>IsDeleted</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>*@
+    </div>
+</div>
 
 <script type="text/javascript">
 
-        jQuery(document).ready(function () {
+    jQuery(document).ready(function () {
+
             var initObject = [];
-            var urls = {
-                editButtonUrl: '@Url.Action("HotelTypeEdit", "Hotel")',
-                deleteUrlAction: '@Url.Action("DeleteHotelType", "Hotel")',
-                gridLoadUrl: '@Url.Action("GetHotelTypeList", "Hotel")'
-
+            var Urls = {
+                EditButtonUrl: '@Url.Action("HotelDefinitionEdit", "Hotel")',
+                DeleteUrlAction: '@Url.Action("DeleteHotelType", "Hotel")',
+                GridLoadUrl: '@Url.Action("GetHotelTypeList", "Hotel")'
             };
 
-            // obje içerisnde kullanımını görmeniz için ekliyorum
-            var languageItems = {
-                editButtonText : "Edit"
-            };
+            initObject.Urls = urls;
 
-            initObject.urls = urls;
-            initObject.languageItems = languageItems;
-
-            HotelTypelist.init(initObject);
+            HotelDefinitionlist.init(initObject);
         });
 </script>

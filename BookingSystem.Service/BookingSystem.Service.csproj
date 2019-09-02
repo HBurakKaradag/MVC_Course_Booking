@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuditLogService.cs" />
     <Compile Include="Services\AttributeService.cs" />
+    <Compile Include="Services\HotelDefinitionService.cs" />
     <Compile Include="Services\RoomTypeService.cs" />
     <Compile Include="Services\HotelTypeService.cs" />
     <Compile Include="Services\AccountService.cs" />

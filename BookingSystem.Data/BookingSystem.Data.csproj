@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201908311236269_AuditLog tables Added.Designer.cs">
       <DependentUpon>201908311236269_AuditLog tables Added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909021001215_hotel_definition added.cs" />
+    <Compile Include="Migrations\201909021001215_hotel_definition added.Designer.cs">
+      <DependentUpon>201909021001215_hotel_definition added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908311236269_AuditLog tables Added.resx">
       <DependentUpon>201908311236269_AuditLog tables Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909021001215_hotel_definition added.resx">
+      <DependentUpon>201909021001215_hotel_definition added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

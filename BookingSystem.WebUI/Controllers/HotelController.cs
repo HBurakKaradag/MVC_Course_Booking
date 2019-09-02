@@ -14,10 +14,12 @@ namespace BookingSystem.WebUI.Controllers
     public class HotelController : ControllerBase
     {
         private readonly HotelTypeService _hotelTypeService;
+        private readonly HotelDefinitionService _hotelDefinitionService;
 
         public HotelController()
         {
             _hotelTypeService = new HotelTypeService();
+            _hotelDefinitionService = new HotelDefinitionService();
         }
 
         #region HotelTypesMethods
@@ -166,5 +168,33 @@ namespace BookingSystem.WebUI.Controllers
         }
 
         #endregion HotelRoomTypesMethods
+
+        [HttpGet]
+        public ActionResult HotelDefinitionList()
+        {
+            var hoteltypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data
+                                                                                      .Select(p => new SelectListItem
+                                                                                      {
+                                                                                          Value = p.Id.ToString(),
+                                                                                          Text = p.Title,
+                                                                                          Selected = false
+                                                                                      }).AsEnumerable();
+            ViewBag.HotelTypesData = hoteltypes;
+
+            return View();
+        }
+
+        public JsonResult GetHotels(DataTableRequest<HotelFilter> model)
+        {
+            var page = model.start;
+            var rowsPerPage = model.length;
+
+            var filteredData = _hotelDefinitionService.GetHotels(model.FilterRequest);
+            var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
+
+            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
+
+            return Json(tableResult, JsonRequestBehavior.AllowGet);
+        }
     }
 }

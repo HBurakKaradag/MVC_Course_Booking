@@ -2,19 +2,20 @@
 
 namespace BookingSystem.Domain.Entity
 {
-    public class HotelRoomTypes : EntityBase
+    public class HotelDefinition : EntityBase
     {
-        public HotelRoomTypes()
+        public HotelDefinition()
         {
             this.IsActive = true;
             this.IsDeleted = false;
         }
 
-        public int HotelId { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
 
-        public int RoomTypeId { get; set; }
+        public string Url { get; set; }
 
-        public int RoomCapacity { get; set; }
+        public int HoteTypeId { get; set; }
 
         public bool IsActive { get; set; }
 

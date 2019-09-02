@@ -1,9 +1,9 @@
-﻿var HotelTypelist = function () {
+﻿var HotelDefinitionlist = function () {
     var that = this;
     var pageInitObject = [];
 
     var fillTable = function () {
-        var table = $('#tableHotelTypeList');
+        var table = $('#tableHotelDefinitionList');
 
         if (!jQuery().DataTable) {
             return;
@@ -18,25 +18,8 @@
             "filter": true, // this is for disable filter (search box)
             "orderMulti": false, // for disable multiple column at once
             "pageLength": 10,
-            buttons: {
-                buttons: [
-                    {
-                        text: "New Record",
-                        action: function (e, dt, node, config) {
-                            window.location.href = $("#hotelTypeAddUrl").val();
-                        }
-                    }
-                ],
-                dom: {
-                    button: {
-                        tag: "button",
-                        className: "btn btn-default dt-AddButton"
-                    },
-                    buttonLiner: {
-                        tag: null
-                    }
-                }
-            },
+            buttons: [
+            ],
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             "ajax": {
                 "url": that.pageInitObject.urls.gridLoadUrl,
@@ -60,12 +43,11 @@
             },
             "columns": [
                 { "data": "Id", "name": "Id", "bSortable": false, "sWidth": "0" },
+                { "data": "HotelName", "name": "HotelName", "bSortable": false, "Width": "10" },
                 { "data": "Title", "name": "Title", "bSortable": false, "Width": "10" },
-                { "data": "Description", "name": "Description", "bSortable": false, "Width": "10" },
-                { "data": "IsActive", "name": "IsActive", "bSortable": true, "Width": "5" },
-                { "data": "IsDeleted", "name": "IsDeleted", "bSortable": false, "Width": "5" },
+                { "data": "HotelTypeId", "name": "HotelTypeId", "bSortable": true, "Width": "5" },
+                { "data": "IsAvtive", "name": "IsActive", "bSortable": false, "Width": "5" },
                 { "data": "#", "name": "#", "bSortable": false }
-
             ],
             "columnDefs": [
                 {
@@ -81,17 +63,15 @@
                     "render": function (data, type, row) {
                         return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
                     },
-                    "targets": [3, 4],
+                    "targets": [4],
                     "class": "text-center"
                 },
                 {
                     "render": function (data, type, row) {
-                        var editUrl = that.pageInitObject.urls.editButtonUrl + '?Id=' + row.Id;
-
+                        var editUrl = that.pageInitObject.Urls.EditButtonUrl + '?Id=' + row.Id;
                         var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
-                        var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
 
-                        return (actionsEdit + "&nbsp" + actionsDelete);
+                        return actionsEdit;
                     },
                     "targets": 5,
                     "class": "text-center"
@@ -101,22 +81,27 @@
     };
 
     var refreshTable = function () {
-        var oTable = $('#tableHotelTypeList').DataTable();
+        var oTable = $('#tableHotelDefinitionList').DataTable();
         oTable.ajax.reload();
     }
 
     var handleStartup = function () {
         $('.box.box-default').boxWidget('toggle');
+
+        $("#HotelType").select2({
+            placeholder: "Select a state",
+            allowClear: true,
+            width: '100%'
+        });
     };
 
     var handleEvents = function () {
         $(document).on('click', '.btnDelete', function () {
-            
             var id = $(this).attr("data-id");
             var reqObj = { id: id };
 
             $.ajax({
-                url: that.pageInitObject.urls.deleteUrlAction,
+                url: that.pageInitObject.Urls.DeleteUrlAction,
                 dataType: "json",
                 type: "POST",
                 contentType: 'application/json; charset=utf-8',
@@ -143,7 +128,7 @@
         $(document).on('click', '.btnClear', function () {
             Core.clearForm();
             refreshTable();
-            // $('#tableHotelTypeList').DataTable().rows('.selected').deselect();
+            // $('#tableHotelDefinitionList').DataTable().rows('.selected').deselect();
         });
 
         $(document).on('click', '.btnSearch', function () {
