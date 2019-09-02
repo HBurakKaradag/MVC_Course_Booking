@@ -52,19 +52,19 @@
         // veya core.js içerisinde manuel handle edebilirsiniz.
         // farklı örneklendirme olması için burada handle ediyorum.
 
-        $(document).find("[type=hidden]").each(function () {
+        //$(document).find("[type=hidden]").each(function () {
             
-            // each içersinde olduğumuz için this current DOM element olur
-            var $this = $(this);
-            // elemet üzerindeki id attribute u kullanarak DOl element id sini aldık >> @Html.HiddenFor(p  => p.Name) ise key Name olur
-            var key = $this.attr('id');
-            if (key == "" || key == 'undefined' || key == null)
-                key = $this.attr('data-model');
-            // elimizde Dom element'in id si olduğuna göre başına # koyup element'e id ile erişebiliriz. val ile değerini alırız.
-            var value = $("#" + key).val();
-            // model 'e ekleriz
-            model[key] = value;
-        });
+        //    // each içersinde olduğumuz için this current DOM element olur
+        //    var $this = $(this);
+        //    // elemet üzerindeki id attribute u kullanarak DOl element id sini aldık >> @Html.HiddenFor(p  => p.Name) ise key Name olur
+        //    var key = $this.attr('id');
+        //    if (key == "" || key == 'undefined' || key == null)
+        //        key = $this.attr('data-model');
+        //    // elimizde Dom element'in id si olduğuna göre başına # koyup element'e id ile erişebiliriz. val ile değerini alırız.
+        //    var value = $("#" + key).val();
+        //    // model 'e ekleriz
+        //    model[key] = value;
+        //});
 
         return model;
     }

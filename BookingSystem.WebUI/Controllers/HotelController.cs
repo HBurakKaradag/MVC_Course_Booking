@@ -178,7 +178,7 @@ namespace BookingSystem.WebUI.Controllers
                                                                                           Value = p.Id.ToString(),
                                                                                           Text = p.Title,
                                                                                           Selected = false
-                                                                                      }).AsEnumerable();
+                                                                                      }).ToList().AsEnumerable();
             ViewBag.HotelTypesData = hoteltypes;
 
             return View();

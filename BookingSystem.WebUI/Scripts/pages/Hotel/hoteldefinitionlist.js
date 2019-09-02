@@ -18,21 +18,38 @@
             "filter": true, // this is for disable filter (search box)
             "orderMulti": false, // for disable multiple column at once
             "pageLength": 10,
-            buttons: [
-            ],
+            buttons: {
+                buttons: [
+                    {
+                        text: "New Record",
+                        action: function (e, dt, node, config) {
+                            window.location.href = pageInitObject.Url.HotelAddAction;
+                        }
+                    }
+                ],
+                dom: {
+                    button: {
+                        tag: "button",
+                        className: "btn btn-default dt-AddButton"
+                    },
+                    buttonLiner: {
+                        tag: null
+                    }
+                }
+            },
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             "ajax": {
-                "url": that.pageInitObject.urls.gridLoadUrl,
+                "url": that.pageInitObject.Urls.GridLoadUrl,
                 "contentType": "application/json",
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    var req = Core.createModel();
+                    var req = Core.createModel(".box-body.filter");
                     data.FilterRequest = req;
-
                     var request = {
                         model: data
                     };
+                    debugger;
                     return JSON.stringify(request);
                 },
                 "dataFilter": function (data) {
@@ -45,37 +62,39 @@
                 { "data": "Id", "name": "Id", "bSortable": false, "sWidth": "0" },
                 { "data": "HotelName", "name": "HotelName", "bSortable": false, "Width": "10" },
                 { "data": "Title", "name": "Title", "bSortable": false, "Width": "10" },
+                { "data": "Url", "name": "Url", "bSortable": false, "Width": "10" },
                 { "data": "HotelTypeId", "name": "HotelTypeId", "bSortable": true, "Width": "5" },
-                { "data": "IsAvtive", "name": "IsActive", "bSortable": false, "Width": "5" },
+                { "data": "IsActive", "name": "IsActive", "bSortable": false, "Width": "5" },
+                { "data": "IsDeleted", "name": "IsDeleted", "bSortable": false, "Width": "5" },
                 { "data": "#", "name": "#", "bSortable": false }
             ],
             "columnDefs": [
-                {
-                    "targets": [0],
-                    "visible": false,
-                    "searchable": false
-                },
-                {
-                    "targets": [3, 4],
-                    "class": "text-center"
-                },
-                {
-                    "render": function (data, type, row) {
-                        return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
-                    },
-                    "targets": [4],
-                    "class": "text-center"
-                },
-                {
-                    "render": function (data, type, row) {
-                        var editUrl = that.pageInitObject.Urls.EditButtonUrl + '?Id=' + row.Id;
-                        var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+                //{
+                //    "targets": [0],
+                //    "visible": false,
+                //    "searchable": false
+                //},
+                //{
+                //    "targets": [3, 4],
+                //    "class": "text-center"
+                //},
+                //{
+                //    "render": function (data, type, row) {
+                //        return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
+                //    },
+                //    "targets": [4],
+                //    "class": "text-center"
+                //},
+                //{
+                //    "render": function (data, type, row) {
+                //        var editUrl = that.pageInitObject.Urls.EditButtonUrl + '?Id=' + row.Id;
+                //        var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
 
-                        return actionsEdit;
-                    },
-                    "targets": 5,
-                    "class": "text-center"
-                }
+                //        return actionsEdit;
+                //    },
+                //    "targets": 5,
+                //    "class": "text-center"
+                //}
             ]
         });
     };
@@ -88,7 +107,7 @@
     var handleStartup = function () {
         $('.box.box-default').boxWidget('toggle');
 
-        $("#HotelType").select2({
+        $("#HotelTypeId").select2({
             placeholder: "Select a state",
             allowClear: true,
             width: '100%'

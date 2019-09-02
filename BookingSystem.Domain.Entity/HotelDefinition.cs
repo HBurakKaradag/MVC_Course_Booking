@@ -10,7 +10,7 @@ namespace BookingSystem.Domain.Entity
             this.IsDeleted = false;
         }
 
-        public string Name { get; set; }
+        public string HotelName { get; set; }
         public string Title { get; set; }
 
         public string Url { get; set; }

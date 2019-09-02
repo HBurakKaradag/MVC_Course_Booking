@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201909021001215_hotel_definition added.Designer.cs">
       <DependentUpon>201909021001215_hotel_definition added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909022132060_chngeHtl.cs" />
+    <Compile Include="Migrations\201909022132060_chngeHtl.Designer.cs">
+      <DependentUpon>201909022132060_chngeHtl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909021001215_hotel_definition added.resx">
       <DependentUpon>201909021001215_hotel_definition added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909022132060_chngeHtl.resx">
+      <DependentUpon>201909022132060_chngeHtl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

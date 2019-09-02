@@ -6,16 +6,16 @@ namespace BookingSystem.Domain.WebUI.Hotel
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string HotelName { get; set; }
         public string Title { get; set; }
 
-        public string Url
-        {
-            get
-            {
-                return Name.Titilize();
-            }
-        }
+        public string Url { get; set; }
+        //{
+        //    get
+        //    {
+        //        return HotelName.Titilize();
+        //    }
+        //}
 
         public int HoteTypeId { get; set; }
 

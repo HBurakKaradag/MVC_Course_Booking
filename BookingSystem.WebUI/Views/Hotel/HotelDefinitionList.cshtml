@@ -7,7 +7,7 @@
 
 @section PageScripts
 {
-    <script src='@Url.Content("~/Scripts/pages/HotelTypes/hoteldefinitionlist.js")'></script>
+    <script src='@Url.Content("~/Scripts/pages/Hotel/hoteldefinitionlist.js")'></script>
 }
 
 @section BrundCrumb{
@@ -23,7 +23,7 @@
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
-            <div class="box-body" style="">
+            <div class="box-body filter" style="">
                 <div class="form-group">
                     <div class="col-md-4">
                         @Html.LabelFor(model => model.HotelName, new { @class = "control-label" })
@@ -32,9 +32,9 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        @Html.LabelFor(model => model.HotelType, new { @class = "control-label" })
+                        @Html.LabelFor(model => model.HotelTypeId, new { @class = "control-label" })
                         <div class="form-group">
-                            @Html.BDropDownListFor(model => model.HotelType, (IEnumerable<SelectListItem>)ViewBag.HotelTypesData, new { @class = "checkbox" })
+                            @Html.BDropDownListFor(model => model.HotelTypeId, (IEnumerable<SelectListItem>)ViewBag.HotelTypesData, new { })
                         </div>
                     </div>
                 </div>
@@ -64,8 +64,10 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>HotelName</th>
                                     <th>Title</th>
-                                    <th>Description</th>
+                                    <th>Url</th>
+                                    <th>HotelTypeId</th>
                                     <th>IsActive</th>
                                     <th>IsDeleted</th>
                                     <th>#</th>
@@ -84,10 +86,10 @@
     jQuery(document).ready(function () {
 
             var initObject = [];
-            var Urls = {
+            var urls = {
                 EditButtonUrl: '@Url.Action("HotelDefinitionEdit", "Hotel")',
-                DeleteUrlAction: '@Url.Action("DeleteHotelType", "Hotel")',
-                GridLoadUrl: '@Url.Action("GetHotelTypeList", "Hotel")'
+                DeleteUrlAction: '@Url.Action("DeleteHotel", "Hotel")',
+                GridLoadUrl: '@Url.Action("GetHotels", "Hotel")'
             };
 
             initObject.Urls = urls;

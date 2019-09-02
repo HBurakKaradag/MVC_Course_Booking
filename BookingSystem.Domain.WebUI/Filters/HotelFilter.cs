@@ -8,6 +8,6 @@ namespace BookingSystem.Domain.WebUI.Filters
         public string HotelName { get; set; }
 
         [DisplayName("Hotel Type")]
-        public int? HotelTypeId { get; set; }
+        public int HotelTypeId { get; set; }
     }
 }

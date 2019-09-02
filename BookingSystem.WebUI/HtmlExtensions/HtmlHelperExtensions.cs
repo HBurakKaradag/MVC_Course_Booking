@@ -130,13 +130,17 @@ namespace BookingSystem.WebUI.HtmlExtensions
 
             AddDefaultAttribute(ref _htmlAttr, metadata);
 
+            string textVal = string.Empty;
             // placeHolder
             if (!_htmlAttr.ContainsKey("placeholder"))
             {
-                string textVal = string.Format("{0}", metadata.DisplayName ?? metadata.PropertyName);
+                textVal = string.Format("{0}", metadata.DisplayName ?? metadata.PropertyName);
                 _htmlAttr.Add("placeholder", textVal);
             }
-
+            var d = data;
+            var d1 = new[] { new SelectListItem { Selected = false, Text = string.Format("Select {0}", textVal), Value = "-1" } };
+            data = d1.Concat(d);
+            data.Concat(new SelectListItem[] { new SelectListItem { Selected = false, Text = textVal, Value = "-1" } });
             return helper.DropDownListFor(expression: expression, selectList: data, htmlAttributes: _htmlAttr);
         }
 
