@@ -85,14 +85,18 @@
 
     jQuery(document).ready(function () {
 
-            var initObject = [];
-            var urls = {
-                EditButtonUrl: '@Url.Action("HotelDefinitionEdit", "Hotel")',
-                DeleteUrlAction: '@Url.Action("DeleteHotel", "Hotel")',
-                GridLoadUrl: '@Url.Action("GetHotels", "Hotel")'
-            };
+        var initObject = [];
+        var urls = {
+            EditButtonUrl: '@Url.Action("HotelDefinitionEdit", "Hotel")',
+            DeleteUrlAction: '@Url.Action("DeleteHotel", "Hotel")',
+            GridLoadUrl: '@Url.Action("GetHotels", "Hotel")'
+        };
+        debugger;
+        var jsonStr = '@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.HotelTypesData))';
+        var hotelTypesJSon = JSON.parse(jsonStr);
 
-            initObject.Urls = urls;
+        initObject.Urls = urls;
+        initObject.HotelTypesJSon = hotelTypesJSon;
 
             HotelDefinitionlist.init(initObject);
         });

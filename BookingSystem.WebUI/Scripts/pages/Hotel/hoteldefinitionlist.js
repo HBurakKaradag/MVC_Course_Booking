@@ -69,32 +69,41 @@
                 { "data": "#", "name": "#", "bSortable": false }
             ],
             "columnDefs": [
-                //{
-                //    "targets": [0],
-                //    "visible": false,
-                //    "searchable": false
-                //},
-                //{
-                //    "targets": [3, 4],
-                //    "class": "text-center"
-                //},
-                //{
-                //    "render": function (data, type, row) {
-                //        return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
-                //    },
-                //    "targets": [4],
-                //    "class": "text-center"
-                //},
-                //{
-                //    "render": function (data, type, row) {
-                //        var editUrl = that.pageInitObject.Urls.EditButtonUrl + '?Id=' + row.Id;
-                //        var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [1, 2, 3],
+                    "class": "text-center"
+                },
+                {
+                    "render": function (data, type, row) {
+                        var attributeTypeList = that.pageInitObject.AttributeTypeList;
 
-                //        return actionsEdit;
-                //    },
-                //    "targets": 5,
-                //    "class": "text-center"
-                //}
+                        return data == attributeTypeList.Hotel ? "Hotel" : data == attributeTypeList.Room ? "Room" : "-";
+                    },
+                    "targets": [4],
+                    "class": "text-center"
+                },
+                {
+                    "render": function (data, type, row) {
+                        return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
+                    },
+                    "targets": [5, 6],
+                    "class": "text-center"
+                },
+                {
+                    "render": function (data, type, row) {
+                        var editUrl = that.pageInitObject.Urls.EditButtonUrl + '?Id=' + row.Id;
+                        var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
+
+                        return actionsEdit;
+                    },
+                    "targets": 5,
+                    "class": "text-center"
+                }
             ]
         });
     };
@@ -147,7 +156,6 @@
         $(document).on('click', '.btnClear', function () {
             Core.clearForm();
             refreshTable();
-            // $('#tableHotelDefinitionList').DataTable().rows('.selected').deselect();
         });
 
         $(document).on('click', '.btnSearch', function () {
@@ -157,10 +165,6 @@
 
     return {
         init: function (initObject) {
-            // diğer js 'ler de url'leri direk nesne olarak göndermiştik. Model gibi düşünebilirsiniz.
-            // Burada ise Array objeler halinde gönderildi.
-            // List veya array gibi düşünülebilir.
-            // ChromeDev Console üzerinden değişkeni çağırıp inceleyiniz.
             that.pageInitObject = initObject;
 
             if (!jQuery().dataTable) {
