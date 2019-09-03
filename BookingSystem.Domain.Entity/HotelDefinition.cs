@@ -15,7 +15,7 @@ namespace BookingSystem.Domain.Entity
 
         public string Url { get; set; }
 
-        public int HoteTypeId { get; set; }
+        public int HotelTypeId { get; set; }
 
         public bool IsActive { get; set; }
 

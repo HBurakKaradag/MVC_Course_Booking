@@ -9,15 +9,15 @@ namespace BookingSystem.Domain.WebUI.Hotel
         public string HotelName { get; set; }
         public string Title { get; set; }
 
-        public string Url { get; set; }
-        //{
-        //    get
-        //    {
-        //        return HotelName.Titilize();
-        //    }
-        //}
+        public string Url
+        {
+            get
+            {
+                return HotelName.Titilize();
+            }
+        }
 
-        public int HoteTypeId { get; set; }
+        public int HotelTypeId { get; set; }
 
         public bool IsActive { get; set; }
 

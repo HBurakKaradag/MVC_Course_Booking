@@ -26,7 +26,7 @@ namespace BookingSystem.Service.Services
                     hotelDefinitionList = hotelDefinitionList.Where(p => p.Title.Contains(filter.HotelName));
 
                 if (filter.HotelTypeId > 0)
-                    hotelDefinitionList = hotelDefinitionList.Where(p => p.HoteTypeId == filter.HotelTypeId);
+                    hotelDefinitionList = hotelDefinitionList.Where(p => p.HotelTypeId == filter.HotelTypeId);
 
                 hotelDefinitionList.ToList().ForEach(p =>
                 {

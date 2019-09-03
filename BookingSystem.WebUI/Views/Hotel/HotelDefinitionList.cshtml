@@ -84,10 +84,10 @@
 <script type="text/javascript">
 
     jQuery(document).ready(function () {
-
         var initObject = [];
         var urls = {
             EditButtonUrl: '@Url.Action("HotelDefinitionEdit", "Hotel")',
+            HotelAddActionUrl: '@Url.Action("HotelDefinitionAdd", "Hotel")',
             DeleteUrlAction: '@Url.Action("DeleteHotel", "Hotel")',
             GridLoadUrl: '@Url.Action("GetHotels", "Hotel")'
         };
@@ -98,6 +98,6 @@
         initObject.Urls = urls;
         initObject.HotelTypesJSon = hotelTypesJSon;
 
-            HotelDefinitionlist.init(initObject);
-        });
+        HotelDefinitionlist.init(initObject);
+    });
 </script>

@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201909022132060_chngeHtl.Designer.cs">
       <DependentUpon>201909022132060_chngeHtl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909031006501_HtelDefinitonChange.cs" />
+    <Compile Include="Migrations\201909031006501_HtelDefinitonChange.Designer.cs">
+      <DependentUpon>201909031006501_HtelDefinitonChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -129,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909022132060_chngeHtl.resx">
       <DependentUpon>201909022132060_chngeHtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909031006501_HtelDefinitonChange.resx">
+      <DependentUpon>201909031006501_HtelDefinitonChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

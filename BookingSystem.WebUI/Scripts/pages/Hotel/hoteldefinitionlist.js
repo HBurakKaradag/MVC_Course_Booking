@@ -23,7 +23,8 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                            window.location.href = pageInitObject.Url.HotelAddAction;
+                            debugger;
+                            window.location.href = pageInitObject.Urls.HotelAddActionUrl;
                         }
                     }
                 ],
@@ -53,6 +54,7 @@
                     return JSON.stringify(request);
                 },
                 "dataFilter": function (data) {
+                    debugger;
                     return data;
                     // var json = JSON.stringify jQuery.parseJSON(data);
                     // return json.data;
@@ -80,9 +82,14 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var attributeTypeList = that.pageInitObject.AttributeTypeList;
-
-                        return data == attributeTypeList.Hotel ? "Hotel" : data == attributeTypeList.Room ? "Room" : "-";
+                        debugger;
+                        var fData = that.pageInitObject.HotelTypesJSon.filter(x => x.Value == row.HotelTypeId);
+                        if (!jQuery.isEmptyObject(fData)) {
+                            return fData[0].Text;
+                        }
+                        else {
+                            return "-";
+                        }
                     },
                     "targets": [4],
                     "class": "text-center"
@@ -98,10 +105,9 @@
                     "render": function (data, type, row) {
                         var editUrl = that.pageInitObject.Urls.EditButtonUrl + '?Id=' + row.Id;
                         var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
-
                         return actionsEdit;
                     },
-                    "targets": 5,
+                    "targets": 7,
                     "class": "text-center"
                 }
             ]
