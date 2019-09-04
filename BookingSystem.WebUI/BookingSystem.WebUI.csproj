@@ -2000,6 +2000,7 @@
     <Content Include="Scripts\pages\HotelTypes\hoteltypeadd.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypelist.js" />
     <Content Include="Scripts\pages\Hotel\hoteldefinitionlist.js" />
+    <Content Include="Scripts\pages\Hotel\hoteldefinitionadd.js" />
     <Content Include="Scripts\pages\RoomTypes\roomtypelist.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -2069,6 +2070,7 @@
     <Content Include="Views\Error\Http500Error.cshtml" />
     <Content Include="Views\Error\Http404Error.cshtml" />
     <Content Include="Views\Hotel\HotelDefinitionList.cshtml" />
+    <Content Include="Views\Hotel\HotelDefinitionAddEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

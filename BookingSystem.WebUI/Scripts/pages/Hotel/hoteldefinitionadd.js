@@ -66,6 +66,18 @@
             allowClear: true,
             width: '100%'
         });
+
+        $("#CityId").select2({
+            placeholder: "Select a state",
+            allowClear: true,
+            width: '100%'
+        });
+
+        $("#DistrictId").select2({
+            placeholder: "Select a state",
+            allowClear: true,
+            width: '100%'
+        });
     };
 
     return {

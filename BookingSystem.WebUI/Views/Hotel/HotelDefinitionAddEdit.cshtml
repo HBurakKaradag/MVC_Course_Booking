@@ -4,7 +4,7 @@
     ViewBag.Title = "HotelDefinitionAdd";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var hotelTypeSelectItem = Model.HotelTypes.Select(p => new SelectListItem
+    var hotelTypeSelectItem = Model.HotelTypes.Select(p => new BSelectListItem
     {
         Value = p.Id.ToString(),
         Text = p.Title,
@@ -45,30 +45,30 @@
                         </div>
                     </div>
                 </div>
-             
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <div>                            
-                                    @Html.LabelFor(model => model.HotelTypeId, new { @class = "control-label" })
-                                    <div class="form-group">
-                                        @Html.BDropDownListFor(model => model.HotelTypeId, hotelTypeSelectItem, new { })
-                                        @Html.ValidationMessageFor(model => model.HotelTypeId, "", new { @class = "text-danger" })
-                                    </div>                             
+                            <div>
+                                @Html.LabelFor(model => model.HotelTypeId, new { @class = "control-label" })
+                                <div class="form-group">
+                                    @Html.BDropDownListFor(model => model.HotelTypeId, hotelTypeSelectItem, new { })
+                                    @Html.ValidationMessageFor(model => model.HotelTypeId, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div style="float:left; width:48%;">
                                 @Html.LabelFor(model => model.CityId, new { @class = "control-label" })
                                 <div class="form-group">
-                                    @Html.BDropDownListFor(model => model.CityId, Enumerable.Empty<SelectListItem>(), new { })
+                                    @Html.BDropDownListFor(model => model.CityId, Model.Cities, new { })
                                     @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div style="float:right; width:48%;">
                                 @Html.LabelFor(model => model.DistrictId, new { @class = "control-label" })
                                 <div class="form-group">
-                                    @Html.BDropDownListFor(model => model.DistrictId, Enumerable.Empty<SelectListItem>(), new { })
+                                    @Html.BDropDownListFor(model => model.DistrictId, Model.Districts, new { })
                                     @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
                                 </div>
                             </div>

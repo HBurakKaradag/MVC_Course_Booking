@@ -2,6 +2,7 @@
 using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Domain.WebUI.Hotel;
 using BookingSystem.Service.Services;
+using BookingSystem.WebUI.Models;
 using BookingSystem.WebUI.Models.DataTableRequest;
 using BookingSystem.WebUI.Models.DataTableResponse;
 using BookingSystem.WebUI.Models.Response;
@@ -13,11 +14,13 @@ namespace BookingSystem.WebUI.Controllers
     [Authorize]
     public class HotelController : ControllerBase
     {
+        private readonly DefinitionService _definitionService;
         private readonly HotelTypeService _hotelTypeService;
         private readonly HotelDefinitionService _hotelDefinitionService;
 
         public HotelController()
         {
+            _definitionService = new DefinitionService();
             _hotelTypeService = new HotelTypeService();
             _hotelDefinitionService = new HotelDefinitionService();
         }
@@ -169,11 +172,13 @@ namespace BookingSystem.WebUI.Controllers
 
         #endregion HotelRoomTypesMethods
 
+        #region HotelDefinition
+
         [HttpGet]
         public ActionResult HotelDefinitionList()
         {
             var hoteltypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data
-                                                                                      .Select(p => new SelectListItem
+                                                                                      .Select(p => new BSelectListItem
                                                                                       {
                                                                                           Value = p.Id.ToString(),
                                                                                           Text = p.Title,
@@ -196,5 +201,45 @@ namespace BookingSystem.WebUI.Controllers
 
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion HotelDefinition
+
+        #region HotelDefinitionAdd
+
+        public ActionResult HotelDefinitionAddEdit(int? hotelId)
+        {
+            /// <summary>
+            /// View model için Entityden farklı propery'ler içerebileceğini ve view 'a göre düzenlenebileceğinden bahsetmiştik.
+            /// HotelTypes datasını ViewBag üzerinden gönderebileceğimiz gibi VM içerisinden de gönderebiliriz.
+            /// </summary>
+
+            var allCitiesData = _definitionService.GetCities().Data;
+
+            var city = allCitiesData.Select(p => new BSelectListItem
+            {
+                ParentValue = "0",
+                Value = p.Id.ToString(),
+                Text = p.Name,
+                Selected = false
+            }).AsEnumerable();
+
+            var district = allCitiesData.SelectMany(p => p.Districts).Select(c => new BSelectListItem
+            {
+                ParentValue = c.CityId.ToString(),
+                Value = c.Id.ToString(),
+                Text = c.Name,
+                Selected = false
+            }).AsEnumerable();
+
+            HotelDefinitionVM hotelDefinition = new HotelDefinitionVM
+            {
+                HotelTypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data,
+                Cities = city,
+                Districts = district
+            };
+            return View(hotelDefinition);
+        }
+
+        #endregion HotelDefinitionAdd
     }
 }

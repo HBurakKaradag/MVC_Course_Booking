@@ -10,6 +10,7 @@ namespace BookingSystem.Data.Context
         public EFBookingContext()
             : base("BookingContext")
         {
+            this.Configuration.LazyLoadingEnabled = true;
         }
 
         public override int SaveChanges()
@@ -42,8 +43,18 @@ namespace BookingSystem.Data.Context
 
         public DbSet<Attributes> Attributes { get; set; }
 
+        public DbSet<CityDefinition> CityDefinitions { get; set; }
+
+        public DbSet<DistrictDefinition> DistrictDefinition { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            // configures one-to-many relationship
+            modelBuilder.Entity<DistrictDefinition>()
+                .HasRequired<CityDefinition>(s => s.CityDefinition)
+                .WithMany(g => g.Districts)
+                .HasForeignKey<int>(s => s.CityId);
+
             base.OnModelCreating(modelBuilder);
         }
     }

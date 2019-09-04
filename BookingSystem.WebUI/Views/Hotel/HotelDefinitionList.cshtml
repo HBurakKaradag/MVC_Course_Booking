@@ -34,7 +34,7 @@
                     <div class="col-md-4">
                         @Html.LabelFor(model => model.HotelTypeId, new { @class = "control-label" })
                         <div class="form-group">
-                            @Html.BDropDownListFor(model => model.HotelTypeId, (IEnumerable<SelectListItem>)ViewBag.HotelTypesData, new { })
+                            @Html.BDropDownListFor(model => model.HotelTypeId, (IEnumerable<BSelectListItem>)ViewBag.HotelTypesData, new { })
                         </div>
                     </div>
                 </div>

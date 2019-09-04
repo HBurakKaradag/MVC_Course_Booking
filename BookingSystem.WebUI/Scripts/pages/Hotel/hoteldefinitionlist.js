@@ -24,7 +24,7 @@
                         text: "New Record",
                         action: function (e, dt, node, config) {
                             debugger;
-                            window.location.href = pageInitObject.Urls.HotelAddActionUrl;
+                            window.location.href = that.pageInitObject.Urls.HotelAddActionUrl;
                         }
                     }
                 ],
@@ -84,7 +84,9 @@
                     "render": function (data, type, row) {
                         debugger;
                         var fData = that.pageInitObject.HotelTypesJSon.filter(x => x.Value == row.HotelTypeId);
+                        debugger;
                         if (!jQuery.isEmptyObject(fData)) {
+                            debugger;
                             return fData[0].Text;
                         }
                         else {

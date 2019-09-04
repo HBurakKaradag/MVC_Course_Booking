@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="Attributes\AttributeVM.cs" />
     <Compile Include="AuditLog\AuiditLogVM.cs" />
+    <Compile Include="BSelectListItem.cs" />
+    <Compile Include="Definitions\DistrictDefinitionVM.cs" />
     <Compile Include="Filters\AttributeFilter.cs" />
     <Compile Include="Filters\HotelRoomTypeFilter.cs" />
     <Compile Include="Filters\HotelFilter.cs" />
@@ -52,6 +54,7 @@
     <Compile Include="Hotel\HotelDefinitionVM.cs" />
     <Compile Include="Hotel\HotelTypeVM.cs" />
     <Compile Include="Account\MenuVM.cs" />
+    <Compile Include="Definitions\CityDefinitionsVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Account\RegisterVM.cs" />
     <Compile Include="Hotel\HotelRoomTypeVM.cs" />

@@ -89,6 +89,14 @@
     <Compile Include="Migrations\201909031006501_HtelDefinitonChange.Designer.cs">
       <DependentUpon>201909031006501_HtelDefinitonChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909032043277_city-distrct aded.cs" />
+    <Compile Include="Migrations\201909032043277_city-distrct aded.Designer.cs">
+      <DependentUpon>201909032043277_city-distrct aded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909032111257_updated.cs" />
+    <Compile Include="Migrations\201909032111257_updated.Designer.cs">
+      <DependentUpon>201909032111257_updated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -136,6 +144,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909031006501_HtelDefinitonChange.resx">
       <DependentUpon>201909031006501_HtelDefinitonChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909032043277_city-distrct aded.resx">
+      <DependentUpon>201909032043277_city-distrct aded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909032111257_updated.resx">
+      <DependentUpon>201909032111257_updated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

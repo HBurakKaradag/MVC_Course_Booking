@@ -1,4 +1,6 @@
-﻿using BookingSystem.Core.Extensions;
+﻿using BookingSystem.Core.CustomAttribute;
+using BookingSystem.Core.Extensions;
+using System.Collections.Generic;
 
 namespace BookingSystem.Domain.WebUI.Hotel
 {
@@ -22,5 +24,24 @@ namespace BookingSystem.Domain.WebUI.Hotel
         public bool IsActive { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public int CityId { get; set; }
+
+        public int DistrictId { get; set; }
+
+        public string Address { get; set; }
+
+        /// <summary>
+        /// View model için Entityden farklı propery'ler içerebileceğini ve view 'a göre düzenlenebileceğinden bahsetmiştik.
+        /// HotelTypes datasını ViewBag üzerinden gönderebileceğimiz gibi VM içerisinden de gönderebiliriz.
+        /// </summary>
+        [MapIgnore]
+        public IEnumerable<HotelTypeVM> HotelTypes { get; set; }
+
+        [MapIgnore]
+        public IEnumerable<BSelectListItem> Cities { get; set; }
+
+        [MapIgnore]
+        public IEnumerable<BSelectListItem> Districts { get; set; }
     }
 }

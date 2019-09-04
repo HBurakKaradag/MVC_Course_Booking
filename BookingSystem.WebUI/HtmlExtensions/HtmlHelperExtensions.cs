@@ -1,4 +1,5 @@
 ﻿using BookingSystem.Core.Extensions;
+using BookingSystem.Domain.WebUI;
 using BookingSystem.Domain.WebUI.Account;
 using System;
 using System.Collections.Generic;
@@ -120,7 +121,7 @@ namespace BookingSystem.WebUI.HtmlExtensions
 
         public static IHtmlString BDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
                                                              Expression<Func<TModel, TProperty>> expression,
-                                                             IEnumerable<SelectListItem> data,
+                                                             IEnumerable<BSelectListItem> data,
                                                              object htmlAttributes = null)
         {
             var _htmlAttr = new RouteValueDictionary(htmlAttributes ?? new Dictionary<string, object>());
@@ -138,10 +139,10 @@ namespace BookingSystem.WebUI.HtmlExtensions
                 _htmlAttr.Add("placeholder", textVal);
             }
             var d = data;
-            var d1 = new[] { new SelectListItem { Selected = false, Text = string.Format("Select {0}", textVal), Value = "-1" } };
+            var d1 = new[] { new BSelectListItem { Selected = false, Text = string.Format("Select {0}", textVal), Value = "-1" } };
             data = d1.Concat(d);
-            data.Concat(new SelectListItem[] { new SelectListItem { Selected = false, Text = textVal, Value = "-1" } });
-            return helper.DropDownListFor(expression: expression, selectList: data, htmlAttributes: _htmlAttr);
+            data.Concat(new BSelectListItem[] { new BSelectListItem { Selected = false, Text = textVal, Value = "-1" } });
+            return helper.DropDownListFor(expression: expression, selectList: new SelectList(data, "Value", "Text", "Selected"), htmlAttributes: _htmlAttr);
         }
 
         public static IHtmlString BCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool?>> expression, object htmlAttributes = null)
