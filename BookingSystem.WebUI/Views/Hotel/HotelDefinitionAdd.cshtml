@@ -1,0 +1,70 @@
+﻿@model BookingSystem.Domain.WebUI.Hotel.HotelTypeVM
+
+@{
+    ViewBag.Title = "HotelTypeAdd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section PageScripts
+{
+    <script src='@Url.Content("~/Scripts/pages/HotelTypes/hoteltypeadd.js")'></script>
+}
+
+@section BrundCrumb{
+    @Html.BuildBrandCrumb()
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default">
+            <div class="box-body" style="">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Title, new { @class = "control-label" })
+                            <div class="form-group">
+                                @Html.BTextBoxFor(model => model.Title, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+                            <div class="form-group">
+                                @Html.BTextAreaFor(model => model.Description, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer" style="">
+                <div class="col-md-12">
+                    <div style="float:right; padding-left:2px;">
+                        <button type="button" class="btn btn-block btn-danger btnCancel" onclick="location.href='@Url.Action("HotelTypeList", "Hotel")'">Cancel</button>
+                    </div>
+                    <div style="float:right; padding-right:2px;">
+                        <button type="button" class="btn btn-block btn-primary btnSave">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var urlList =
+    {
+        saveUrlAction: '@Url.Action("SaveHotelType","Hotel")',
+        listPageUrlAction : '@Url.Action("HotelTypeList","Hotel")',
+        deleteUrlAction: '@Url.Action("DeleteHotelType","Hotel")'
+    };
+
+jQuery(document).ready(function () {
+    HotelTypeAdd.init(urlList);
+});
+</script>
