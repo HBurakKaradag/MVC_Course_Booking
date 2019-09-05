@@ -27,6 +27,7 @@
     
 # Model-Binding
 
+    ModelBinding Kavramı
     Custom Model-Binding
 
 # Web - MVC 
@@ -43,10 +44,22 @@
     Controller ReturnTypes
     ModalState kullanımı - JSonResult ModelState Handle
     Editor Templates Kullanımı
-    
+
+# MVC - Filters
+
+    Authorization Filters 
+          Forms Authentication uygulandı
+    Action-Result Filters 
+          AuditLog uygulandı
+    Exception Filters 
+          HttpException     
+          CustomException   
+          DBException handling    
+   
 # Cache
 
     OutputCache
+    
     
 # Jquery - JS
     
