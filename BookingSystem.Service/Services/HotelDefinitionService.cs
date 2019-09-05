@@ -36,5 +36,27 @@ namespace BookingSystem.Service.Services
                 return ServiceResultModel<List<HotelDefinitionVM>>.OK(resultList);
             }
         }
+
+        public ServiceResultModel<HotelDefinitionVM> SaveHotel(HotelDefinitionVM model)
+        {
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        HotelDefinition hotelDef = model.
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        // using olduğu için RollBack eklemesek de olur
+                        // transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
     }
 }

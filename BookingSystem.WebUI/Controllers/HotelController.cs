@@ -208,6 +208,11 @@ namespace BookingSystem.WebUI.Controllers
 
         public JsonResult SaveHotelDefinition(HotelDefinitionVM model)
         {
+            if (!ModelState.IsValid)
+                return base.JSonModelStateHandle();
+
+            ServiceResultModel<HotelDefinitionVM> serviceResult = _hotelDefinitionService.SaveHotel(model);
+
             return Json("");
         }
 
