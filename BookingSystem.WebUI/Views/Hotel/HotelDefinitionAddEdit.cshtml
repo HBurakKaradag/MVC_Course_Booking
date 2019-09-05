@@ -68,7 +68,7 @@
                             <div style="float:right; width:48%;">
                                 @Html.LabelFor(model => model.DistrictId, new { @class = "control-label" })
                                 <div class="form-group">
-                                    @Html.BDropDownListFor(model => model.DistrictId, Model.Districts, new { })
+                                    @Html.BDropDownListFor(model => model.DistrictId, Enumerable.Empty<BSelectListItem>(), new { })
                                     @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -79,8 +79,20 @@
                             <div>
                                 @Html.LabelFor(model => model.Address, new { @class = "control-label" })
                                 <div class="form-group">
-                                    @Html.BTextAreaFor(model => model.Address, new { @class = "col col-md-8" })
+                                    @Html.BTextAreaFor(model => model.Address, new { @class = "col col-md-8", @Style = "min-height:114px; min-width: 443px; max-height:114px; max-width: 443px;" })
                                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div>
+                                @* @Html.LabelFor(model => model.HotelAttributes, new { @class = "control-label" })*@
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.HotelAttributes)
+                                    @Html.Hidden("HotelAttributesCount", Model.HotelAttributes.Count)
                                 </div>
                             </div>
                         </div>
@@ -90,7 +102,7 @@
             <div class="box-footer" style="">
                 <div class="col-md-12">
                     <div style="float:right; padding-left:2px;">
-                        <button type="button" class="btn btn-block btn-danger btnCancel" onclick="location.href='@Url.Action("HotelTypeList", "Hotel")'">Cancel</button>
+                        <button type="button" class="btn btn-block btn-danger btnCancel" onclick="location.href='@Url.Action("HotelDefinitionList", "Hotel")'">Cancel</button>
                     </div>
                     <div style="float:right; padding-right:2px;">
                         <button type="button" class="btn btn-block btn-primary btnSave">Save</button>
@@ -102,14 +114,20 @@
 </div>
 
 <script type="text/javascript">
-    var urlList =
-    {
-        saveUrlAction: '@Url.Action("SaveHotelType","Hotel")',
-        listPageUrlAction : '@Url.Action("HotelTypeList","Hotel")',
-        deleteUrlAction: '@Url.Action("DeleteHotelType","Hotel")'
-    };
+    jQuery(document).ready(function () {
 
-jQuery(document).ready(function () {
-    HotelTypeAdd.init(urlList);
-});
+        var initObject = [];
+        var urls = {
+            HotelSaveUrlAction: '@Url.Action("SaveHotelDefinition", "Hotel")',
+        };
+        debugger;
+        var jsonStr = '@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Districts))';
+        var districtJson = JSON.parse(jsonStr);
+
+        initObject.Urls = urls;
+        initObject.DistrictsJson = districtJson;
+
+        HotelDefinitionAdd.init(initObject);
+
+    });
 </script>

@@ -1,4 +1,5 @@
-﻿using BookingSystem.Domain.WebUI;
+﻿using BookingSystem.Core;
+using BookingSystem.Domain.WebUI;
 using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Domain.WebUI.Hotel;
 using BookingSystem.Service.Services;
@@ -6,6 +7,7 @@ using BookingSystem.WebUI.Models;
 using BookingSystem.WebUI.Models.DataTableRequest;
 using BookingSystem.WebUI.Models.DataTableResponse;
 using BookingSystem.WebUI.Models.Response;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -14,12 +16,14 @@ namespace BookingSystem.WebUI.Controllers
     [Authorize]
     public class HotelController : ControllerBase
     {
+        private readonly AttributeService _attributeService;
         private readonly DefinitionService _definitionService;
         private readonly HotelTypeService _hotelTypeService;
         private readonly HotelDefinitionService _hotelDefinitionService;
 
         public HotelController()
         {
+            _attributeService = new AttributeService();
             _definitionService = new DefinitionService();
             _hotelTypeService = new HotelTypeService();
             _hotelDefinitionService = new HotelDefinitionService();
@@ -71,7 +75,7 @@ namespace BookingSystem.WebUI.Controllers
         public ActionResult HotelTypeEdit(int id)
         {
             var model = _hotelTypeService.GetHotelType(id);
-            if (model == null)
+            if (!model.IsSuccess)
                 RedirectToAction(nameof(HotelTypeList));
 
             return View(model.Data);
@@ -202,6 +206,11 @@ namespace BookingSystem.WebUI.Controllers
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult SaveHotelDefinition(HotelDefinitionVM model)
+        {
+            return Json("");
+        }
+
         #endregion HotelDefinition
 
         #region HotelDefinitionAdd
@@ -212,10 +221,20 @@ namespace BookingSystem.WebUI.Controllers
             /// View model için Entityden farklı propery'ler içerebileceğini ve view 'a göre düzenlenebileceğinden bahsetmiştik.
             /// HotelTypes datasını ViewBag üzerinden gönderebileceğimiz gibi VM içerisinden de gönderebiliriz.
             /// </summary>
+            List<CheckBoxListTemplate> hotelAttributes = new List<CheckBoxListTemplate>();
 
-            var allCitiesData = _definitionService.GetCities().Data;
+            var hotelAttributeData = _attributeService.GetAllAttributeList(new AttributeFilter { AttributeType = (int)AttributeType.Hotel });
+            if (hotelAttributeData.IsSuccess)
+                hotelAttributes.AddRange(hotelAttributeData.Data
+                                                           .Select(p => new CheckBoxListTemplate
+                                                           {
+                                                               Id = p.Id,
+                                                               Text = p.Name,
+                                                               IsSelected = false
+                                                           }));
 
-            var city = allCitiesData.Select(p => new BSelectListItem
+            var allAddressData = _definitionService.GetCities().Data;
+            var city = allAddressData.Select(p => new BSelectListItem
             {
                 ParentValue = "0",
                 Value = p.Id.ToString(),
@@ -223,7 +242,7 @@ namespace BookingSystem.WebUI.Controllers
                 Selected = false
             }).AsEnumerable();
 
-            var district = allCitiesData.SelectMany(p => p.Districts).Select(c => new BSelectListItem
+            var district = allAddressData.SelectMany(p => p.Districts).Select(c => new BSelectListItem
             {
                 ParentValue = c.CityId.ToString(),
                 Value = c.Id.ToString(),
@@ -235,7 +254,8 @@ namespace BookingSystem.WebUI.Controllers
             {
                 HotelTypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data,
                 Cities = city,
-                Districts = district
+                Districts = district,
+                HotelAttributes = hotelAttributes
             };
             return View(hotelDefinition);
         }

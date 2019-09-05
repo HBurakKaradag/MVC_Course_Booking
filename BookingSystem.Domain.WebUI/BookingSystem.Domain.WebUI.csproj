@@ -45,6 +45,7 @@
     <Compile Include="Attributes\AttributeVM.cs" />
     <Compile Include="AuditLog\AuiditLogVM.cs" />
     <Compile Include="BSelectListItem.cs" />
+    <Compile Include="CheckBoxListTemplate.cs" />
     <Compile Include="Definitions\DistrictDefinitionVM.cs" />
     <Compile Include="Filters\AttributeFilter.cs" />
     <Compile Include="Filters\HotelRoomTypeFilter.cs" />

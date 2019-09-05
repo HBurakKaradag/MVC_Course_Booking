@@ -116,7 +116,7 @@ namespace BookingSystem.WebUI.HtmlExtensions
 
             AddDefaultAttribute(ref _htmlAttr, metadata);
 
-            return helper.HiddenFor(expression: expression, htmlAttributes: htmlAttributes);
+            return helper.HiddenFor(expression: expression, htmlAttributes: _htmlAttr);
         }
 
         public static IHtmlString BDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
@@ -137,6 +137,11 @@ namespace BookingSystem.WebUI.HtmlExtensions
             {
                 textVal = string.Format("{0}", metadata.DisplayName ?? metadata.PropertyName);
                 _htmlAttr.Add("placeholder", textVal);
+            }
+
+            if (!_htmlAttr.ContainsKey("Class"))
+            {
+                _htmlAttr.Add("Class", "form-control");
             }
             var d = data;
             var d1 = new[] { new BSelectListItem { Selected = false, Text = string.Format("Select {0}", textVal), Value = "-1" } };

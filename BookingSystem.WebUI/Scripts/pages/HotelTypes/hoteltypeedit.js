@@ -13,7 +13,7 @@
             }
 
             var req = Core.createModel();
-
+            debugger;
             // ekrandaki field'ları zaten create model ile alıyorduk, o halde req içersindeki prop üzerinden de kontrol sağlayabiliriz
             if (req.Description == "") {
                 Core.showNotify("<b>Validation</b>", "Description field must be required", "warning");

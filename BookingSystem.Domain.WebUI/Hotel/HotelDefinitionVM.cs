@@ -1,11 +1,16 @@
 ﻿using BookingSystem.Core.CustomAttribute;
 using BookingSystem.Core.Extensions;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookingSystem.Domain.WebUI.Hotel
 {
     public class HotelDefinitionVM : IModel
     {
+        public HotelDefinitionVM()
+        {
+        }
+
         public int Id { get; set; }
 
         public string HotelName { get; set; }
@@ -43,5 +48,8 @@ namespace BookingSystem.Domain.WebUI.Hotel
 
         [MapIgnore]
         public IEnumerable<BSelectListItem> Districts { get; set; }
+
+        [MapIgnore]
+        public List<CheckBoxListTemplate> HotelAttributes { get; set; }
     }
 }

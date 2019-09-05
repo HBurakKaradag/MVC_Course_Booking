@@ -124,11 +124,6 @@
     var handleStartup = function () {
         $('.box.box-default').boxWidget('toggle');
 
-        $("#HotelTypeId").select2({
-            placeholder: "Select a state",
-            allowClear: true,
-            width: '100%'
-        });
     };
 
     var handleEvents = function () {

@@ -112,8 +112,8 @@
                         <div class="col-md-12">
                             <label>AttributeType</label>
                             <div class="form-group">
-                                <select id="selectAttributeType" class="js-example-placeholder-single js-states" data-model="AttributeType" data-type="select2">
-                                    <option></option>
+                                <select id="selectAttributeType" class="form-control" data-model="AttributeType" data-type="select2">
+                                    <option value="-1">Select Value</option>
                                     <option value="@((int)BookingSystem.Core.AttributeType.Hotel)">@BookingSystem.Core.AttributeType.Hotel.ToString()</option>
                                     <option value="@((int)BookingSystem.Core.AttributeType.Room)">@BookingSystem.Core.AttributeType.Room.ToString()</option>
                                 </select>
@@ -137,9 +137,7 @@
                 <button type="button" class="btn btn-danger btnCancel" data-dismiss="modal">Close</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 <script type="text/javascript">

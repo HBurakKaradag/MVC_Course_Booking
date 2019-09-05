@@ -38,7 +38,7 @@ namespace BookingSystem.Domain.WebUI
         {
             get
             {
-                return this.ResultType == OperationResultType.Success;
+                return this.ResultType == OperationResultType.Success && this.Data != null;
             }
         }
 

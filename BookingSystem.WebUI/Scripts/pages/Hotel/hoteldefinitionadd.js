@@ -1,18 +1,71 @@
-﻿var HotelTypeAdd = function () {
-    var jsUrlActions = {};
+﻿var HotelDefinitionAdd = function () {
+    var that = this;
+    var pageInitObject = [];
 
     var handleEvents = function () {
         $(".btnSave").click(function () {
             // manuel js validation
-            if ($("#Title").val() == "") {
+
+            var req = Core.createModel();
+
+            if (req.Title == "") {
                 // mesaj sonrasında return etmelisiniz.
                 Core.showNotify("<b>Validation</b>", "Title field must be required", "warning");
                 return;
             }
 
-            var req = Core.createModel();
+            if (req.HotelName == "") {
+                // mesaj sonrasında return etmelisiniz.
+                Core.showNotify("<b>Validation</b>", "Hotel Name field must be required", "warning");
+                return;
+            }
 
-            // ekrandaki field'ları zaten create model ile alıyorduk, o halde req içersindeki prop üzerinden de kontrol sağlayabiliriz
+            if (req.HotelTypeId == "" || req.HotelTypeId == "-1") {
+                // mesaj sonrasında return etmelisiniz.
+                Core.showNotify("<b>Validation</b>", "Hotel Type field must be required", "warning");
+                return;
+            }
+
+            if (req.CityId == "" || req.CityId == "-1") {
+                // mesaj sonrasında return etmelisiniz.
+                Core.showNotify("<b>Validation</b>", "Hotel Type field must be required", "warning");
+                return;
+            }
+
+            //Address: ""
+            //CityId: "-1"
+            //DistrictId: "-1"
+            //HotelAttributes: (5)[{ … }, { … }, { … }, { … }, { … }]
+
+            var hotelAttributeArray = [];
+
+            var hotelAttributeCount = $("#HotelAttributesCount").val();
+
+            var index;
+            for (index = 0; index < hotelAttributeCount; ++index) {
+                debugger;
+                var template = "HotelAttributes_" + index + "__";
+
+                var id = $("#" + template + "Id").val();
+                var isSelected = $("#" + template + "IsSelected").prop("checked");
+                var text = $('label[for="' + template + "IsSelected" + '"]').html()
+
+                var obj = {
+                    Id: id,
+                    IsSelected: isSelected,
+                    Text: text
+                };
+                //var obj = {};
+                //obj.Id = id;
+                //obj.IsSelected = isSelected;
+                //obj.Text = text;
+
+                hotelAttributeArray.push(obj);
+            };
+
+            req.HotelAttributes = hotelAttributeArray;
+
+            debugger;
             if (req.Description == "") {
                 Core.showNotify("<b>Validation</b>", "Description field must be required", "warning");
                 return;
@@ -28,7 +81,7 @@
              */
 
             $.ajax({
-                url: jsUrlActions.saveUrlAction,
+                url: that.pageInitObject.Urls.HotelSaveUrlAction,
                 dataType: "json",
                 type: "POST",
                 contentType: 'application/json; charset=utf-8',
@@ -58,31 +111,31 @@
                 }
             });
         });
+
+        $('#CityId').on("change", function (e) {
+            debugger;
+            var districtDOM = $('#DistrictId');
+            districtDOM.empty();
+
+            var selectedValue = $(this).val();
+            var filteredData = that.pageInitObject.DistrictsJson.filter(p => p.ParentValue == selectedValue);
+
+            var opt = new Option("Select ...", "-1", true, false);
+            districtDOM.append(opt);
+
+            $.each(filteredData, function (index, data) {
+                var opt = new Option(data.Text, data.Value, false, data.Selected);
+                districtDOM.append(opt);
+            });
+        });
     }
 
     var handleStartup = function () {
-        $("#HotelTypeId").select2({
-            placeholder: "Select a state",
-            allowClear: true,
-            width: '100%'
-        });
-
-        $("#CityId").select2({
-            placeholder: "Select a state",
-            allowClear: true,
-            width: '100%'
-        });
-
-        $("#DistrictId").select2({
-            placeholder: "Select a state",
-            allowClear: true,
-            width: '100%'
-        });
     };
 
     return {
-        init: function (params) {
-            jsUrlActions = params;
+        init: function (initObject) {
+            that.pageInitObject = initObject;
             handleEvents();
             handleStartup();
         }

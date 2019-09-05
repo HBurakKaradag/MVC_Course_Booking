@@ -2071,6 +2071,7 @@
     <Content Include="Views\Error\Http404Error.cshtml" />
     <Content Include="Views\Hotel\HotelDefinitionList.cshtml" />
     <Content Include="Views\Hotel\HotelDefinitionAddEdit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CheckBoxListTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
