@@ -1,5 +1,6 @@
 ﻿using BookingSystem.Core;
 using BookingSystem.Domain.WebUI;
+using BookingSystem.Domain.WebUI.Definitions;
 using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Domain.WebUI.Hotel;
 using BookingSystem.Service.Services;
@@ -211,7 +212,7 @@ namespace BookingSystem.WebUI.Controllers
             if (!ModelState.IsValid)
                 return base.JSonModelStateHandle();
 
-            ServiceResultModel<HotelDefinitionVM> serviceResult = _hotelDefinitionService.SaveHotel(model);
+            //  ServiceResultModel<HotelDefinitionVM> serviceResult = _hotelDefinitionService.SaveHotel(model);
 
             return Json("");
         }
@@ -219,6 +220,20 @@ namespace BookingSystem.WebUI.Controllers
         #endregion HotelDefinition
 
         #region HotelDefinitionAdd
+
+        #region TestSil
+
+        public JsonResult GetDistricts(int cityId)
+        {
+            List<DistrictDefinitionVM> definitionVMList = new List<DistrictDefinitionVM>();
+            var serviceResult = _definitionService.GetDistrictByCityId(cityId);
+            if (serviceResult.IsSuccess)
+                definitionVMList = serviceResult.Data;
+
+            return Json(definitionVMList, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion TestSil
 
         public ActionResult HotelDefinitionAddEdit(int? hotelId)
         {

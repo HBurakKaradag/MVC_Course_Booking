@@ -4,6 +4,7 @@ using BookingSystem.Domain.WebUI;
 using BookingSystem.Domain.WebUI.AuditLog;
 using BookingSystem.Domain.WebUI.Definitions;
 using BookingSystem.Service.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,18 @@ namespace BookingSystem.Service.Services
             }
 
             return ServiceResultModel<List<CityDefinitionVM>>.OK(resultList);
+        }
+
+        public ServiceResultModel<List<DistrictDefinitionVM>> GetDistrictByCityId(int cityId)
+        {
+            List<DistrictDefinitionVM> resultList = new List<DistrictDefinitionVM>();
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                var districts = context.DistrictDefinition.Where(p => p.CityId == cityId).ToList();
+                resultList.AddRange(districts.Select(p => p.MapProperties<DistrictDefinitionVM>()));
+            }
+
+            return ServiceResultModel<List<DistrictDefinitionVM>>.OK(resultList);
         }
     }
 }

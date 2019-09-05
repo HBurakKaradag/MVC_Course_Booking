@@ -45,7 +45,6 @@
             for (index = 0; index < hotelAttributeCount; ++index) {
                 debugger;
                 var template = "HotelAttributes_" + index + "__";
-
                 var id = $("#" + template + "Id").val();
                 var isSelected = $("#" + template + "IsSelected").prop("checked");
                 var text = $('label[for="' + template + "IsSelected" + '"]').html()
@@ -114,10 +113,47 @@
 
         $('#CityId').on("change", function (e) {
             debugger;
+
+            var selectedValue = $(this).val();
+            var req = { cityId: selectedValue };
+
+            // ServerSide DataBinding
+            $.ajax({
+                url: '/Hotel/GetDistricts',
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(req),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    debugger;
+
+                    var districtDOM = $("#DistrictId");
+                    districtDOM.empty();
+
+                    var opt = new Option("Select District", "-1", true, true);
+                    districtDOM.append(opt);
+
+                    $.each(data, function (i, v) {
+                        var opt = new Option(v.Name, v.Id, false, false);
+                        districtDOM.append(opt);
+                    });
+                },
+                error: function (xhr) {
+                    Core.showNotify("<b>Get an Error</b>", "", "error");
+                }
+            });
+
+            /*
+
+             LocalDataBinding
+
             var districtDOM = $('#DistrictId');
             districtDOM.empty();
 
-            var selectedValue = $(this).val();
+            var selectedValue = $(this).val(); // $('#CityId').val();
             var filteredData = that.pageInitObject.DistrictsJson.filter(p => p.ParentValue == selectedValue);
 
             var opt = new Option("Select ...", "-1", true, false);
@@ -127,6 +163,7 @@
                 var opt = new Option(data.Text, data.Value, false, data.Selected);
                 districtDOM.append(opt);
             });
+            */
         });
     }
 

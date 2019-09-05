@@ -143,6 +143,7 @@ namespace BookingSystem.WebUI.HtmlExtensions
             {
                 _htmlAttr.Add("Class", "form-control");
             }
+
             var d = data;
             var d1 = new[] { new BSelectListItem { Selected = false, Text = string.Format("Select {0}", textVal), Value = "-1" } };
             data = d1.Concat(d);
