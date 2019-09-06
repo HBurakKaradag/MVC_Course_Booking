@@ -17,5 +17,7 @@ namespace BookingSystem.Domain.Entity
         public bool IsActive { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public virtual HotelDefinition HotelDefinition { get; set; }
     }
 }

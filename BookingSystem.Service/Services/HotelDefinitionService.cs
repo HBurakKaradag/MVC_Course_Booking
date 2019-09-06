@@ -37,6 +37,20 @@ namespace BookingSystem.Service.Services
             }
         }
 
+        public ServiceResultModel<HotelDefinitionVM> GetHotel(int id)
+        {
+            HotelDefinitionVM hotel = null;
+            using (EFBookingContext context = new EFBookingContext())
+            {
+                context.HotelDefinitions.Include("HotelAttribute");
+                var hotelEntity = context.HotelDefinitions.FirstOrDefault(p =>p.Id == id);
+                hotel = hotelEntity.MapProperties<HotelDefinitionVM>();
+                hotel.HotelAttributes = hotel.HotelAttributes.Select(p => p.MapProperties<HotelAttributeVM>()).ToList();
+            }
+
+            return ServiceResultModel<HotelDefinitionVM>.OK(hotel);
+        }
+
         //public ServiceResultModel<HotelDefinitionVM> SaveHotel(HotelDefinitionVM model)
         //{
         //    using (EFBookingContext context = new EFBookingContext())

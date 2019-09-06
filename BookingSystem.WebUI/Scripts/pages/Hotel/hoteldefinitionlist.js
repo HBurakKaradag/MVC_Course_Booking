@@ -24,7 +24,7 @@
                         text: "New Record",
                         action: function (e, dt, node, config) {
                             debugger;
-                            window.location.href = that.pageInitObject.Urls.HotelAddActionUrl;
+                            window.location.href = that.pageInitObject.Urls.HotelAddEditActionUrl;
                         }
                     }
                 ],
@@ -105,7 +105,7 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var editUrl = that.pageInitObject.Urls.EditButtonUrl + '?Id=' + row.Id;
+                        var editUrl = that.pageInitObject.Urls.HotelAddEditActionUrl + '?hotelId=' + row.Id;
                         var actionsEdit = '<a style="margin-right:2px;" href="' + editUrl + '" class="btn btn-info" data-id="' + row.Id + '" type="button"><i class="fa fa-edit"></i>' + " Edit " + ' </button>';
                         return actionsEdit;
                     },
@@ -127,35 +127,7 @@
     };
 
     var handleEvents = function () {
-        $(document).on('click', '.btnDelete', function () {
-            var id = $(this).attr("data-id");
-            var reqObj = { id: id };
-
-            $.ajax({
-                url: that.pageInitObject.Urls.DeleteUrlAction,
-                dataType: "json",
-                type: "POST",
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(reqObj),
-                async: true,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    if (data.ResultType == Core.responseStatus.Success) {
-                        Core.showNotify("<b>Complate Successfully</b>", "", "success");
-                        refreshTable();
-                    }
-                    else {
-                        Core.showNotify("<b>Warning..</b>", data.Message, "warning");
-                        return;
-                    }
-                },
-                error: function (xhr) {
-                    Core.showNotify("<b>Get an Error</b>", "", "error");
-                }
-            });
-        });
-
+      
         $(document).on('click', '.btnClear', function () {
             Core.clearForm();
             refreshTable();

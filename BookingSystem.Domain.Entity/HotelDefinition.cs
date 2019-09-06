@@ -1,4 +1,6 @@
 ﻿using BookingSystem.Domain.Entity.BaseEntity;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace BookingSystem.Domain.Entity
 {
@@ -26,5 +28,7 @@ namespace BookingSystem.Domain.Entity
         public bool IsActive { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public virtual ICollection<HotelAttribute> HotelAttributes { get; set; }
     }
 }

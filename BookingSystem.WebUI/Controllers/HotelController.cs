@@ -241,42 +241,51 @@ namespace BookingSystem.WebUI.Controllers
             /// View model için Entityden farklı propery'ler içerebileceğini ve view 'a göre düzenlenebileceğinden bahsetmiştik.
             /// HotelTypes datasını ViewBag üzerinden gönderebileceğimiz gibi VM içerisinden de gönderebiliriz.
             /// </summary>
-            List<CheckBoxListTemplate> hotelAttributes = new List<CheckBoxListTemplate>();
 
-            var hotelAttributeData = _attributeService.GetAllAttributeList(new AttributeFilter { AttributeType = (int)AttributeType.Hotel });
-            if (hotelAttributeData.IsSuccess)
-                hotelAttributes.AddRange(hotelAttributeData.Data
-                                                           .Select(p => new CheckBoxListTemplate
-                                                           {
-                                                               Id = p.Id,
-                                                               Text = p.Name,
-                                                               IsSelected = false
-                                                           }));
 
-            var allAddressData = _definitionService.GetCities().Data;
-            var city = allAddressData.Select(p => new BSelectListItem
+            HotelDefinitionVM hotelDefinition = new HotelDefinitionVM();
+
+            if (hotelId.HasValue)
+                hotelDefinition = _hotelDefinitionService.GetHotel(hotelId.Value).Data;
+
+            var allCitiesData = _definitionService.GetCities().Data;
+            hotelDefinition.Cities = allCitiesData.Select(p => new BSelectListItem
             {
                 ParentValue = "0",
                 Value = p.Id.ToString(),
                 Text = p.Name,
-                Selected = false
+                Selected = hotelId.HasValue ? hotelDefinition.CityId == p.Id : false
             }).AsEnumerable();
 
-            var district = allAddressData.SelectMany(p => p.Districts).Select(c => new BSelectListItem
-            {
-                ParentValue = c.CityId.ToString(),
-                Value = c.Id.ToString(),
-                Text = c.Name,
-                Selected = false
-            }).AsEnumerable();
+            hotelDefinition.Districts = Enumerable.Empty<BSelectListItem>();
 
-            HotelDefinitionVM hotelDefinition = new HotelDefinitionVM
+            if (hotelId.HasValue && hotelDefinition?.CityId >0 && hotelDefinition?.DistrictId > 0)
             {
-                HotelTypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data,
-                Cities = city,
-                Districts = district,
-                HotelAttributes = hotelAttributes
-            };
+                hotelDefinition.Districts = allCitiesData.SelectMany(p => p.Districts)
+                                                         .Where(p => p.CityId == hotelDefinition.CityId)
+                                                         .Select(c => new BSelectListItem
+                                                         {
+                                                             ParentValue = c.CityId.ToString(),
+                                                             Value = c.Id.ToString(),
+                                                             Text = c.Name,
+                                                             Selected = hotelId.HasValue ? hotelDefinition.DistrictId == c.Id : false
+                                                         }).AsEnumerable();
+
+            }
+              
+            hotelDefinition.HotelTypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data;
+
+            List<CheckBoxListTemplate> attributes = _attributeService.GetAllAttributeList(new AttributeFilter { AttributeType = (int)AttributeType.Hotel }).Data
+                                                           .Select(p => new CheckBoxListTemplate
+                                                           {
+                                                               Id = p.Id,
+                                                               Text = p.Name,
+                                                               IsSelected = hotelDefinition.Id > 0 && hotelDefinition.HotelAttributes.Any(c => c.AttributeId == p.Id)
+                                                           }).ToList();
+
+            hotelDefinition.Attributes = attributes;
+
+
             return View(hotelDefinition);
         }
 

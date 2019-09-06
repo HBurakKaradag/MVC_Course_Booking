@@ -68,7 +68,7 @@
                             <div style="float:right; width:48%;">
                                 @Html.LabelFor(model => model.DistrictId, new { @class = "control-label" })
                                 <div class="form-group">
-                                    @Html.BDropDownListFor(model => model.DistrictId, Enumerable.Empty<BSelectListItem>(), new { })
+                                    @Html.BDropDownListFor(model => model.DistrictId, Model.Districts, new { })
                                     @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -91,8 +91,8 @@
                             <div>
                                 @* @Html.LabelFor(model => model.HotelAttributes, new { @class = "control-label" })*@
                                 <div class="form-group">
-                                    @Html.EditorFor(model => model.HotelAttributes)
-                                    @Html.Hidden("HotelAttributesCount", Model.HotelAttributes.Count)
+                                    @Html.EditorFor(model => model.Attributes)
+                                    @Html.Hidden("HotelAttributesCount", Model.Attributes.Count)
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,7 @@ namespace BookingSystem.Domain.WebUI.Hotel
     {
         public HotelDefinitionVM()
         {
+            HotelAttributes = new List<HotelAttributeVM>();
         }
 
         public int Id { get; set; }
@@ -36,6 +37,9 @@ namespace BookingSystem.Domain.WebUI.Hotel
 
         public string Address { get; set; }
 
+        public List<HotelAttributeVM> HotelAttributes { get; set; }
+
+
         /// <summary>
         /// View model için Entityden farklı propery'ler içerebileceğini ve view 'a göre düzenlenebileceğinden bahsetmiştik.
         /// HotelTypes datasını ViewBag üzerinden gönderebileceğimiz gibi VM içerisinden de gönderebiliriz.
@@ -50,6 +54,6 @@ namespace BookingSystem.Domain.WebUI.Hotel
         public IEnumerable<BSelectListItem> Districts { get; set; }
 
         [MapIgnore]
-        public List<CheckBoxListTemplate> HotelAttributes { get; set; }
+        public List<CheckBoxListTemplate> Attributes { get; set; }
     }
 }

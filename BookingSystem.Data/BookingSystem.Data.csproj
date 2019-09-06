@@ -101,6 +101,10 @@
     <Compile Include="Migrations\201909051831141_updateDB.Designer.cs">
       <DependentUpon>201909051831141_updateDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909061209212_HotelAttibutes Added.cs" />
+    <Compile Include="Migrations\201909061209212_HotelAttibutes Added.Designer.cs">
+      <DependentUpon>201909061209212_HotelAttibutes Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -157,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909051831141_updateDB.resx">
       <DependentUpon>201909051831141_updateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909061209212_HotelAttibutes Added.resx">
+      <DependentUpon>201909061209212_HotelAttibutes Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

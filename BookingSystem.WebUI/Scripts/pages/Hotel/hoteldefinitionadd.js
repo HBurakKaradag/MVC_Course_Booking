@@ -44,7 +44,7 @@
             var index;
             for (index = 0; index < hotelAttributeCount; ++index) {
                 debugger;
-                var template = "HotelAttributes_" + index + "__";
+                var template = "Attributes_" + index + "__";
                 var id = $("#" + template + "Id").val();
                 var isSelected = $("#" + template + "IsSelected").prop("checked");
                 var text = $('label[for="' + template + "IsSelected" + '"]').html()
@@ -54,30 +54,16 @@
                     IsSelected: isSelected,
                     Text: text
                 };
-                //var obj = {};
-                //obj.Id = id;
-                //obj.IsSelected = isSelected;
-                //obj.Text = text;
-
                 hotelAttributeArray.push(obj);
             };
 
-            req.HotelAttributes = hotelAttributeArray;
+            req.Attributes = hotelAttributeArray;
 
             debugger;
             if (req.Description == "") {
                 Core.showNotify("<b>Validation</b>", "Description field must be required", "warning");
                 return;
             }
-
-            // veya Core içerisine validation kontrol eden bir fucntion yazabilirsiniz.
-            // örneğin required olarak işaretlenmiş bir html objesnin browser'da nasıl create edildiğini inceleyin
-            // Browser'dan Dom element'e sağ tıklayıp incele dediğinizde html 'i görüntüleyebilirsiniz.
-            /*
-               <input class="form-control" data-model="Title" data-type="String" data-val="true" data-val-required="Title alanı gereklidir." id="Title" name="Title" placeholder="Title" type="text" value="">
-               yukarıdaki gibi bir html oluşmuş.
-               data-val-required attribute'dan yakalayabilip mesaj oluşturabilirsiniz.
-             */
 
             $.ajax({
                 url: that.pageInitObject.Urls.HotelSaveUrlAction,

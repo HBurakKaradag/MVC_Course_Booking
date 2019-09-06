@@ -52,10 +52,10 @@ namespace BookingSystem.Data.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // configures one-to-many relationship
-            modelBuilder.Entity<DistrictDefinition>()
-                .HasRequired<CityDefinition>(s => s.CityDefinition)
-                .WithMany(g => g.Districts)
-                .HasForeignKey<int>(s => s.CityId);
+            modelBuilder.Entity<DistrictDefinition>().HasRequired<CityDefinition>(p => p.CityDefinition).WithMany(p => p.Districts).HasForeignKey<int>(p => p.CityId);
+
+            modelBuilder.Entity<HotelAttribute>().HasRequired<HotelDefinition>(p => p.HotelDefinition).WithMany(p => p.HotelAttributes).HasForeignKey<int>(p => p.HotelId);
+                
 
             base.OnModelCreating(modelBuilder);
         }

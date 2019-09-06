@@ -52,6 +52,7 @@
     <Compile Include="Filters\HotelFilter.cs" />
     <Compile Include="Filters\RoomTypeFilter.cs" />
     <Compile Include="Filters\HotelTypeFilter.cs" />
+    <Compile Include="Hotel\HotelAttributeVM.cs" />
     <Compile Include="Hotel\HotelDefinitionVM.cs" />
     <Compile Include="Hotel\HotelTypeVM.cs" />
     <Compile Include="Account\MenuVM.cs" />
