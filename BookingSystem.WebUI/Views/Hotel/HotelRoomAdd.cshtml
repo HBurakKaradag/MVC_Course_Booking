@@ -1,0 +1,133 @@
+﻿@model BookingSystem.Domain.WebUI.Hotel.HotelDefinitionVM
+
+@{
+    ViewBag.Title = "HotelDefinitionAdd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var hotelTypeSelectItem = Model.HotelTypes.Select(p => new BSelectListItem
+    {
+        Value = p.Id.ToString(),
+        Text = p.Title,
+        Selected = false
+    }).ToList().AsEnumerable();
+
+}
+
+@section PageScripts
+{
+    <script src='@Url.Content("~/Scripts/pages/Hotel/hoteldefinitionadd.js")'></script>
+}
+
+@section BrundCrumb{
+    @Html.BuildBrandCrumb()
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default">
+            <div class="box-body" style="">
+                @Html.BHiddenFor(model => model.Id)
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.HotelName, new { @class = "control-label" })
+                            <div class="form-group">
+                                @Html.BTextBoxFor(model => model.HotelName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.HotelName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Title, new { @class = "control-label" })
+                            <div class="form-group">
+                                @Html.BTextBoxFor(model => model.Title, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div>
+                                @Html.LabelFor(model => model.HotelTypeId, new { @class = "control-label" })
+                                <div class="form-group">
+                                    @Html.BDropDownListFor(model => model.HotelTypeId, hotelTypeSelectItem, new { })
+                                    @Html.ValidationMessageFor(model => model.HotelTypeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div style="float:left; width:48%;">
+                                @Html.LabelFor(model => model.CityId, new { @class = "control-label" })
+                                <div class="form-group">
+                                    @Html.BDropDownListFor(model => model.CityId, Model.Cities, new { })
+                                    @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div style="float:right; width:48%;">
+                                @Html.LabelFor(model => model.DistrictId, new { @class = "control-label" })
+                                <div class="form-group">
+                                    @Html.BDropDownListFor(model => model.DistrictId, Model.Districts, new { })
+                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div>
+                                @Html.LabelFor(model => model.Address, new { @class = "control-label" })
+                                <div class="form-group">
+                                    @Html.BTextAreaFor(model => model.Address, new { @class = "col col-md-8", @Style = "min-height:114px; min-width: 443px; max-height:114px; max-width: 443px;" })
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div>
+                                @* @Html.LabelFor(model => model.HotelAttributes, new { @class = "control-label" })*@
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Attributes)
+                                    @Html.Hidden("HotelAttributesCount", Model.Attributes.Count)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer" style="">
+                <div class="col-md-12">
+                    <div style="float:right; padding-left:2px;">
+                        <button type="button" class="btn btn-block btn-danger btnCancel" onclick="location.href='@Url.Action("HotelDefinitionList", "Hotel")'">Cancel</button>
+                    </div>
+                    <div style="float:right; padding-right:2px;">
+                        <button type="button" class="btn btn-block btn-primary btnSave">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        var initObject = [];
+        var urls = {
+            HotelSaveUrlAction: '@Url.Action("SaveHotelDefinition", "Hotel")',
+        };
+        debugger;
+        var jsonStr = '@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Districts))';
+        var districtJson = JSON.parse(jsonStr);
+
+        initObject.Urls = urls;
+        initObject.DistrictsJson = districtJson;
+
+        HotelDefinitionAdd.init(initObject);
+
+    });
+</script>

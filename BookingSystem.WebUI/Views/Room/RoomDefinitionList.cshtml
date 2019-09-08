@@ -1,0 +1,120 @@
+﻿@model BookingSystem.Domain.WebUI.Filters.RoomDefinitionFilter
+
+@{
+    ViewBag.Title = "RoomDefinitionList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section PageScripts
+{
+    <script src='@Url.Content("~/Scripts/pages/RoomTypes/roomtypelist.js")'></script>
+}
+
+@section BrundCrumb{
+    @Html.BuildBrandCrumb()
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-filter"></i> Filters</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body filter" style="">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.HotelId, new { @class = "control-label" })
+                        <div class="form-group">
+                            @Html.BDropDownListFor(model => model.HotelId, (IEnumerable<BSelectListItem>)ViewBag.Hotels, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer" style="">
+                <div class="col-md-12">
+                    <div style="float:right; padding-left:2px;">
+                        <button type="button" class="btn btn-block btn-danger btnClear">Clear</button>
+                    </div>
+                    <div style="float:right; padding-right:2px;">
+                        <button type="button" class="btn btn-block btn-primary btnSearch">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+            </div>
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="col-sm-12">
+                        <table id="tableRoomTypeList" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>IsActive</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                @*include PartialView*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btnSave">Save changes</button>
+                <button type="button" class="btn btn-danger btnCancel" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var initObject = [];
+        var urls = {
+            gridLoadUrl: '@Url.Action("GetRoomTypeList", "Room")',
+            addEditPartialUrl : '@Url.Action("RoomTypeAddEdit","Room")',
+            SaveUrlAction: '@Url.Action("SaveRoomType","Room")',
+            UpdateUrlAction: '@Url.Action("UpdateRoomType","Room")',
+            DeleteUrlAction :'@Url.Action("DeleteRoomType","Room")'
+        };
+
+        var languages = {
+            BtnAddValue: "New Record",
+            BtnEditValue: "Edit Record"
+        };
+
+        initObject.Urls = urls;
+        initObject.Languages = languages;
+
+        RoomTypeList.init(initObject);
+    });
+</script>
