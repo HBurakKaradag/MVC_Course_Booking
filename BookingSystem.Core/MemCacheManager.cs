@@ -45,7 +45,7 @@ namespace BookingSystem.Core
 
             var policy = new CacheItemPolicy
             {
-                AbsoluteExpiration = expTime.HasValue ? expTime.Value : DateTime.Now.AddMinutes(30)
+                AbsoluteExpiration = expTime ?? DateTime.Now.AddMinutes(30)
             };
             Cache.Add(new CacheItem(key, data), policy);
         }

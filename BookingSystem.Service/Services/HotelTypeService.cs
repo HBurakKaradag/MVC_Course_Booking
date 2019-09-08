@@ -23,7 +23,7 @@ namespace BookingSystem.Service.Services
             HotelTypeVM currentItem = null;
             using (EFBookingContext context = new EFBookingContext())
             {
-                currentItem = context.HotelTypes.FirstOrDefault(p => p.Id == id).MapProperties<HotelTypeVM>();
+                currentItem = context.HotelTypes.FirstOrDefault(p => p.Id == id).MapToViewModel<HotelTypeVM>();
             }
 
             return ServiceResultModel<HotelTypeVM>.OK(currentItem);
@@ -49,7 +49,7 @@ namespace BookingSystem.Service.Services
 
                 hotelTypeList.ToList().ForEach(p =>
                 {
-                    resultList.Add(p.MapProperties<HotelTypeVM>());
+                    resultList.Add(p.MapToViewModel<HotelTypeVM>());
                 });
 
                 return ServiceResultModel<List<HotelTypeVM>>.OK(resultList);
@@ -72,10 +72,10 @@ namespace BookingSystem.Service.Services
                     };
                 }
 
-                var recordItem = context.HotelTypes.Add(model.MapProperties<HotelType>());
+                var recordItem = context.HotelTypes.Add(model.MapToEntityModel<HotelType>());
                 context.SaveChanges();
 
-                return ServiceResultModel<HotelTypeVM>.OK(recordItem.MapProperties<HotelTypeVM>());
+                return ServiceResultModel<HotelTypeVM>.OK(recordItem.MapToViewModel<HotelTypeVM>());
             }
         }
 
@@ -92,7 +92,7 @@ namespace BookingSystem.Service.Services
                         return new ServiceResultModel<HotelTypeVM>
                         {
                             Code = ServiceResultCode.Duplicate,
-                            Data = currentItem.MapProperties<HotelTypeVM>(),
+                            Data = currentItem.MapToViewModel<HotelTypeVM>(),
                             ResultType = OperationResultType.Warn,
                             Message = "This title using other records "
                         };
@@ -104,7 +104,7 @@ namespace BookingSystem.Service.Services
                     context.SaveChanges();
                 }
 
-                return ServiceResultModel<HotelTypeVM>.OK(currentItem.MapProperties<HotelTypeVM>());
+                return ServiceResultModel<HotelTypeVM>.OK(currentItem.MapToViewModel<HotelTypeVM>());
             }
         }
 
@@ -116,7 +116,7 @@ namespace BookingSystem.Service.Services
                 context.HotelTypes.Remove(deleteItem);
                 context.SaveChanges();
 
-                return ServiceResultModel<HotelTypeVM>.OK(deleteItem.MapProperties<HotelTypeVM>());
+                return ServiceResultModel<HotelTypeVM>.OK(deleteItem.MapToViewModel<HotelTypeVM>());
                 /*
                  veya bu şeklide de yazabilirsiniz.
                  EF Tracking sistemi ile çalışır. 2. kodda tracking 'e deleteıtem kaydının Hoteltype tablosunda deleted olarak Track'lendiğini bildiriyoruz.

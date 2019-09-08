@@ -38,7 +38,7 @@ namespace BookingSystem.Service.Services
                 {
                     ResultType = OperationResultType.Warn,
                     Message = "This user is InActive, please contact your administrator",
-                    Data = userInfo.MapProperties<UserVM>()
+                    Data = userInfo.MapToViewModel<UserVM>()
                 };
             }
 
@@ -49,11 +49,11 @@ namespace BookingSystem.Service.Services
                     Code = ServiceResultCode.EMailIsNotConfirmed,
                     ResultType = OperationResultType.Warn,
                     Message = "Please confirm your account, Check mailbox",
-                    Data = userInfo.MapProperties<UserVM>()
+                    Data = userInfo.MapToViewModel<UserVM>()
                 };
             }
 
-            return ServiceResultModel<UserVM>.OK(userInfo.MapProperties<UserVM>());
+            return ServiceResultModel<UserVM>.OK(userInfo.MapToViewModel<UserVM>());
         }
 
         public ServiceResultModel<UserVM> RegisterUser(RegisterVM model)
@@ -85,7 +85,7 @@ namespace BookingSystem.Service.Services
 
                 context.SaveChanges();
 
-                return ServiceResultModel<UserVM>.OK(registeredUser.MapProperties<UserVM>());
+                return ServiceResultModel<UserVM>.OK(registeredUser.MapToViewModel<UserVM>());
             }
         }
     }

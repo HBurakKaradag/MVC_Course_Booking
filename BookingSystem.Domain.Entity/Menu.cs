@@ -1,13 +1,14 @@
-﻿namespace BookingSystem.Domain.Entity
+﻿using BookingSystem.Domain.Entity.BaseEntity;
+
+namespace BookingSystem.Domain.Entity
 {
-    public class Menu
+    public class Menu : EntityBase
     {
         public Menu()
         {
             this.IsActive = true;
         }
 
-        public int Id { get; set; }
         public int ParentId { get; set; }
         public string Title { get; set; }
         public int Order { get; set; }

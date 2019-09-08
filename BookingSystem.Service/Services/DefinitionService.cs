@@ -19,8 +19,8 @@ namespace BookingSystem.Service.Services
                 cityDefs.ForEach(p =>
                 {
                     CityDefinitionVM cityVM = new CityDefinitionVM();
-                    cityVM = p.MapProperties<CityDefinitionVM>();
-                    cityVM.Districts = p.Districts.Select(c => c.MapProperties<DistrictDefinitionVM>()).ToList();
+                    cityVM = p.MapToViewModel<CityDefinitionVM>();
+                    cityVM.Districts = p.Districts.Select(c => c.MapToViewModel<DistrictDefinitionVM>()).ToList();
                     resultList.Add(cityVM);
                 });
             }
@@ -34,7 +34,7 @@ namespace BookingSystem.Service.Services
             using (EFBookingContext context = new EFBookingContext())
             {
                 var districts = context.DistrictDefinition.Where(p => p.CityId == cityId).ToList();
-                resultList.AddRange(districts.Select(p => p.MapProperties<DistrictDefinitionVM>()));
+                resultList.AddRange(districts.Select(p => p.MapToViewModel<DistrictDefinitionVM>()));
             }
 
             return ServiceResultModel<List<DistrictDefinitionVM>>.OK(resultList);

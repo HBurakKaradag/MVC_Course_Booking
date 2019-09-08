@@ -157,9 +157,9 @@ namespace BookingSystem.WebUI.HtmlExtensions
                 _htmlAttr.Add("Class", "form-control");
             }
 
-            var d = data;
-            var d1 = new[] { new BSelectListItem { Selected = false, Text = string.Format("Select {0}", textVal), Value = "-1" } };
-            data = d1.Concat(d);
+            var d1 = data;
+            var d2 = new[] { new BSelectListItem { Selected = false, Text = string.Format("Select {0}", textVal), Value = "-1" } };
+            data = d2.Concat(d1);
             data.Concat(new BSelectListItem[] { new BSelectListItem { Selected = false, Text = textVal, Value = "-1" } });
             return helper.DropDownListFor(expression: expression, selectList: new SelectList(data, "Value", "Text", "Selected"), htmlAttributes: _htmlAttr);
         }

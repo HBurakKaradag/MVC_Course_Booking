@@ -3,6 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookingSystem.Core.CustomValidation
 {
+    /// <summary>
+    /// @Kodluyoruz-MVC-Bootcamp  13.07.2019 – 09.09.2019
+    /// H.Burak Karadağ
+    /// ViewModel üzerinde CustomValidation yapmamızı sağlayan Attribute sınıfı
+    /// Modelde set edilen propery nin Attribute'a parametre ile gönderilen property ile valuelarının
+    /// aynı olup olmadığını validate eder. Sonucu modelState'e ekler.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
     public class IsSameValue : ValidationAttribute
     {

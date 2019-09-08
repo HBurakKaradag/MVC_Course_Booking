@@ -14,7 +14,7 @@ namespace BookingSystem.Service.Services
         {
             using (EFBookingContext context = new EFBookingContext())
             {
-                context.AuditLogs.Add(auditLog.MapProperties<AuditLog>());
+                context.AuditLogs.Add(auditLog.MapToEntityModel<AuditLog>());
                 context.SaveChanges();
             }
 
@@ -27,7 +27,7 @@ namespace BookingSystem.Service.Services
             using (EFBookingContext context = new EFBookingContext())
             {
                 var auditLogs = context.AuditLogs.ToList();
-                resultList.AddRange(auditLogs.Select(p => p.MapProperties<AuditLogVM>()));
+                resultList.AddRange(auditLogs.Select(p => p.MapToViewModel<AuditLogVM>()));
             }
 
             return ServiceResultModel<List<AuditLogVM>>.OK(resultList);

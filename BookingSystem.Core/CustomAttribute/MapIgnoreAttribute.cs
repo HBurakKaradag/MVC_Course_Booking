@@ -3,8 +3,10 @@
 namespace BookingSystem.Core.CustomAttribute
 {
     /// <summary>
-    /// Custom Ignore attribute
-    /// Attribute Name'e bakılarak property'ler Ignore edilir.
+    /// @Kodluyoruz-MVC-Bootcamp  13.07.2019 – 09.09.2019
+    /// H.Burak Karadağ
+    /// EntityModel ve ViewModel üzerinde yapılan Mapping işleminde
+    /// Ignore edilecek property'lerin belirlenmesi için kullanılır.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class MapIgnoreAttribute : Attribute

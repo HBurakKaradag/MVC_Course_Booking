@@ -2,6 +2,11 @@
 
 namespace BookingSystem.Domain.WebUI
 {
+    /// <summary>
+    /// @Kodluyoruz-MVC-Bootcamp  13.07.2019 – 09.09.2019
+    /// H.Burak Karadağ
+    /// WebUI ile data arasındaki veri transfer işlemlerini yapıp validasyonları çalıştıran sınıfımız.
+    /// </summary>
     public class ServiceResultModel<T>
     {
         #region Ctor

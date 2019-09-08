@@ -5,6 +5,13 @@ using System.Text;
 
 namespace BookingSystem.Core.Extensions
 {
+    /// <summary>
+    /// @Kodluyoruz-MVC-Bootcamp  13.07.2019 – 09.09.2019
+    /// H.Burak Karadağ
+    /// Proje üzerinde string işlemlerimizin düzen, kod okunabilirliği
+    /// standartlı kod yazma ve tekrarların önüne geçme kod standart alışkanlığı kazanma
+    /// amaçlı yazdığımız stringExtension
+    /// </summary>
     public static class StringExtensions
     {
         public static bool IsNull(this string p)

@@ -36,7 +36,7 @@ namespace BookingSystem.Service.Services
 
                 hotelDefinitionList.ToList().ForEach(p =>
                 {
-                    resultList.Add(p.MapProperties<HotelDefinitionVM>());
+                    resultList.Add(p.MapToViewModel<HotelDefinitionVM>());
                 });
 
                 return ServiceResultModel<List<HotelDefinitionVM>>.OK(resultList);
@@ -50,9 +50,9 @@ namespace BookingSystem.Service.Services
             {
                 //context.HotelDefinitions.Include("HotelAttribute");
                 var hotelEntity = context.HotelDefinitions.FirstOrDefault(p => p.Id == id);
-                hotel = hotelEntity.MapProperties<HotelDefinitionVM>();
-                hotel.HotelAttributes = hotelEntity.HotelAttributes.Select(p => p.MapProperties<HotelAttributeVM>()).ToList();
-                hotel.HotelRooms = hotelEntity.HotelRooms.Select(p => p.MapProperties<HotelRoomVM>()).ToList();
+                hotel = hotelEntity.MapToViewModel<HotelDefinitionVM>();
+                hotel.HotelAttributes = hotelEntity.HotelAttributes.Select(p => p.MapToViewModel<HotelAttributeVM>()).ToList();
+                hotel.HotelRooms = hotelEntity.HotelRooms.Select(p => p.MapToViewModel<HotelRoomVM>()).ToList();
             }
 
             return ServiceResultModel<HotelDefinitionVM>.OK(hotel);
@@ -70,7 +70,7 @@ namespace BookingSystem.Service.Services
                         context.HotelAttributes.RemoveRange(deletedAttributes);
 
                         HotelDefinition hotel = new HotelDefinition();
-                        hotel = model.MapProperties<HotelDefinition>();
+                        hotel = model.MapToEntityModel<HotelDefinition>();
 
                         context.HotelDefinitions.Add(hotel);
                         var savedHotel = context.SaveChanges();

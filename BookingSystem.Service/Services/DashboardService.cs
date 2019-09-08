@@ -13,7 +13,7 @@ namespace BookingSystem.Service.Services
             List<MenuVM> menus = new List<MenuVM>();
             using (EFBookingContext context = new EFBookingContext())
             {
-                menus = context.Menus.ToList().Select(p => p.MapProperties<MenuVM>()).ToList();
+                menus = context.Menus.ToList().Select(p => p.MapToViewModel<MenuVM>()).ToList();
             }
 
             if (menus == null || !menus.Any())
@@ -35,7 +35,7 @@ namespace BookingSystem.Service.Services
             var parents = menuDTOList.Where(p => p.IsActive && p.ParentId == 0).OrderBy(c => c.Order).ToList();
             foreach (var parentItem in parents)
             {
-                var currentParentItem = parentItem.MapProperties<MenuVM>();
+                var currentParentItem = parentItem;
                 AddSubMenu(ref currentParentItem, menuDTOList);
                 categorizedMenuList.Add(currentParentItem);
             }
@@ -48,7 +48,7 @@ namespace BookingSystem.Service.Services
             var parent = menuList.Where(p => p.IsActive && p.ParentId == currentMenu.Id).OrderBy(p => p.Order).ToList();
             foreach (var childItem in parent)
             {
-                var currentChildItem = childItem.MapProperties<MenuVM>();
+                var currentChildItem = childItem;
                 currentMenu.SubMenu.Add(currentChildItem);
                 AddSubMenu(ref currentChildItem, menuList);
             }

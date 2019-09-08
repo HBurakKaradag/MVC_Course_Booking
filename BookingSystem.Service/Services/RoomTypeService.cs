@@ -23,7 +23,7 @@ namespace BookingSystem.Service.Services
             RoomTypeVM currentItem = null;
             using (EFBookingContext context = new EFBookingContext())
             {
-                currentItem = context.RoomTypes.FirstOrDefault(p => p.Id == id).MapProperties<RoomTypeVM>();
+                currentItem = context.RoomTypes.FirstOrDefault(p => p.Id == id).MapToViewModel<RoomTypeVM>();
             }
 
             return ServiceResultModel<RoomTypeVM>.OK(currentItem);
@@ -44,7 +44,7 @@ namespace BookingSystem.Service.Services
 
                 roomTypeList.ToList().ForEach(p =>
                 {
-                    resultList.Add(p.MapProperties<RoomTypeVM>());
+                    resultList.Add(p.MapToViewModel<RoomTypeVM>());
                 });
 
                 return ServiceResultModel<List<RoomTypeVM>>.OK(resultList);
@@ -67,10 +67,10 @@ namespace BookingSystem.Service.Services
                     };
                 }
 
-                var recordItem = context.RoomTypes.Add(model.MapProperties<RoomType>());
+                var recordItem = context.RoomTypes.Add(model.MapToEntityModel<RoomType>());
                 context.SaveChanges();
 
-                return ServiceResultModel<RoomTypeVM>.OK(recordItem.MapProperties<RoomTypeVM>());
+                return ServiceResultModel<RoomTypeVM>.OK(recordItem.MapToViewModel<RoomTypeVM>());
             }
         }
 
@@ -87,7 +87,7 @@ namespace BookingSystem.Service.Services
                         return new ServiceResultModel<RoomTypeVM>
                         {
                             Code = ServiceResultCode.Duplicate,
-                            Data = currentItem.MapProperties<RoomTypeVM>(),
+                            Data = currentItem.MapToViewModel<RoomTypeVM>(),
                             ResultType = OperationResultType.Warn,
                             Message = "This title using other records "
                         };
@@ -99,7 +99,7 @@ namespace BookingSystem.Service.Services
                     context.SaveChanges();
                 }
 
-                return ServiceResultModel<RoomTypeVM>.OK(currentItem.MapProperties<RoomTypeVM>());
+                return ServiceResultModel<RoomTypeVM>.OK(currentItem.MapToViewModel<RoomTypeVM>());
             }
         }
 
@@ -110,7 +110,7 @@ namespace BookingSystem.Service.Services
                 var deleteItem = context.RoomTypes.FirstOrDefault(p => p.Id == id);
                 context.RoomTypes.Remove(deleteItem);
                 context.SaveChanges();
-                return ServiceResultModel<RoomTypeVM>.OK(deleteItem.MapProperties<RoomTypeVM>());
+                return ServiceResultModel<RoomTypeVM>.OK(deleteItem.MapToViewModel<RoomTypeVM>());
             }
         }
     }

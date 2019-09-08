@@ -44,7 +44,7 @@ namespace BookingSystem.Service.Services
                      {
                          lock (syncLockObj)
                          {
-                             resultList.Add(currentAttribute.MapProperties<AttributeVM>());
+                             resultList.Add(currentAttribute.MapToViewModel<AttributeVM>());
                          }
                      });
             }
@@ -67,10 +67,10 @@ namespace BookingSystem.Service.Services
                     };
                 }
 
-                var recordItem = context.Attributes.Add(model.MapProperties<Attributes>());
+                var recordItem = context.Attributes.Add(model.MapToEntityModel<Attributes>());
                 context.SaveChanges();
 
-                return ServiceResultModel<AttributeVM>.OK(recordItem.MapProperties<AttributeVM>());
+                return ServiceResultModel<AttributeVM>.OK(recordItem.MapToViewModel<AttributeVM>());
             }
         }
 
@@ -86,7 +86,7 @@ namespace BookingSystem.Service.Services
                         return new ServiceResultModel<AttributeVM>
                         {
                             Code = ServiceResultCode.Duplicate,
-                            Data = currentItem.MapProperties<AttributeVM>(),
+                            Data = currentItem.MapToViewModel<AttributeVM>(),
                             ResultType = OperationResultType.Warn,
                             Message = "This title using other records "
                         };
@@ -98,7 +98,7 @@ namespace BookingSystem.Service.Services
                     context.SaveChanges();
                 }
 
-                return ServiceResultModel<AttributeVM>.OK(currentItem.MapProperties<AttributeVM>());
+                return ServiceResultModel<AttributeVM>.OK(currentItem.MapToViewModel<AttributeVM>());
             }
         }
     }
