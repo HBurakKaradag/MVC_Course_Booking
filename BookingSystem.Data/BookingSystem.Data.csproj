@@ -105,6 +105,26 @@
     <Compile Include="Migrations\201909061209212_HotelAttibutes Added.Designer.cs">
       <DependentUpon>201909061209212_HotelAttibutes Added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909072020078_hoteltypes.cs" />
+    <Compile Include="Migrations\201909072020078_hoteltypes.Designer.cs">
+      <DependentUpon>201909072020078_hoteltypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909072127147_hotelRoom.cs" />
+    <Compile Include="Migrations\201909072127147_hotelRoom.Designer.cs">
+      <DependentUpon>201909072127147_hotelRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909072151014_ChangeDB.cs" />
+    <Compile Include="Migrations\201909072151014_ChangeDB.Designer.cs">
+      <DependentUpon>201909072151014_ChangeDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909072200454_bool nulable.cs" />
+    <Compile Include="Migrations\201909072200454_bool nulable.Designer.cs">
+      <DependentUpon>201909072200454_bool nulable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909072203284_designVM.cs" />
+    <Compile Include="Migrations\201909072203284_designVM.Designer.cs">
+      <DependentUpon>201909072203284_designVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -164,6 +184,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909061209212_HotelAttibutes Added.resx">
       <DependentUpon>201909061209212_HotelAttibutes Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909072020078_hoteltypes.resx">
+      <DependentUpon>201909072020078_hoteltypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909072127147_hotelRoom.resx">
+      <DependentUpon>201909072127147_hotelRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909072151014_ChangeDB.resx">
+      <DependentUpon>201909072151014_ChangeDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909072200454_bool nulable.resx">
+      <DependentUpon>201909072200454_bool nulable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909072203284_designVM.resx">
+      <DependentUpon>201909072203284_designVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

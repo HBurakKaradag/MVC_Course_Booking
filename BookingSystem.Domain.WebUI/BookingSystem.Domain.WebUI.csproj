@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +51,7 @@
     <Compile Include="Filters\AttributeFilter.cs" />
     <Compile Include="Filters\HotelRoomTypeFilter.cs" />
     <Compile Include="Filters\HotelFilter.cs" />
+    <Compile Include="Filters\HotelRoomFilter.cs" />
     <Compile Include="Filters\RoomTypeFilter.cs" />
     <Compile Include="Filters\HotelTypeFilter.cs" />
     <Compile Include="Hotel\HotelAttributeVM.cs" />
@@ -59,7 +61,7 @@
     <Compile Include="Definitions\CityDefinitionsVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Account\RegisterVM.cs" />
-    <Compile Include="Hotel\HotelRoomTypeVM.cs" />
+    <Compile Include="Hotel\HotelRoomVM.cs" />
     <Compile Include="Room\RoomTypeVM.cs" />
     <Compile Include="ServiceResultModel.cs" />
     <Compile Include="Account\UserVM.cs" />

@@ -1,9 +1,9 @@
-﻿var RoomDefinitionList = function () {
+﻿var HotelRoomList = function () {
     var that = this;
     var pageInitObject = [];
 
     var fillTable = function () {
-        var table = $('#tableRoomTypeList');
+        var table = $('#tableHotelRoomList');
 
         if (!jQuery().DataTable) {
             return;
@@ -24,9 +24,7 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                            var selectedRow = dt.rows({ selected: true }).data()[0];
-                            var selectedId = !jQuery.isEmptyObject(selectedRow) ? selectedRow.Id : null;
-                            openAddEditDialog(selectedId);
+                         
                         }
                     }
                 ],
@@ -62,40 +60,41 @@
             "columns": [
                 { "data": "[]", "name": "", "bSortable": false },
                 { "data": "Id", "name": "Id", "bSortable": false, "Width": "0" },
-                { "data": "Title", "name": "Title", "bSortable": false, "Width": "10" },
-                { "data": "Description", "name": "Description", "bSortable": false, "Width": "10" },
-                { "data": "IsActive", "name": "Active", "bSortable": true, "Width": "5" },
-                { "data": "[]", "name": "#", "bSortable": true, "Width": "5" }
-
+                { "data": "HotelId", "name": "HotelId", "bSortable": false, "Width": "0" },
+                { "data": "HotelName", "name": "HotelName", "bSortable": false, "Width": "15" },
+                { "data": "RoomTypeId", "name": "RoomTypeId", "bSortable": false, "Width": "0" },
+                { "data": "RoomName", "name": "RoomName", "bSortable": false, "Width": "15" },
+                { "data": "RoomCapacity", "name": "RoomCapacity", "bSortable": false, "Width": "5" },
+                { "data": "ImageUrl", "name": "ImageUrl", "bSortable": false, "Width": "5" },
+                { "data": "Price", "name": "Price", "bSortable": false, "Width": "5" },
+                { "data": "IsActive", "name": "IsActive", "bSortable": false, "Width": "5" }
             ],
             "columnDefs": [
-                {
+                  {
                     "sortable": false,
                     "searchable": false,
                     "className": 'select-checkbox',
                     "targets": [0]
                 },
+              
                 {
                     "sortable": false,
-                    "targets": [1],
+                    "targets": [1,2,4],
                     "visible": false,
                     "searchable": false
                 },
                 {
-                    "targets": [2, 3],
-                    "class": "text-center"
-                },
-                {
                     "render": function (data, type, row) {
-                        return (data === true) ? '<span class="fa fa-check"></span>' : '<span class="fa fa-close"></span>';
-                    },
-                    "targets": [4],
-                    "class": "text-center"
-                },
-                {
-                    "render": function (data, type, row) {
-                        var actionsDelete = '<a style="margin-left:2px;" class="btn btn-danger btnDelete" data-id="' + row.Id + '" type="button"><i class="fa fa-delete"></i>' + " Delete " + ' </button>';
-                        return actionsDelete;
+                        if (row.ImageUrl == '')
+                            return "No Image";
+                        else {
+                            debugger;
+                            var imageUrlStr = '<img src="file:' + row.ImageUrl + '" slt="' + row.RoomName + '"  height="42" width="42">';
+                            imageUrlStr = imageUrlStr.split('\\').join('/')
+                         
+                            return imageUrlStr;
+                        }
+                      
                     },
                     "targets": 5,
                     "class": "text-center"
@@ -111,7 +110,7 @@
     };
 
     var refreshTable = function () {
-        var oTable = $('#tableRoomTypeList').DataTable();
+        var oTable = $('#tableHotelRoomList').DataTable();
         oTable.ajax.reload();
     }
 
@@ -119,125 +118,15 @@
         $('.box.box-default').boxWidget('toggle');
     };
 
-    var openAddEditDialog = function (selectedId) {
-        var req = { id: selectedId };
-        //var getUrl = that.pageInitObject.Urls.addEditPartialUrl + "?id=" + req.id;
-
-        $.ajax({
-            url: that.pageInitObject.Urls.addEditPartialUrl,
-            dataType: 'html',
-            type: "POST",
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(req),
-            async: true,
-            processData: false,
-            cache: false,
-            success: function (data) {
-                debugger;
-                $("#modal-default .modal-body").html(data);
-                $('#modal-default').modal({ cache: false }, 'show');
-            },
-            error: function (xhr) {
-            }
-        });
-    };
-
     var handleEvents = function () {
-        $('#modal-default').on('show.bs.modal', function () {
+      
+        $('#HotelId').on("change", function (e) {
+            refreshTable();
         });
-
-        $('#modal-default').on('hidden.bs.modal', function () {
-            Core.clearForm();
-        });
-
-        $('#tableRoomTypeList').DataTable().on('select', function (e, dt, type, indexes) {
-            $(".dt-AddButton").html(that.pageInitObject.Languages.BtnEditValue);
-            $(".dt-AddButton").attr("data-action", "edit");
-        });
-
-        $('#tableRoomTypeList').DataTable().on('deselect', function (e, dt, type, indexes) {
-            $(".dt-AddButton").html(that.pageInitObject.Languages.BtnAddValue);
-            $(".dt-AddButton").attr("data-action", "add");
-        });
-
-        $(document).on('click', '.btnDelete', function () {
-            var id = $(this).attr("data-id");
-            var reqObj = { id: id };
-
-            $.ajax({
-                url: that.pageInitObject.Urls.DeleteUrlAction,
-                dataType: "json",
-                type: "POST",
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(reqObj),
-                async: true,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    if (data.ResultType == Core.responseStatus.Success) {
-                        Core.showNotify("<b>Complate Successfully</b>", "", "success");
-                        refreshTable();
-                    }
-                    else {
-                        Core.showNotify("<b>Warning..</b>", data.Message, "warning");
-                        return;
-                    }
-                },
-                error: function (xhr) {
-                    Core.showNotify("<b>Get an Error</b>", "", "error");
-                }
-            });
-        });
-
-        $(document).on('click', '.btnSave', function () {
-            var req = Core.createModel("#modal-default");
-            // Manuel Validations
-            if (req.Title == "") {
-                Core.showNotify("<b>Warning</b>", "Name must be requried", "warning");
-                return;
-            }
-
-            if (req.Description == "") {
-                Core.showNotify("<b>Warning</b>", "Description must be requried", "warning");
-                return;
-            }
-
-            // add - or - edit
-            var isSave = (parseInt(req.Id) || 0) <= 0;
-
-            if (!jQuery.isEmptyObject(req)) {
-                $.ajax({
-                    url: isSave ? that.pageInitObject.Urls.SaveUrlAction
-                        : that.pageInitObject.Urls.UpdateUrlAction,
-                    dataType: "json",
-                    type: "POST",
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(req),
-                    async: true,
-                    processData: false,
-                    cache: false,
-                    success: function (data) {
-                        if (data.ResultType == Core.responseStatus.Success) {
-                            Core.showNotify("<b>Complate Successfully</b>", "", "success");
-                            $('#modal-default').modal('toggle');
-                            refreshTable();
-                        }
-                        else {
-                            Core.showNotify("<b>Warning..</b>", data.Message, "warning");
-                            return;
-                        }
-                    },
-                    error: function (xhr) {
-                        Core.showNotify("<b>Get an Error</b>", "", "error");
-                    }
-                });
-            }
-        });
-
+    
         $(document).on('click', '.btnClear', function () {
             Core.clearForm();
             refreshTable();
-            // $('#tableRoomTypeList').DataTable().rows('.selected').deselect();
         });
 
         $(document).on('click', '.btnSearch', function () {
@@ -247,11 +136,6 @@
 
     return {
         init: function (initObject) {
-            // diğer js 'ler de url'leri direk nesne olarak göndermiştik. Model gibi düşünebilirsiniz.
-            // Burada ise Array objeler halinde gönderildi.
-            // List veya array gibi düşünülebilir.
-            // ChromeDev Console üzerinden değişkeni çağırıp inceleyiniz.
-
             that.pageInitObject = initObject;
 
             if (!jQuery().dataTable) {

@@ -14,10 +14,12 @@ namespace BookingSystem.WebUI.Controllers
     public class RoomController : ControllerBase
     {
         private readonly RoomTypeService _roomTypeService;
+        private readonly HotelService _hotelDefinitionService;
 
         public RoomController()
         {
             _roomTypeService = new RoomTypeService();
+            _hotelDefinitionService = new HotelService();
         }
 
         #region RoomTypesMethods
@@ -140,5 +142,8 @@ namespace BookingSystem.WebUI.Controllers
 
             return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
         }
+
+
+      
     }
 }

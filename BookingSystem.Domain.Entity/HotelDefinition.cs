@@ -30,5 +30,7 @@ namespace BookingSystem.Domain.Entity
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<HotelAttribute> HotelAttributes { get; set; }
+
+        public virtual ICollection<HotelRoom> HotelRooms { get; set; }
     }
 }

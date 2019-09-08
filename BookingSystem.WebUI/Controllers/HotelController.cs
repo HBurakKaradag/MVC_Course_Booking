@@ -8,8 +8,11 @@ using BookingSystem.WebUI.Models;
 using BookingSystem.WebUI.Models.DataTableRequest;
 using BookingSystem.WebUI.Models.DataTableResponse;
 using BookingSystem.WebUI.Models.Response;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace BookingSystem.WebUI.Controllers
@@ -20,14 +23,16 @@ namespace BookingSystem.WebUI.Controllers
         private readonly AttributeService _attributeService;
         private readonly DefinitionService _definitionService;
         private readonly HotelTypeService _hotelTypeService;
-        private readonly HotelDefinitionService _hotelDefinitionService;
+        private readonly HotelService _hotelService;
+        private readonly RoomTypeService _roomTypeService;
 
         public HotelController()
         {
             _attributeService = new AttributeService();
             _definitionService = new DefinitionService();
             _hotelTypeService = new HotelTypeService();
-            _hotelDefinitionService = new HotelDefinitionService();
+            _hotelService = new HotelService();
+            _roomTypeService = new RoomTypeService();
         }
 
         #region HotelTypesMethods
@@ -191,6 +196,8 @@ namespace BookingSystem.WebUI.Controllers
                                                                                       }).ToList().AsEnumerable();
             ViewBag.HotelTypesData = hoteltypes;
 
+
+
             return View();
         }
 
@@ -199,7 +206,7 @@ namespace BookingSystem.WebUI.Controllers
             var page = model.start;
             var rowsPerPage = model.length;
 
-            var filteredData = _hotelDefinitionService.GetHotels(model.FilterRequest);
+            var filteredData = _hotelService.GetHotels(model.FilterRequest);
             var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
 
             DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
@@ -212,16 +219,21 @@ namespace BookingSystem.WebUI.Controllers
             if (!ModelState.IsValid)
                 return base.JSonModelStateHandle();
 
-            //  ServiceResultModel<HotelDefinitionVM> serviceResult = _hotelDefinitionService.SaveHotel(model);
+            ServiceResultModel<bool> serviceResult = _hotelService.SaveHotel(model);
 
-            return Json("");
+            return Json(base.UIResponse = new UIResponse
+            {
+                Message = string.Format("Operation Is Completed"),
+                ResultType = serviceResult.ResultType,
+                Data = serviceResult.Data
+            });
         }
 
         #endregion HotelDefinition
 
         #region HotelDefinitionAdd
 
-        #region TestSil
+
 
         public JsonResult GetDistricts(int cityId)
         {
@@ -233,20 +245,48 @@ namespace BookingSystem.WebUI.Controllers
             return Json(definitionVMList, JsonRequestBehavior.AllowGet);
         }
 
-        #endregion TestSil
+
 
         public ActionResult HotelDefinitionAddEdit(int? hotelId)
         {
-            /// <summary>
-            /// View model için Entityden farklı propery'ler içerebileceğini ve view 'a göre düzenlenebileceğinden bahsetmiştik.
-            /// HotelTypes datasını ViewBag üzerinden gönderebileceğimiz gibi VM içerisinden de gönderebiliriz.
-            /// </summary>
+            //HotelDefinitionVM hotelDefinition = new HotelDefinitionVM();
+
+            //if (hotelId.HasValue)
+            //    hotelDefinition = _hotelDefinitionService.GetHotel(hotelId.Value).Data;
+
+            //var allCitiesData = _definitionService.GetCities().Data;
+
+            //hotelDefinition.Cities = allCitiesData.Select(p => new BSelectListItem
+            //{
+            //    Disabled = false,
+            //    Text = p.Name,
+            //    Value = p.Id.ToString(),
+            //    Selected = hotelDefinition?.CityId > 0 ? p.Id == hotelDefinition.CityId : false
+            //});
+
+            //hotelDefinition.Districts = allCitiesData.SelectMany(p => p.Districts)
+            //                                         .Select(p => new BSelectListItem
+            //                                         {
+            //                                             Text = p.Name,
+            //                                             Value = p.Id.ToString(),
+            //                                             ParentValue = p.CityId.ToString(),
+            //                                             Disabled = false,
+            //                                             Selected = hotelDefinition?.DistrictId > 0
+            //                                                                   ? p.Id == hotelDefinition.DistrictId
+            //                                                                   : false
+            //                                         });
+
+
+            //hotelDefinition.HotelTypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data;
+
+
+
 
 
             HotelDefinitionVM hotelDefinition = new HotelDefinitionVM();
 
             if (hotelId.HasValue)
-                hotelDefinition = _hotelDefinitionService.GetHotel(hotelId.Value).Data;
+                hotelDefinition = _hotelService.GetHotel(hotelId.Value).Data;
 
             var allCitiesData = _definitionService.GetCities().Data;
             hotelDefinition.Cities = allCitiesData.Select(p => new BSelectListItem
@@ -259,7 +299,7 @@ namespace BookingSystem.WebUI.Controllers
 
             hotelDefinition.Districts = Enumerable.Empty<BSelectListItem>();
 
-            if (hotelId.HasValue && hotelDefinition?.CityId >0 && hotelDefinition?.DistrictId > 0)
+            if (hotelId.HasValue && hotelDefinition?.CityId > 0 && hotelDefinition?.DistrictId > 0)
             {
                 hotelDefinition.Districts = allCitiesData.SelectMany(p => p.Districts)
                                                          .Where(p => p.CityId == hotelDefinition.CityId)
@@ -272,7 +312,7 @@ namespace BookingSystem.WebUI.Controllers
                                                          }).AsEnumerable();
 
             }
-              
+
             hotelDefinition.HotelTypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data;
 
             List<CheckBoxListTemplate> attributes = _attributeService.GetAllAttributeList(new AttributeFilter { AttributeType = (int)AttributeType.Hotel }).Data
@@ -290,5 +330,75 @@ namespace BookingSystem.WebUI.Controllers
         }
 
         #endregion HotelDefinitionAdd
+
+        #region HotelRoom
+
+        public ActionResult HotelRoomList()
+        {
+            ViewBag.Hotels = _hotelService.GetHotels(new HotelFilter()).Data.Select(p => new BSelectListItem
+            {
+                Text = p.HotelName,
+                Value = p.Id.ToString(),
+                Selected = false
+            }).AsEnumerable();
+
+            return View(new HotelRoomFilter());
+
+        }
+
+        public JsonResult GetHotelRooms(DataTableRequest<HotelRoomFilter> model)
+        {
+
+            if (model == null || model.FilterRequest.HotelId <= 0)
+                return Json(new DataTablesResponse(model.draw, new List<HotelRoomVM>(), 0, 0), JsonRequestBehavior.AllowGet);
+
+            var page = model.start;
+            var rowsPerPage = model.length;
+
+            var filteredData = _hotelService.GetHotelRooms(model.FilterRequest);
+            var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
+
+            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
+            return Json(tableResult, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult HotelRoomAdd(int hotelId)
+        {
+
+            var hotelInfo = _hotelService.GetHotel(hotelId).Data;
+            HotelRoomVM hotelRoom = new HotelRoomVM()
+            {
+                HotelId = hotelInfo.Id,
+                HotelName = hotelInfo.HotelName
+            };
+
+            ViewBag.RoomTypes = _roomTypeService.GetAllRoomTypes(new RoomTypeFilter())
+                                                .Data.Select(p => new BSelectListItem
+                                                {
+                                                    Disabled = false,
+                                                    Selected = false,
+                                                    Text = p.Title,
+                                                    Value = p.Id.ToString()
+                                                });
+
+            return View(hotelRoom);
+        }
+
+        public JsonResult SaveHotelRoom(HotelRoomVM hotel)
+        {
+           // validastyonlar yapılacak
+            ServiceResultModel<int> serviceResult = _hotelService.SaveHotelRoom(hotel, Server.MapPath("~/App_Data/uploads"));
+            // result kontrol edilecek
+
+            return Json(base.UIResponse = new UIResponse
+            {
+                Message = string.Format("Operation Is Completed"),
+                ResultType = serviceResult.ResultType,
+                Data = serviceResult.Data
+            });
+        }
+
+
+        #endregion HotelRoom
     }
 }

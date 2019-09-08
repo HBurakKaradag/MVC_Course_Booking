@@ -109,6 +109,12 @@ namespace BookingSystem.WebUI.HtmlExtensions
                 htmlAttr.Add("data-type", metaData.ModelType.Name);
         }
 
+        public static IHtmlString RenderScriptFile(this HtmlHelper helper, string jsName)
+        {
+            var scriptUrl = string.Format("<script src='{0}?{1}'></script>", jsName, DateTime.Now.Ticks);
+            return MvcHtmlString.Create(scriptUrl);
+        }
+
         public static IHtmlString BHiddenFor<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression, object htmlAttributes = null)
         {
             var _htmlAttr = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);

@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,7 +54,7 @@
     <Compile Include="Services\DefinitionService.cs" />
     <Compile Include="Services\AuditLogService.cs" />
     <Compile Include="Services\AttributeService.cs" />
-    <Compile Include="Services\HotelDefinitionService.cs" />
+    <Compile Include="Services\HotelService.cs" />
     <Compile Include="Services\RoomTypeService.cs" />
     <Compile Include="Services\HotelTypeService.cs" />
     <Compile Include="Services\AccountService.cs" />

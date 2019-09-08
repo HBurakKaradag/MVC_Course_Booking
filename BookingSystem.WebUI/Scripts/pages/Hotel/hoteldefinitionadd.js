@@ -38,7 +38,6 @@
             //HotelAttributes: (5)[{ … }, { … }, { … }, { … }, { … }]
 
             var hotelAttributeArray = [];
-
             var hotelAttributeCount = $("#HotelAttributesCount").val();
 
             var index;

@@ -1999,8 +1999,10 @@
     <Content Include="Scripts\pages\HotelTypes\hoteltypeedit.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypeadd.js" />
     <Content Include="Scripts\pages\HotelTypes\hoteltypelist.js" />
+    <Content Include="Scripts\pages\Hotel\hotelroomadd.js" />
     <Content Include="Scripts\pages\Hotel\hoteldefinitionlist.js" />
     <Content Include="Scripts\pages\Hotel\hoteldefinitionadd.js" />
+    <Content Include="Scripts\pages\Hotel\hotelroomlist.js" />
     <Content Include="Scripts\pages\RoomTypes\roomtypelist.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -2072,9 +2074,11 @@
     <Content Include="Views\Hotel\HotelDefinitionList.cshtml" />
     <Content Include="Views\Hotel\HotelDefinitionAddEdit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CheckBoxListTemplate.cshtml" />
+    <Content Include="Views\Hotel\HotelRoomList.cshtml" />
+    <Content Include="Views\Hotel\HotelRoomAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -41,7 +41,7 @@ namespace BookingSystem.Data.Context
 
         public DbSet<HotelAttribute> HotelAttributes { get; set; }
 
-        public DbSet<HotelRoomTypes> HotelRoomTypes { get; set; }
+        public DbSet<HotelRoom> HotelRooms { get; set; }
 
         public DbSet<Attributes> Attributes { get; set; }
 
@@ -55,7 +55,8 @@ namespace BookingSystem.Data.Context
             modelBuilder.Entity<DistrictDefinition>().HasRequired<CityDefinition>(p => p.CityDefinition).WithMany(p => p.Districts).HasForeignKey<int>(p => p.CityId);
 
             modelBuilder.Entity<HotelAttribute>().HasRequired<HotelDefinition>(p => p.HotelDefinition).WithMany(p => p.HotelAttributes).HasForeignKey<int>(p => p.HotelId);
-                
+
+            modelBuilder.Entity<HotelRoom>().HasRequired<HotelDefinition>(p => p.Hotel).WithMany(p => p.HotelRooms).HasForeignKey<int>(p => p.HotelId);
 
             base.OnModelCreating(modelBuilder);
         }
