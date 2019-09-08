@@ -1,6 +1,4 @@
-﻿using BookingSystem.Core;
-using BookingSystem.Domain.Entity.BaseEntity;
-using System.Collections;
+﻿using BookingSystem.Domain.Entity.BaseEntity;
 using System.Collections.Generic;
 
 namespace BookingSystem.Domain.Entity

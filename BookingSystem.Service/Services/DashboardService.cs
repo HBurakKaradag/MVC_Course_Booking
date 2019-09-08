@@ -17,7 +17,9 @@ namespace BookingSystem.Service.Services
             }
 
             if (menus == null || !menus.Any())
+            {
                 return null;
+            }
 
             return this.CategorizeMenuItem(menus);
         }
@@ -26,7 +28,9 @@ namespace BookingSystem.Service.Services
         {
             List<MenuVM> categorizedMenuList = new List<MenuVM>();
             if (menuDTOList == null || !menuDTOList.Any())
+            {
                 return null;
+            }
 
             var parents = menuDTOList.Where(p => p.IsActive && p.ParentId == 0).OrderBy(c => c.Order).ToList();
             foreach (var parentItem in parents)

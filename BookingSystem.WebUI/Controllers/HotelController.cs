@@ -1,18 +1,15 @@
 ﻿using BookingSystem.Core;
+using BookingSystem.Core.Interfaces;
 using BookingSystem.Domain.WebUI;
 using BookingSystem.Domain.WebUI.Definitions;
 using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Domain.WebUI.Hotel;
 using BookingSystem.Service.Services;
-using BookingSystem.WebUI.Models;
 using BookingSystem.WebUI.Models.DataTableRequest;
 using BookingSystem.WebUI.Models.DataTableResponse;
 using BookingSystem.WebUI.Models.Response;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BookingSystem.WebUI.Controllers
@@ -82,7 +79,9 @@ namespace BookingSystem.WebUI.Controllers
         {
             var model = _hotelTypeService.GetHotelType(id);
             if (!model.IsSuccess)
+            {
                 RedirectToAction(nameof(HotelTypeList));
+            }
 
             return View(model.Data);
         }
@@ -91,7 +90,9 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult SaveHotelType(HotelTypeVM model)
         {
             if (!ModelState.IsValid)
+            {
                 return base.JSonModelStateHandle();
+            }
 
             ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.SaveHotelType(model);
 
@@ -121,11 +122,13 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult DeleteHotelType(int id)
         {
             if (id <= 0)
+            {
                 return Json(base.UIResponse = new UIResponse
                 {
                     ResultType = Core.OperationResultType.Error,
                     Message = string.Format("id is not valid, this Id = {0}", id)
                 }, JsonRequestBehavior.AllowGet);
+            }
 
             ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.DeleteHotelType(id);
             return Json(base.UIResponse = new UIResponse
@@ -140,10 +143,14 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult UpdateHotelType(HotelTypeVM model)
         {
             if (model.Id <= 0)
+            {
                 RedirectToAction(nameof(HotelTypeList)); // ErrorHandle eklenecek
+            }
 
             if (!ModelState.IsValid)
+            {
                 return base.JSonModelStateHandle();
+            }
 
             ServiceResultModel<HotelTypeVM> serviceResult = _hotelTypeService.UpdateHotelType(model);
 
@@ -196,8 +203,6 @@ namespace BookingSystem.WebUI.Controllers
                                                                                       }).ToList().AsEnumerable();
             ViewBag.HotelTypesData = hoteltypes;
 
-
-
             return View();
         }
 
@@ -217,7 +222,9 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult SaveHotelDefinition(HotelDefinitionVM model)
         {
             if (!ModelState.IsValid)
+            {
                 return base.JSonModelStateHandle();
+            }
 
             ServiceResultModel<bool> serviceResult = _hotelService.SaveHotel(model);
 
@@ -233,19 +240,17 @@ namespace BookingSystem.WebUI.Controllers
 
         #region HotelDefinitionAdd
 
-
-
         public JsonResult GetDistricts(int cityId)
         {
             List<DistrictDefinitionVM> definitionVMList = new List<DistrictDefinitionVM>();
             var serviceResult = _definitionService.GetDistrictByCityId(cityId);
             if (serviceResult.IsSuccess)
+            {
                 definitionVMList = serviceResult.Data;
+            }
 
             return Json(definitionVMList, JsonRequestBehavior.AllowGet);
         }
-
-
 
         public ActionResult HotelDefinitionAddEdit(int? hotelId)
         {
@@ -276,17 +281,19 @@ namespace BookingSystem.WebUI.Controllers
             //                                                                   : false
             //                                         });
 
-
             //hotelDefinition.HotelTypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data;
-
-
-
-
 
             HotelDefinitionVM hotelDefinition = new HotelDefinitionVM();
 
             if (hotelId.HasValue)
+            {
                 hotelDefinition = _hotelService.GetHotel(hotelId.Value).Data;
+            }
+
+            ICacheManager cache = new MemCacheManager();
+            var data = cache.GetFromCache<List<CityDefinitionVM>>("Cities",
+                                                                   () => _definitionService.GetCities().Data,
+                                                                   null);
 
             var allCitiesData = _definitionService.GetCities().Data;
             hotelDefinition.Cities = allCitiesData.Select(p => new BSelectListItem
@@ -310,7 +317,6 @@ namespace BookingSystem.WebUI.Controllers
                                                              Text = c.Name,
                                                              Selected = hotelId.HasValue ? hotelDefinition.DistrictId == c.Id : false
                                                          }).AsEnumerable();
-
             }
 
             hotelDefinition.HotelTypes = _hotelTypeService.GetAllHotelTypes(new HotelTypeFilter()).Data;
@@ -324,7 +330,6 @@ namespace BookingSystem.WebUI.Controllers
                                                            }).ToList();
 
             hotelDefinition.Attributes = attributes;
-
 
             return View(hotelDefinition);
         }
@@ -343,14 +348,14 @@ namespace BookingSystem.WebUI.Controllers
             }).AsEnumerable();
 
             return View(new HotelRoomFilter());
-
         }
 
         public JsonResult GetHotelRooms(DataTableRequest<HotelRoomFilter> model)
         {
-
             if (model == null || model.FilterRequest.HotelId <= 0)
+            {
                 return Json(new DataTablesResponse(model.draw, new List<HotelRoomVM>(), 0, 0), JsonRequestBehavior.AllowGet);
+            }
 
             var page = model.start;
             var rowsPerPage = model.length;
@@ -364,7 +369,6 @@ namespace BookingSystem.WebUI.Controllers
 
         public ActionResult HotelRoomAdd(int hotelId)
         {
-
             var hotelInfo = _hotelService.GetHotel(hotelId).Data;
             HotelRoomVM hotelRoom = new HotelRoomVM()
             {
@@ -386,7 +390,7 @@ namespace BookingSystem.WebUI.Controllers
 
         public JsonResult SaveHotelRoom(HotelRoomVM hotel)
         {
-           // validastyonlar yapılacak
+            // validastyonlar yapılacak
             ServiceResultModel<int> serviceResult = _hotelService.SaveHotelRoom(hotel, Server.MapPath("~/App_Data/uploads"));
             // result kontrol edilecek
 
@@ -398,7 +402,22 @@ namespace BookingSystem.WebUI.Controllers
             });
         }
 
-
         #endregion HotelRoom
+
+        #region HoteLTestFile
+
+        public ActionResult HotelTestFile()
+        {
+            return View();
+        }
+
+        public JsonResult SaveTestFile(HotelTestFileVM model)
+        {
+            ServiceResultModel<bool> serviceResult = _hotelService.SaveTestFile(model, Server.MapPath("~/App_Data/uploads"));
+
+            return Json("");
+        }
+
+        #endregion HoteLTestFile
     }
 }

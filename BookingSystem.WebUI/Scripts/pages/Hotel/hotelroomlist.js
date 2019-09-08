@@ -85,18 +85,18 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        if (row.ImageUrl == '')
+                        //if (row.ImageUrl == '')
                             return "No Image";
-                        else {
-                            debugger;
-                            var imageUrlStr = '<img src="file:' + row.ImageUrl + '" slt="' + row.RoomName + '"  height="42" width="42">';
-                            imageUrlStr = imageUrlStr.split('\\').join('/')
+                        //else {
+                        //    debugger;
+                        //    var imageUrlStr = '<img src="file:' + row.ImageUrl + '" slt="' + row.RoomName + '"  height="42" width="42">';
+                        //    imageUrlStr = imageUrlStr.split('\\').join('/')
                          
-                            return imageUrlStr;
-                        }
+                        //    return imageUrlStr;
+                        //}
                       
                     },
-                    "targets": 5,
+                    "targets": 7,
                     "class": "text-center"
                 }
 

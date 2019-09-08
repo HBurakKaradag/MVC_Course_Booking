@@ -1,10 +1,7 @@
 ﻿using BookingSystem.Data.Context;
-using BookingSystem.Domain.Entity;
 using BookingSystem.Domain.WebUI;
-using BookingSystem.Domain.WebUI.AuditLog;
 using BookingSystem.Domain.WebUI.Definitions;
 using BookingSystem.Service.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

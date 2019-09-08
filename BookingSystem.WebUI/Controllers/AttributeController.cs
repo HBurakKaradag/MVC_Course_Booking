@@ -31,7 +31,9 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult SaveAttribute(AttributeVM model)
         {
             if (!ModelState.IsValid)
+            {
                 return base.JSonModelStateHandle();
+            }
 
             ServiceResultModel<AttributeVM> serviceResult = model.Id <= 0
                 ? _attributeService.SaveAttribute(model)

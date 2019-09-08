@@ -40,7 +40,9 @@ namespace BookingSystem.WebUI.Controllers
         public ActionResult Login(UserVM user)
         {
             if (!ModelState.IsValid)
+            {
                 return View(user);
+            }
 
             ServiceResultModel<UserVM> serviceResult = _accountService.LoginUser(user);
 
@@ -93,7 +95,9 @@ namespace BookingSystem.WebUI.Controllers
         public ActionResult Register(RegisterVM model)
         {
             if (!ModelState.IsValid)
+            {
                 return View(model);
+            }
 
             ServiceResultModel<UserVM> serviceResult = _accountService.RegisterUser(model);
 

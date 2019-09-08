@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace BookingSystem.Domain.WebUI
+﻿namespace BookingSystem.Domain.WebUI
 {
     public class BSelectListItem
     {

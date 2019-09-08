@@ -6,7 +6,6 @@ using BookingSystem.Domain.WebUI;
 using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Domain.WebUI.Hotel;
 using BookingSystem.Service.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +16,10 @@ namespace BookingSystem.Service.Services
         public ServiceResultModel<HotelTypeVM> GetHotelType(int id)
         {
             if (id <= 0)
+            {
                 return null;
+            }
+
             HotelTypeVM currentItem = null;
             using (EFBookingContext context = new EFBookingContext())
             {
@@ -36,10 +38,14 @@ namespace BookingSystem.Service.Services
                 IQueryable<HotelType> hotelTypeList = context.HotelTypes;
 
                 if (filter.Title.IsNotNull())
+                {
                     hotelTypeList = hotelTypeList.Where(p => p.Title.Contains(filter.Title));
+                }
 
                 if (filter.IsActive.HasValue && filter.IsActive.Value)
+                {
                     hotelTypeList = hotelTypeList.Where(p => p.IsActive == filter.IsActive);
+                }
 
                 hotelTypeList.ToList().ForEach(p =>
                 {
@@ -56,6 +62,7 @@ namespace BookingSystem.Service.Services
             {
                 bool isAlreadyExists = context.HotelTypes.Any(p => p.Title == model.Title);
                 if (isAlreadyExists)
+                {
                     return new ServiceResultModel<HotelTypeVM>
                     {
                         Code = ServiceResultCode.Duplicate,
@@ -63,6 +70,7 @@ namespace BookingSystem.Service.Services
                         ResultType = OperationResultType.Warn,
                         Message = "This record already exists"
                     };
+                }
 
                 var recordItem = context.HotelTypes.Add(model.MapProperties<HotelType>());
                 context.SaveChanges();

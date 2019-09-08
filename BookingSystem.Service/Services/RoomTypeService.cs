@@ -16,7 +16,10 @@ namespace BookingSystem.Service.Services
         public ServiceResultModel<RoomTypeVM> GetRoomType(int id)
         {
             if (id <= 0)
+            {
                 return null;
+            }
+
             RoomTypeVM currentItem = null;
             using (EFBookingContext context = new EFBookingContext())
             {
@@ -35,7 +38,9 @@ namespace BookingSystem.Service.Services
                 IQueryable<RoomType> roomTypeList = context.RoomTypes;
 
                 if (filter.Title.IsNotNull())
+                {
                     roomTypeList = roomTypeList.Where(p => p.Title.Contains(filter.Title));
+                }
 
                 roomTypeList.ToList().ForEach(p =>
                 {
@@ -52,6 +57,7 @@ namespace BookingSystem.Service.Services
             {
                 bool isAlreadyExists = context.RoomTypes.Any(p => p.Title == model.Title);
                 if (isAlreadyExists)
+                {
                     return new ServiceResultModel<RoomTypeVM>
                     {
                         Code = ServiceResultCode.Duplicate,
@@ -59,6 +65,7 @@ namespace BookingSystem.Service.Services
                         ResultType = OperationResultType.Warn,
                         Message = "This record already exists"
                     };
+                }
 
                 var recordItem = context.RoomTypes.Add(model.MapProperties<RoomType>());
                 context.SaveChanges();

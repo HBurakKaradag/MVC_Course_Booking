@@ -23,7 +23,9 @@ namespace BookingSystem.Service.Services
                 IEnumerable<Attributes> attributeList = context.Attributes;
 
                 if (filter.Name.IsNotNull())
+                {
                     attributeList = attributeList.Where(p => p.Name.Equals(filter.Name));
+                }
 
                 // Foreach çalışırken listedeki elemanları sırasıyla her sefer 1 eleman şeklinde döner.
                 // Paralel üzerinde foreach çalıştırılırsa sıra bağımsız option varsa option init'e göre
@@ -55,6 +57,7 @@ namespace BookingSystem.Service.Services
             using (EFBookingContext context = new EFBookingContext())
             {
                 if (context.Attributes.Any(p => p.Name.Equals(model.Name) && p.AttributeType == model.AttributeType))
+                {
                     return new ServiceResultModel<AttributeVM>
                     {
                         Code = ServiceResultCode.Duplicate,
@@ -62,6 +65,7 @@ namespace BookingSystem.Service.Services
                         ResultType = OperationResultType.Warn,
                         Message = "This record already exitst "
                     };
+                }
 
                 var recordItem = context.Attributes.Add(model.MapProperties<Attributes>());
                 context.SaveChanges();

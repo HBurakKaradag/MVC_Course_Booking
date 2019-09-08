@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookingSystem.Domain.WebUI.Hotel
+﻿namespace BookingSystem.Domain.WebUI.Hotel
 {
     public class HotelAttributeVM
     {
@@ -15,7 +9,5 @@ namespace BookingSystem.Domain.WebUI.Hotel
         public bool IsActive { get; set; }
 
         public bool IsDeleted { get; set; }
-
-
     }
 }

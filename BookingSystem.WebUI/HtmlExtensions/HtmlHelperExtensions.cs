@@ -37,7 +37,10 @@ namespace BookingSystem.WebUI.HtmlExtensions
                 List<MenuVM> childItems = parent.SubMenu.Where(a => a.ParentId == parent.Id).OrderBy(c => c.Order).ToList();
                 bool isSelected = false;
                 if (childItems.Count > 0)
+                {
                     AddChildItem(helper, parent, menuHtml, ref isSelected);
+                }
+
                 menuHtml.Append("</li>");
                 menuHtml.Replace("elementliStatus", isSelected ? "treeview menu-open active" : "treeview");
             }
@@ -103,10 +106,14 @@ namespace BookingSystem.WebUI.HtmlExtensions
         private static void AddDefaultAttribute(ref RouteValueDictionary htmlAttr, ModelMetadata metaData)
         {
             if (!htmlAttr.ContainsKey("data-model"))
+            {
                 htmlAttr.Add("data-model", metaData.PropertyName);
+            }
 
             if (!htmlAttr.ContainsKey("data-type"))
+            {
                 htmlAttr.Add("data-type", metaData.ModelType.Name);
+            }
         }
 
         public static IHtmlString RenderScriptFile(this HtmlHelper helper, string jsName)
@@ -172,11 +179,15 @@ namespace BookingSystem.WebUI.HtmlExtensions
                 }
             }
             if (!_htmlAttr.ContainsKey("data-model"))
+            {
                 _htmlAttr.Add("data-model", metadata.PropertyName);
+            }
 
             // data-type
             if (!_htmlAttr.ContainsKey("data-type"))
+            {
                 _htmlAttr.Add("data-type", metadata.IsNullableValueType ? Nullable.GetUnderlyingType(metadata.ModelType.UnderlyingSystemType).Name : metadata.ModelType.Name);
+            }
 
             return helper.CheckBox(ExpressionHelper.GetExpressionText(expression), isChecked ?? false, _htmlAttr);
         }
@@ -189,7 +200,9 @@ namespace BookingSystem.WebUI.HtmlExtensions
             AddDefaultAttribute(ref _htmlAttr, metadata);
 
             if (!_htmlAttr.ContainsKey("readonly") && isReadonly.HasValue)
+            {
                 _htmlAttr.Add("readonly", isReadonly);
+            }
 
             return TextAreaExtensions.TextAreaFor(helper, expression, new RouteValueDictionary(_htmlAttr));
         }

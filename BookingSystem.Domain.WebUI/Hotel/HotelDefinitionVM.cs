@@ -1,7 +1,6 @@
 ﻿using BookingSystem.Core.CustomAttribute;
 using BookingSystem.Core.Extensions;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace BookingSystem.Domain.WebUI.Hotel
 {
@@ -41,7 +40,7 @@ namespace BookingSystem.Domain.WebUI.Hotel
         public List<HotelAttributeVM> HotelAttributes { get; set; }
 
         public List<HotelRoomVM> HotelRooms { get; set; }
-        
+
         /// <summary>
         /// View model için Entityden farklı propery'ler içerebileceğini ve view 'a göre düzenlenebileceğinden bahsetmiştik.
         /// HotelTypes datasını ViewBag üzerinden gönderebileceğimiz gibi VM içerisinden de gönderebiliriz.

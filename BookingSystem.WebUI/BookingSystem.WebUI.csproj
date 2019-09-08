@@ -2076,6 +2076,7 @@
     <Content Include="Views\Shared\EditorTemplates\CheckBoxListTemplate.cshtml" />
     <Content Include="Views\Hotel\HotelRoomList.cshtml" />
     <Content Include="Views\Hotel\HotelRoomAdd.cshtml" />
+    <Content Include="Views\Hotel\HotelTestFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

@@ -1,5 +1,4 @@
 ﻿using BookingSystem.Domain.Entity.BaseEntity;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace BookingSystem.Domain.Entity

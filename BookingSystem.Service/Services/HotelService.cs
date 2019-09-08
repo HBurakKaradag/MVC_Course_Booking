@@ -1,5 +1,4 @@
-﻿using BookingSystem.Core;
-using BookingSystem.Core.Extensions;
+﻿using BookingSystem.Core.Extensions;
 using BookingSystem.Data.Context;
 using BookingSystem.Domain.Entity;
 using BookingSystem.Domain.WebUI;
@@ -26,10 +25,14 @@ namespace BookingSystem.Service.Services
                 IQueryable<HotelDefinition> hotelDefinitionList = context.HotelDefinitions;
 
                 if (filter.HotelName.IsNotNull())
+                {
                     hotelDefinitionList = hotelDefinitionList.Where(p => p.Title.Contains(filter.HotelName));
+                }
 
                 if (filter.HotelTypeId > 0)
+                {
                     hotelDefinitionList = hotelDefinitionList.Where(p => p.HotelTypeId == filter.HotelTypeId);
+                }
 
                 hotelDefinitionList.ToList().ForEach(p =>
                 {
@@ -88,14 +91,12 @@ namespace BookingSystem.Service.Services
                         context.SaveChanges();
                         transaction.Commit();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         throw;
                     }
                 }
-
-
             }
 
             return ServiceResultModel<bool>.OK(true);
@@ -112,11 +113,9 @@ namespace BookingSystem.Service.Services
                 hotelRooms = context.Database
                     .SqlQuery<HotelRoomVM>("GetHotelRooms @HotelId", parameters)
                     .ToList();
-
             }
 
             return ServiceResultModel<List<HotelRoomVM>>.OK(hotelRooms);
-
         }
 
         public ServiceResultModel<int> SaveHotelRoom(HotelRoomVM hotel, string mapPath)
@@ -150,18 +149,38 @@ namespace BookingSystem.Service.Services
 
                     result = context.SaveChanges();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     if (File.Exists(savePath))
+                    {
                         File.Delete(savePath);
+                    }
 
                     // error ekle
                 }
 
                 return ServiceResultModel<int>.OK(result);
+            }
+        }
 
+        public ServiceResultModel<bool> SaveTestFile(HotelTestFileVM model, string mapPath)
+        {
+            string fileName = string.Empty;
+            string fileExtension = string.Empty;
+
+            if (model != null)
+            {
+                HttpPostedFileBase file = model.HotelImage;
+
+                fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                fileExtension = Path.GetExtension(file.FileName);
+
+                string fullName = Path.Combine(mapPath, $"{fileName}_{DateTime.Now.Ticks}{fileExtension}");
+
+                file.SaveAs(fullName);
             }
 
+            return ServiceResultModel<bool>.OK(true);
         }
     }
 }

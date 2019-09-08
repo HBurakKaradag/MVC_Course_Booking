@@ -1,5 +1,4 @@
-﻿using BookingSystem.Core;
-using BookingSystem.Domain.Entity.BaseEntity;
+﻿using BookingSystem.Domain.Entity.BaseEntity;
 
 namespace BookingSystem.Domain.Entity
 {

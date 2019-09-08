@@ -2,7 +2,7 @@
 
 namespace BookingSystem.Domain.WebUI
 {
-    public class ServiceResultModel<T> 
+    public class ServiceResultModel<T>
     {
         #region Ctor
 

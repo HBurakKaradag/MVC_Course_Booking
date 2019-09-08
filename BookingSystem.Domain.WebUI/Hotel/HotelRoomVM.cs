@@ -4,12 +4,11 @@ namespace BookingSystem.Domain.WebUI.Hotel
 {
     public class HotelRoomVM : IModel
     {
-
         public HotelRoomVM()
         {
             this.Price = 0m;
-
         }
+
         public int Id { get; set; }
 
         public int HotelId { get; set; }
@@ -28,6 +27,5 @@ namespace BookingSystem.Domain.WebUI.Hotel
 
         public decimal Price { get; set; }
         public bool? IsActive { get; set; }
-
     }
 }

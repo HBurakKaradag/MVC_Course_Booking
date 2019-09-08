@@ -22,6 +22,7 @@ namespace BookingSystem.Service.Services
             }
 
             if (userInfo == null)
+            {
                 return new ServiceResultModel<UserVM>
                 {
                     Code = ServiceResultCode.NotFound,
@@ -29,16 +30,20 @@ namespace BookingSystem.Service.Services
                     Message = "User Not Found, Please check UserName and Password",
                     Data = null
                 };
+            }
 
             if (!userInfo.IsActive)
+            {
                 return new ServiceResultModel<UserVM>
                 {
                     ResultType = OperationResultType.Warn,
                     Message = "This user is InActive, please contact your administrator",
                     Data = userInfo.MapProperties<UserVM>()
                 };
+            }
 
             if (!userInfo.EmailConfirmation)
+            {
                 return new ServiceResultModel<UserVM>
                 {
                     Code = ServiceResultCode.EMailIsNotConfirmed,
@@ -46,6 +51,7 @@ namespace BookingSystem.Service.Services
                     Message = "Please confirm your account, Check mailbox",
                     Data = userInfo.MapProperties<UserVM>()
                 };
+            }
 
             return ServiceResultModel<UserVM>.OK(userInfo.MapProperties<UserVM>());
         }

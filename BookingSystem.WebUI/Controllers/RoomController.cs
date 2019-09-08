@@ -38,7 +38,9 @@ namespace BookingSystem.WebUI.Controllers
             {
                 ServiceResultModel<RoomTypeVM> serviceResult = _roomTypeService.GetRoomType(id.Value);
                 if (serviceResult.IsSuccess)
+                {
                     roomTypeVm = serviceResult.Data;
+                }
             }
 
             roomTypeVm = roomTypeVm ?? new RoomTypeVM();
@@ -65,11 +67,13 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult DeleteRoomType(int id)
         {
             if (id <= 0)
+            {
                 return Json(base.UIResponse = new UIResponse
                 {
                     ResultType = Core.OperationResultType.Error,
                     Message = string.Format("id is not valid, this Id = {0}", id)
                 }, JsonRequestBehavior.AllowGet);
+            }
 
             ServiceResultModel<RoomTypeVM> serviceResult = _roomTypeService.DeleteHotelType(id);
             return Json(base.UIResponse = new UIResponse
@@ -84,7 +88,9 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult SaveRoomType(RoomTypeVM model)
         {
             if (!ModelState.IsValid)
+            {
                 return base.JSonModelStateHandle();
+            }
 
             ServiceResultModel<RoomTypeVM> serviceResult = _roomTypeService.SaveRoomType(model);
 
@@ -114,10 +120,14 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult UpdateRoomType(RoomTypeVM model)
         {
             if (model.Id <= 0)
+            {
                 RedirectToAction(nameof(RoomTypeList)); // ErrorHandle eklenecek
+            }
 
             if (!ModelState.IsValid)
+            {
                 return base.JSonModelStateHandle();
+            }
 
             ServiceResultModel<RoomTypeVM> serviceResult = _roomTypeService.UpdateRoomType(model);
 
@@ -142,8 +152,5 @@ namespace BookingSystem.WebUI.Controllers
 
             return Json(base.UIResponse, JsonRequestBehavior.AllowGet);
         }
-
-
-      
     }
 }

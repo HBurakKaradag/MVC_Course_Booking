@@ -25,7 +25,9 @@ namespace BookingSystem.Core.Extensions
         public static string Titilize(this string p)
         {
             if (p.IsNull())
+            {
                 return "";
+            }
 
             return string.Join("", p.Normalize(NormalizationForm.FormD).Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)).Replace("ı", "i");
         }

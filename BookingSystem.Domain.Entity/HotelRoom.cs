@@ -2,7 +2,7 @@
 
 namespace BookingSystem.Domain.Entity
 {
-    public class HotelRoom: EntityBase
+    public class HotelRoom : EntityBase
     {
         public HotelRoom()
         {
