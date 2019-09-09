@@ -41,7 +41,9 @@ namespace BookingSystem.Service.Services
             {
                 var districts = context.DistrictDefinition.ToList();
                 if (cityId.HasValue)
+                {
                     districts = districts.Where(p => p.CityId == cityId.Value).ToList();
+                }
 
                 resultList.AddRange(districts.Select(p => p.MapToViewModel<DistrictDefinitionVM>()));
             }

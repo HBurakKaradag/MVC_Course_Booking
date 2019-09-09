@@ -21,7 +21,9 @@ namespace BookingSystem.Service.Extensions
                where K : IDomain
         {
             if (source == null || destination == null)
+            {
                 return;
+            }
 
             List<PropertyInfo> sourceProp = source.GetType().GetProperties().ToList();
             List<PropertyInfo> destinationProp = destination.GetType().GetProperties().ToList();
@@ -30,7 +32,9 @@ namespace BookingSystem.Service.Extensions
             {
                 PropertyInfo destinationInfo = destinationProp.Find(item => item.Name == sourceProperty.Name);
                 if (destinationInfo == null || Attribute.IsDefined(destinationInfo, typeof(MapIgnoreAttribute)))
+                {
                     continue;
+                }
 
                 try
                 {

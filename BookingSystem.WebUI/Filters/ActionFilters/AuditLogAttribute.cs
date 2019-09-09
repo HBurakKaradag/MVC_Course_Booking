@@ -15,7 +15,9 @@ namespace BookingSystem.WebUI.Filters.ActionFilters
         {
             bool checkIsIgnore = filterContext.ActionDescriptor.IsDefined(typeof(AuditLogIgnore), true);
             if (checkIsIgnore)
+            {
                 return;
+            }
 
             string controllerName = string.Empty;
             string actionName = string.Empty;
