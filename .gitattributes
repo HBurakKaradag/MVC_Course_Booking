@@ -1,3 +1,2 @@
-static/* linguist-vendored
-docs/* linguist-documentation
-*.rb linguist-language=C#
+* linguist-vendored
+*.js linguist-vendored=false
