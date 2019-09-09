@@ -2,8 +2,8 @@
 using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Domain.WebUI.Room;
 using BookingSystem.Service.Services;
-using BookingSystem.WebUI.Models.DataTableRequest;
-using BookingSystem.WebUI.Models.DataTableResponse;
+using BookingSystem.WebUI.Models.GridRequest;
+using BookingSystem.WebUI.Models.GridResponse;
 using BookingSystem.WebUI.Models.Response;
 using System.Linq;
 using System.Web.Mvc;
@@ -48,7 +48,7 @@ namespace BookingSystem.WebUI.Controllers
             return PartialView("_RoomTypeAddEdit", roomTypeVm);
         }
 
-        public JsonResult GetRoomTypeList(DataTableRequest<RoomTypeFilter> model)
+        public JsonResult GetRoomTypeList(GridRequest<RoomTypeFilter> model)
         {
             var page = model.start;
             var rowsPerPage = model.length;
@@ -56,7 +56,7 @@ namespace BookingSystem.WebUI.Controllers
             var filteredData = _roomTypeService.GetAllRoomTypes(model.FilterRequest);
             var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
 
-            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
+            GridResponse tableResult = new GridResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
 
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }

@@ -101,7 +101,7 @@ namespace BookingSystem.WebUI.HtmlExtensions
 
         #endregion Menu
 
-        #region HtmlHelpers
+        #region HelperPrivate
 
         private static void AddDefaultAttribute(ref RouteValueDictionary htmlAttr, ModelMetadata metaData)
         {
@@ -115,6 +115,10 @@ namespace BookingSystem.WebUI.HtmlExtensions
                 htmlAttr.Add("data-type", metaData.ModelType.Name);
             }
         }
+
+        #endregion HelperPrivate
+
+        #region HtmlHelpers
 
         public static IHtmlString RenderScriptFile(this HtmlHelper helper, string jsName)
         {

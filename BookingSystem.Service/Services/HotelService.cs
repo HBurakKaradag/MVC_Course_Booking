@@ -16,6 +16,8 @@ namespace BookingSystem.Service.Services
 {
     public class HotelService : ServiceBase
     {
+        #region Hotels
+
         public ServiceResultModel<List<HotelDefinitionVM>> GetHotels(HotelFilter filter)
         {
             List<HotelDefinitionVM> resultList = new List<HotelDefinitionVM>();
@@ -102,6 +104,10 @@ namespace BookingSystem.Service.Services
             return ServiceResultModel<bool>.OK(true);
         }
 
+        #endregion Hotels
+
+        #region HotelRooms
+
         public ServiceResultModel<List<HotelRoomVM>> GetHotelRooms(HotelRoomFilter filterRequest)
         {
             List<HotelRoomVM> hotelRooms = new List<HotelRoomVM>();
@@ -163,6 +169,10 @@ namespace BookingSystem.Service.Services
             }
         }
 
+        #endregion HotelRooms
+
+        #region TestFile
+
         public ServiceResultModel<bool> SaveTestFile(HotelTestFileVM model, string mapPath)
         {
             string fileName = string.Empty;
@@ -182,5 +192,7 @@ namespace BookingSystem.Service.Services
 
             return ServiceResultModel<bool>.OK(true);
         }
+
+        #endregion TestFile
     }
 }

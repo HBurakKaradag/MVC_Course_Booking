@@ -11,6 +11,8 @@ namespace BookingSystem.Service.Services
 {
     public class AccountService : ServiceBase
     {
+        #region Login
+
         public ServiceResultModel<UserVM> LoginUser(UserVM user)
         {
             User userInfo = null;
@@ -56,6 +58,10 @@ namespace BookingSystem.Service.Services
             return ServiceResultModel<UserVM>.OK(userInfo.MapToViewModel<UserVM>());
         }
 
+        #endregion Login
+
+        #region Register
+
         public ServiceResultModel<UserVM> RegisterUser(RegisterVM model)
         {
             using (EFBookingContext context = new EFBookingContext())
@@ -88,5 +94,7 @@ namespace BookingSystem.Service.Services
                 return ServiceResultModel<UserVM>.OK(registeredUser.MapToViewModel<UserVM>());
             }
         }
+
+        #endregion Register
     }
 }

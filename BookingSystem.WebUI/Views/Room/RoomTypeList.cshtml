@@ -7,7 +7,7 @@
 
 @section PageScripts
 {
-    <script src='@Url.Content("~/Scripts/pages/RoomTypes/roomtypelist.js")'></script>
+    @Html.RenderScriptFile(Url.Content("~/Scripts/pages/RoomTypes/roomtypelist.js"))
 }
 
 @section BrundCrumb{

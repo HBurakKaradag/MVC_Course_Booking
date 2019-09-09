@@ -2,7 +2,7 @@
     var that = this;
     var pageInitObject = [];
 
-    var fillTable = function () {
+    var fillGrid = function () {
         var table = $('#tableRoomTypeList');
 
         if (!jQuery().DataTable) {
@@ -40,14 +40,14 @@
                     }
                 }
             },
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", 
             "ajax": {
                 "url": that.pageInitObject.Urls.gridLoadUrl,
                 "contentType": "application/json",
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    var req = Core.createModel(".box-body.filter");
+                    var req = Core.buildModel(".box-body.filter");
                     data.FilterRequest = req;
 
                     var request = {
@@ -110,9 +110,9 @@
         });
     };
 
-    var refreshTable = function () {
-        var oTable = $('#tableRoomTypeList').DataTable();
-        oTable.ajax.reload();
+    var refreshGrid = function () {
+        var tbl = $('#tableRoomTypeList').DataTable();
+        tbl.ajax.reload();
     }
 
     var handleStartup = function () {
@@ -133,7 +133,6 @@
             processData: false,
             cache: false,
             success: function (data) {
-                debugger;
                 $("#modal-default .modal-body").html(data);
                 $('#modal-default').modal({ cache: false }, 'show');
             },
@@ -176,7 +175,7 @@
                 success: function (data) {
                     if (data.ResultType == Core.responseStatus.Success) {
                         Core.showNotify("<b>Complate Successfully</b>", "", "success");
-                        refreshTable();
+                        refreshGrid();
                     }
                     else {
                         Core.showNotify("<b>Warning..</b>", data.Message, "warning");
@@ -190,7 +189,7 @@
         });
 
         $(document).on('click', '.btnSave', function () {
-            var req = Core.createModel("#modal-default");
+            var req = Core.buildModel("#modal-default");
             // Manuel Validations
             if (req.Title == "") {
                 Core.showNotify("<b>Warning</b>", "Name must be requried", "warning");
@@ -220,7 +219,7 @@
                         if (data.ResultType == Core.responseStatus.Success) {
                             Core.showNotify("<b>Complate Successfully</b>", "", "success");
                             $('#modal-default').modal('toggle');
-                            refreshTable();
+                            refreshGrid();
                         }
                         else {
                             Core.showNotify("<b>Warning..</b>", data.Message, "warning");
@@ -236,12 +235,12 @@
 
         $(document).on('click', '.btnClear', function () {
             Core.clearForm();
-            refreshTable();
+            refreshGrid();
             // $('#tableRoomTypeList').DataTable().rows('.selected').deselect();
         });
 
         $(document).on('click', '.btnSearch', function () {
-            refreshTable();
+            refreshGrid();
         });
     };
 
@@ -257,7 +256,7 @@
             if (!jQuery().dataTable) {
                 return;
             }
-            fillTable();
+            fillGrid();
             handleEvents();
             handleStartup();
         }

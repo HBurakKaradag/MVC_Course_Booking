@@ -5,7 +5,8 @@
 
 @section PageScripts
 {
-    <script src='@Url.Content("~/Scripts/pages/Dashboard/auditloglist.js")'></script>
+    @Html.RenderScriptFile(Url.Content("~/Scripts/pages/Dashboard/auditloglist.js"))
+
 }
 
 @section BrundCrumb{

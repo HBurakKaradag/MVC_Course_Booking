@@ -2,8 +2,8 @@
 using BookingSystem.Domain.WebUI.Attributes;
 using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Service.Services;
-using BookingSystem.WebUI.Models.DataTableRequest;
-using BookingSystem.WebUI.Models.DataTableResponse;
+using BookingSystem.WebUI.Models.GridRequest;
+using BookingSystem.WebUI.Models.GridResponse;
 using BookingSystem.WebUI.Models.Response;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,14 +48,14 @@ namespace BookingSystem.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetAttributeList(DataTableRequest<AttributeFilter> model)
+        public JsonResult GetAttributeList(GridRequest<AttributeFilter> model)
         {
             int page = model.start;
             int rowsPerPage = model.length;
 
             ServiceResultModel<List<AttributeVM>> serviceResult = _attributeService.GetAllAttributeList(model.FilterRequest);
             var gridRecords = serviceResult.Data.Skip(page).Take(rowsPerPage).ToList();
-            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridRecords, serviceResult.Data.Count, serviceResult.Data.Count);
+            GridResponse tableResult = new GridResponse(model.draw, gridRecords, serviceResult.Data.Count, serviceResult.Data.Count);
 
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }

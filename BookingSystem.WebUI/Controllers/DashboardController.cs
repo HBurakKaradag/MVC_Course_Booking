@@ -1,8 +1,8 @@
 ﻿using BookingSystem.Core.CustomAttribute;
 using BookingSystem.Domain.WebUI.AuditLog;
 using BookingSystem.Service.Services;
-using BookingSystem.WebUI.Models.DataTableRequest;
-using BookingSystem.WebUI.Models.DataTableResponse;
+using BookingSystem.WebUI.Models.GridRequest;
+using BookingSystem.WebUI.Models.GridResponse;
 using System.Web.Mvc;
 
 namespace BookingSystem.WebUI.Controllers
@@ -34,11 +34,11 @@ namespace BookingSystem.WebUI.Controllers
             return View();
         }
 
-        public JsonResult GetAuditLogs(DataTableRequest<AuditLogVM> model)
+        public JsonResult GetAuditLogs(GridRequest<AuditLogVM> model)
         {
             var records = _auditLogService.GetAuditLogs();
 
-            DataTablesResponse tableResult = new DataTablesResponse(model.draw, records.Data, records.Data.Count, records.Data.Count);
+            GridResponse tableResult = new GridResponse(model.draw, records.Data, records.Data.Count, records.Data.Count);
 
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }

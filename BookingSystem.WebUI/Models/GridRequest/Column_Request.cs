@@ -1,4 +1,4 @@
-﻿namespace BookingSystem.WebUI.Models.DataTableRequest
+﻿namespace BookingSystem.WebUI.Models.GridRequest
 {
     public class Column_Request
     {

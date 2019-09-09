@@ -8,6 +8,8 @@ namespace BookingSystem.Service.Services
 {
     public class DashboardService : ServiceBase
     {
+        #region Menu
+
         public List<MenuVM> GetMenu()
         {
             List<MenuVM> menus = new List<MenuVM>();
@@ -53,5 +55,7 @@ namespace BookingSystem.Service.Services
                 AddSubMenu(ref currentChildItem, menuList);
             }
         }
+
+        #endregion Menu
     }
 }

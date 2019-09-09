@@ -9,6 +9,8 @@ namespace BookingSystem.Service.Services
 {
     public class DefinitionService : ServiceBase
     {
+        #region Cities
+
         public ServiceResultModel<List<CityDefinitionVM>> GetCities()
         {
             List<CityDefinitionVM> resultList = new List<CityDefinitionVM>();
@@ -28,16 +30,25 @@ namespace BookingSystem.Service.Services
             return ServiceResultModel<List<CityDefinitionVM>>.OK(resultList);
         }
 
-        public ServiceResultModel<List<DistrictDefinitionVM>> GetDistrictByCityId(int cityId)
+        #endregion Cities
+
+        #region Districts
+
+        public ServiceResultModel<List<DistrictDefinitionVM>> GetDistrict(int? cityId)
         {
             List<DistrictDefinitionVM> resultList = new List<DistrictDefinitionVM>();
             using (EFBookingContext context = new EFBookingContext())
             {
-                var districts = context.DistrictDefinition.Where(p => p.CityId == cityId).ToList();
+                var districts = context.DistrictDefinition.ToList();
+                if (cityId.HasValue)
+                    districts = districts.Where(p => p.CityId == cityId.Value).ToList();
+
                 resultList.AddRange(districts.Select(p => p.MapToViewModel<DistrictDefinitionVM>()));
             }
 
             return ServiceResultModel<List<DistrictDefinitionVM>>.OK(resultList);
         }
+
+        #endregion Districts
     }
 }

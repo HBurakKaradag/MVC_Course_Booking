@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 
-namespace BookingSystem.WebUI.Models.DataTableResponse
+namespace BookingSystem.WebUI.Models.GridResponse
 {
     public class GridResponse
     {
         public int draw { get; set; }
 
-        /// <summary>
-        /// Gets the data collection.
-        /// </summary>
         public IEnumerable data { get; set; }
 
         public int recordsTotal { get; set; }

@@ -3,8 +3,6 @@
 
     var handleEvents = function () {
         $(".btnEdit").click(function () {
-            
-
             // manuel js validation
             if ($("#Title").val() == "") {
                 // mesaj sonrasında return etmelisiniz.
@@ -12,8 +10,8 @@
                 return;
             }
 
-            var req = Core.createModel();
-            debugger;
+            var req = Core.buildModel();
+
             // ekrandaki field'ları zaten create model ile alıyorduk, o halde req içersindeki prop üzerinden de kontrol sağlayabiliriz
             if (req.Description == "") {
                 Core.showNotify("<b>Validation</b>", "Description field must be required", "warning");

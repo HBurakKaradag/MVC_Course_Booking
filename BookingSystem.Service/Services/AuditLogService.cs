@@ -10,6 +10,8 @@ namespace BookingSystem.Service.Services
 {
     public class AuditLogService : ServiceBase
     {
+        #region AuditLog
+
         public ServiceResultModel<AuditLogVM> SaveAuditLog(AuditLogVM auditLog)
         {
             using (EFBookingContext context = new EFBookingContext())
@@ -32,5 +34,7 @@ namespace BookingSystem.Service.Services
 
             return ServiceResultModel<List<AuditLogVM>>.OK(resultList);
         }
+
+        #endregion AuditLog
     }
 }

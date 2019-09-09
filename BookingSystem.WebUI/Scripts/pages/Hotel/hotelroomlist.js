@@ -2,7 +2,7 @@
     var that = this;
     var pageInitObject = [];
 
-    var fillTable = function () {
+    var fillGrid = function () {
         var table = $('#tableHotelRoomList');
 
         if (!jQuery().DataTable) {
@@ -24,7 +24,9 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                         
+                            var req = Core.buildModel(".box-body.filter");
+                            debugger;
+                            window.location.href = that.pageInitObject.Urls.AddHotelRoomPageUrl + "?HotelId=" + req.HotelId;
                         }
                     }
                 ],
@@ -38,14 +40,14 @@
                     }
                 }
             },
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", 
             "ajax": {
                 "url": that.pageInitObject.Urls.gridLoadUrl,
                 "contentType": "application/json",
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    var req = Core.createModel(".box-body.filter");
+                    var req = Core.buildModel(".box-body.filter");
                     data.FilterRequest = req;
 
                     var request = {
@@ -70,31 +72,30 @@
                 { "data": "IsActive", "name": "IsActive", "bSortable": false, "Width": "5" }
             ],
             "columnDefs": [
-                  {
+                {
                     "sortable": false,
                     "searchable": false,
                     "className": 'select-checkbox',
                     "targets": [0]
                 },
-              
+
                 {
                     "sortable": false,
-                    "targets": [1,2,4],
+                    "targets": [1, 2, 4],
                     "visible": false,
                     "searchable": false
                 },
                 {
                     "render": function (data, type, row) {
                         //if (row.ImageUrl == '')
-                            return "No Image";
+                        return "No Image";
                         //else {
-                        //    debugger;
+                        //
                         //    var imageUrlStr = '<img src="file:' + row.ImageUrl + '" slt="' + row.RoomName + '"  height="42" width="42">';
                         //    imageUrlStr = imageUrlStr.split('\\').join('/')
-                         
+
                         //    return imageUrlStr;
                         //}
-                      
                     },
                     "targets": 7,
                     "class": "text-center"
@@ -109,9 +110,9 @@
         });
     };
 
-    var refreshTable = function () {
-        var oTable = $('#tableHotelRoomList').DataTable();
-        oTable.ajax.reload();
+    var refreshGrid = function () {
+        var tbl = $('#tableHotelRoomList').DataTable();
+        tbl.ajax.reload();
     }
 
     var handleStartup = function () {
@@ -119,18 +120,17 @@
     };
 
     var handleEvents = function () {
-      
         $('#HotelId').on("change", function (e) {
-            refreshTable();
+            refreshGrid();
         });
-    
+
         $(document).on('click', '.btnClear', function () {
             Core.clearForm();
-            refreshTable();
+            refreshGrid();
         });
 
         $(document).on('click', '.btnSearch', function () {
-            refreshTable();
+            refreshGrid();
         });
     };
 
@@ -141,7 +141,7 @@
             if (!jQuery().dataTable) {
                 return;
             }
-            fillTable();
+            fillGrid();
             handleEvents();
             handleStartup();
         }

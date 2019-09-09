@@ -13,6 +13,8 @@ namespace BookingSystem.Service.Services
 {
     public class HotelTypeService : ServiceBase
     {
+        #region HotelTypes
+
         public ServiceResultModel<HotelTypeVM> GetHotelType(int id)
         {
             if (id <= 0)
@@ -129,5 +131,7 @@ namespace BookingSystem.Service.Services
                  */
             }
         }
+
+        #endregion HotelTypes
     }
 }

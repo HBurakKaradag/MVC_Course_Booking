@@ -2,7 +2,7 @@
     var that = this;
     var pageInitObject = [];
 
-    var fillTable = function () {
+    var fillGrid = function () {
         var table = $('#tableHotelDefinitionList');
 
         if (!jQuery().DataTable) {
@@ -23,7 +23,6 @@
                     {
                         text: "New Record",
                         action: function (e, dt, node, config) {
-                            debugger;
                             window.location.href = that.pageInitObject.Urls.HotelAddEditActionUrl;
                         }
                     }
@@ -38,23 +37,22 @@
                     }
                 }
             },
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", 
             "ajax": {
                 "url": that.pageInitObject.Urls.GridLoadUrl,
                 "contentType": "application/json",
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    var req = Core.createModel(".box-body.filter");
+                    var req = Core.buildModel(".box-body.filter");
                     data.FilterRequest = req;
                     var request = {
                         model: data
                     };
-                    debugger;
+
                     return JSON.stringify(request);
                 },
                 "dataFilter": function (data) {
-                    debugger;
                     return data;
                     // var json = JSON.stringify jQuery.parseJSON(data);
                     // return json.data;
@@ -82,11 +80,9 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        debugger;
                         var fData = that.pageInitObject.HotelTypesJSon.filter(x => x.Value == row.HotelTypeId);
-                        debugger;
+
                         if (!jQuery.isEmptyObject(fData)) {
-                            debugger;
                             return fData[0].Text;
                         }
                         else {
@@ -116,25 +112,23 @@
         });
     };
 
-    var refreshTable = function () {
-        var oTable = $('#tableHotelDefinitionList').DataTable();
-        oTable.ajax.reload();
+    var refreshGrid = function () {
+        var tbl = $('#tableHotelDefinitionList').DataTable();
+        tbl.ajax.reload();
     }
 
     var handleStartup = function () {
         $('.box.box-default').boxWidget('toggle');
-
     };
 
     var handleEvents = function () {
-      
         $(document).on('click', '.btnClear', function () {
             Core.clearForm();
-            refreshTable();
+            refreshGrid();
         });
 
         $(document).on('click', '.btnSearch', function () {
-            refreshTable();
+            refreshGrid();
         });
     };
 
@@ -145,7 +139,7 @@
             if (!jQuery().dataTable) {
                 return;
             }
-            fillTable();
+            fillGrid();
             handleEvents();
             handleStartup();
         }

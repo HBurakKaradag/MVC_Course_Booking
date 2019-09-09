@@ -1,23 +1,23 @@
 ﻿var Core = function () {
-    "use strict";
-
     var responseStatus = { Success: 1, Info: 2, Warning: 3, Error: 4 };
 
-    var createModel = function (param) {
-        if (param) {
-            if (typeof (param) === "object") return createModelMain(param, false);
-            else if (typeof (param) === "string") return createModelMain($(param, false));
+    var buildModel = function (par) {
+        if (par) {
+            return (par === "object")
+                ? buildModelFunction(par)
+                : buildModelFunction($(par, false));
         }
-        return createModelMain($(document), false);
+
+        return buildModelFunction($(document));
     }
 
-    var createModelMain = function (object, upper) {
+    var buildModelFunction = function (object) {
         var model = {};
+
         $(object).find("[data-model]").each(function () {
             var $this = $(this);
             var key, value;
-            var $el = $this,
-                type = $this.attr('type'),
+            var type = $this.attr('type'),
                 dataType = $this.attr('data-type');
 
             key = $(this).attr("data-model");
@@ -53,7 +53,6 @@
         // farklı örneklendirme olması için burada handle ediyorum.
 
         //$(document).find("[type=hidden]").each(function () {
-            
         //    // each içersinde olduğumuz için this current DOM element olur
         //    var $this = $(this);
         //    // elemet üzerindeki id attribute u kullanarak DOl element id sini aldık >> @Html.HiddenFor(p  => p.Name) ise key Name olur
@@ -176,7 +175,7 @@
     };
 
     return {
-        createModel: createModel,
+        buildModel: buildModel,
         clearForm: clearForm,
         fillForm: fillForm,
         showNotify: showNotify,

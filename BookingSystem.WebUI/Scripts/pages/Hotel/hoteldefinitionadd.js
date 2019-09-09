@@ -6,7 +6,7 @@
         $(".btnSave").click(function () {
             // manuel js validation
 
-            var req = Core.createModel();
+            var req = Core.buildModel();
 
             if (req.Title == "") {
                 // mesaj sonrasında return etmelisiniz.
@@ -42,7 +42,6 @@
 
             var index;
             for (index = 0; index < hotelAttributeCount; ++index) {
-                debugger;
                 var template = "Attributes_" + index + "__";
                 var id = $("#" + template + "Id").val();
                 var isSelected = $("#" + template + "IsSelected").prop("checked");
@@ -58,7 +57,6 @@
 
             req.Attributes = hotelAttributeArray;
 
-            debugger;
             if (req.Description == "") {
                 Core.showNotify("<b>Validation</b>", "Description field must be required", "warning");
                 return;
@@ -97,8 +95,6 @@
         });
 
         $('#CityId').on("change", function (e) {
-            debugger;
-
             var selectedValue = $(this).val();
             var req = { cityId: selectedValue };
 
@@ -113,8 +109,6 @@
                 processData: false,
                 cache: false,
                 success: function (data) {
-                    debugger;
-
                     var districtDOM = $("#DistrictId");
                     districtDOM.empty();
 

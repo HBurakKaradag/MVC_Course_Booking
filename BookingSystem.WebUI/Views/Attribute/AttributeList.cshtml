@@ -9,7 +9,7 @@
 
 @section PageScripts
 {
-    <script src='@Url.Content("~/Scripts/pages/Attributes/attributelist.js")'></script>
+    @Html.RenderScriptFile(Url.Content("~/Scripts/pages/Attributes/attributelist.js"))
 }
 
 @section BrundCrumb{

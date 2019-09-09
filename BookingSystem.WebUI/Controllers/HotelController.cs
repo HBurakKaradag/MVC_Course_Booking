@@ -5,8 +5,8 @@ using BookingSystem.Domain.WebUI.Definitions;
 using BookingSystem.Domain.WebUI.Filters;
 using BookingSystem.Domain.WebUI.Hotel;
 using BookingSystem.Service.Services;
-using BookingSystem.WebUI.Models.DataTableRequest;
-using BookingSystem.WebUI.Models.DataTableResponse;
+using BookingSystem.WebUI.Models.GridRequest;
+using BookingSystem.WebUI.Models.GridResponse;
 using BookingSystem.WebUI.Models.Response;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +51,7 @@ namespace BookingSystem.WebUI.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult GetHotelTypeList(DataTableRequest<HotelTypeFilter> model)
+        public JsonResult GetHotelTypeList(GridRequest<HotelTypeFilter> model)
         {
             var page = model.start;
             var rowsPerPage = model.length;
@@ -59,7 +59,7 @@ namespace BookingSystem.WebUI.Controllers
             var filteredData = _hotelTypeService.GetAllHotelTypes(model.FilterRequest);
             var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
 
-            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
+            GridResponse tableResult = new GridResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
 
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
@@ -206,7 +206,7 @@ namespace BookingSystem.WebUI.Controllers
             return View();
         }
 
-        public JsonResult GetHotels(DataTableRequest<HotelFilter> model)
+        public JsonResult GetHotels(GridRequest<HotelFilter> model)
         {
             var page = model.start;
             var rowsPerPage = model.length;
@@ -214,7 +214,7 @@ namespace BookingSystem.WebUI.Controllers
             var filteredData = _hotelService.GetHotels(model.FilterRequest);
             var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
 
-            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
+            GridResponse tableResult = new GridResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
 
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
@@ -243,7 +243,7 @@ namespace BookingSystem.WebUI.Controllers
         public JsonResult GetDistricts(int cityId)
         {
             List<DistrictDefinitionVM> definitionVMList = new List<DistrictDefinitionVM>();
-            var serviceResult = _definitionService.GetDistrictByCityId(cityId);
+            var serviceResult = _definitionService.GetDistrict(cityId);
             if (serviceResult.IsSuccess)
             {
                 definitionVMList = serviceResult.Data;
@@ -350,11 +350,11 @@ namespace BookingSystem.WebUI.Controllers
             return View(new HotelRoomFilter());
         }
 
-        public JsonResult GetHotelRooms(DataTableRequest<HotelRoomFilter> model)
+        public JsonResult GetHotelRooms(GridRequest<HotelRoomFilter> model)
         {
             if (model == null || model.FilterRequest.HotelId <= 0)
             {
-                return Json(new DataTablesResponse(model.draw, new List<HotelRoomVM>(), 0, 0), JsonRequestBehavior.AllowGet);
+                return Json(new GridResponse(model.draw, new List<HotelRoomVM>(), 0, 0), JsonRequestBehavior.AllowGet);
             }
 
             var page = model.start;
@@ -363,7 +363,7 @@ namespace BookingSystem.WebUI.Controllers
             var filteredData = _hotelService.GetHotelRooms(model.FilterRequest);
             var gridPageRecord = filteredData.Data.Skip(page).Take(rowsPerPage).ToList();
 
-            DataTablesResponse tableResult = new DataTablesResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
+            GridResponse tableResult = new GridResponse(model.draw, gridPageRecord, filteredData.Data.Count, filteredData.Data.Count);
             return Json(tableResult, JsonRequestBehavior.AllowGet);
         }
 

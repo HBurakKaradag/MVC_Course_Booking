@@ -14,6 +14,8 @@ namespace BookingSystem.Service.Services
 {
     public class AttributeService : ServiceBase
     {
+        #region Attributes
+
         public ServiceResultModel<List<AttributeVM>> GetAllAttributeList(AttributeFilter filter)
         {
             List<AttributeVM> resultList = new List<AttributeVM>();
@@ -101,5 +103,7 @@ namespace BookingSystem.Service.Services
                 return ServiceResultModel<AttributeVM>.OK(currentItem.MapToViewModel<AttributeVM>());
             }
         }
+
+        #endregion Attributes
     }
 }

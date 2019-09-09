@@ -52,6 +52,8 @@ namespace BookingSystem.Service.Extensions
         /// IEntity interface'in implement olduğu bir class için MapToViewModel
         /// IModel  interface'in implement olduğu bir class için MapToEntity methodlarının çalışmaı gerekir.
         /// MapToVm veya MapToEntity metotlarının harici bir class'da işleme girebilme yetileri değişiklikle kaldırıldı.
+        /// MapToViewModel    >> convert işlemi sadece IEntity den türeyen classlarda kullanılabilir
+        /// MapToEntityModel  >> convert işlemi sadece IModel den türeyen classlarda kullanılabilir
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>

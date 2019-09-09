@@ -2,7 +2,7 @@
     var that = this;
     var pageInitObject = [];
 
-    var fillTable = function () {
+    var fillGrid = function () {
         var table = $('#tableAuditLogList');
 
         if (!jQuery().DataTable) {
@@ -20,14 +20,14 @@
             "pageLength": 10,
             buttons: [
             ],
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", 
             "ajax": {
                 "url": that.pageInitObject.urls.gridLoadUrl,
                 "contentType": "application/json",
                 "datatype": "json",
                 "type": "POST",
                 "data": function (data) {
-                    var req = Core.createModel();
+                    var req = Core.buildModel();
                     data.FilterRequest = req;
 
                     var request = {
@@ -51,9 +51,9 @@
         });
     };
 
-    var refreshTable = function () {
-        var oTable = $('#tableAuditLogList').DataTable();
-        oTable.ajax.reload();
+    var refreshGrid = function () {
+        var tbl = $('#tableAuditLogList').DataTable();
+        tbl.ajax.reload();
     }
 
     var handleStartup = function () {
@@ -63,7 +63,7 @@
     var handleEvents = function () {
         $(document).on('click', '.btnClear', function () {
             Core.clearForm();
-            refreshTable();
+            refreshGrid();
             // $('#tableAuditLogList').DataTable().rows('.selected').deselect();
         });
     };
@@ -79,7 +79,7 @@
             if (!jQuery().dataTable) {
                 return;
             }
-            fillTable();
+            fillGrid();
             handleEvents();
             handleStartup();
         }

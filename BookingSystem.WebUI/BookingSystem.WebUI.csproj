@@ -139,11 +139,11 @@
     </Compile>
     <Compile Include="HtmlExtensions\HtmlHelperExtensions.cs" />
     <Compile Include="Models\BrandCrumbModel.cs" />
-    <Compile Include="Models\DataTableRequest\Column_Request.cs" />
-    <Compile Include="Models\DataTableRequest\DataTableRequest.cs" />
-    <Compile Include="Models\DataTableRequest\Order.cs" />
-    <Compile Include="Models\DataTableRequest\Search_Request.cs" />
-    <Compile Include="Models\DataTableResponse\DataTableResponse.cs" />
+    <Compile Include="Models\GridRequest\Column_Request.cs" />
+    <Compile Include="Models\GridRequest\GridRequest.cs" />
+    <Compile Include="Models\GridRequest\Order.cs" />
+    <Compile Include="Models\GridRequest\Search_Request.cs" />
+    <Compile Include="Models\GridResponse\GridResponse.cs" />
     <Compile Include="Models\DateTimeModelBinder.cs" />
     <Compile Include="Models\Response\Errors.cs" />
     <Compile Include="Models\Response\UIResponse.cs" />
@@ -2050,9 +2050,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Scripts\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="Views\Shared\_AnonymousLayout.cshtml" />
@@ -2062,7 +2059,6 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Shared\_LeftMenu.cshtml" />
     <Content Include="Views\Hotel\HotelTypeList.cshtml" />
-    <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Hotel\HotelTypeAdd.cshtml" />
     <Content Include="Views\Hotel\HotelTypeEdit.cshtml" />
     <Content Include="Views\Attribute\AttributeList.cshtml" />

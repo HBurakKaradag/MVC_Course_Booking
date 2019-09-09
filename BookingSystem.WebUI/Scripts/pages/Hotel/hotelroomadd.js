@@ -3,21 +3,17 @@
     var pageInitObject = [];
 
     var handleEvents = function () {
-
         $("#hotelRoomAddPage").submit(function (e) {
             e.preventDefault();
-            debugger;
-
 
             var formData = $('#hotelRoomAddPage')[0];
             var dataParams = new FormData(formData);
 
-
+            // formData parametreleri ekrana yazdırmak için kullanılır.
             //for (var dPars of dataParams.entries()) {
             //    console.log(dPars[0] + ', ' + dPars[1]);
             //}
 
-            debugger;
             $.ajax({
                 url: that.pageInitObject.Urls.HotelSaveUrlAction,
                 //dataType: "json",
@@ -49,7 +45,6 @@
             });
             return false;
         });
-
     }
 
     var handleStartup = function () {
