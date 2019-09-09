@@ -48,7 +48,7 @@
 # MVC - Filters
 
     Authorization Filters 
-          Forms Authentication uygulandı
+          Forms Authentication
     Action-Result Filters 
           AuditLog uygulandı
     Exception Filters 
@@ -59,14 +59,19 @@
 # Cache
 
     OutputCache
+    MemoryCache
     
     
 # Jquery - JS
     
-    JQuery-JavaScript Core.js üzerinden işletilmesi
-    Ajax crud işlemleri
+    Core.js
+    Ajax Crud işlemleri
     JQuery Validation
     JQuery Partial Loading
+    JQuery GET-POST
+      FormData
+      FormSerialize
+    
 
 # DatatablesNet 
 
@@ -77,7 +82,8 @@
 # DataBase
 
     SqlServer
-    CodeFirst
+    CodeFirst-Linq
+    CodeFirst-Procedure
     Migrations
     
 
