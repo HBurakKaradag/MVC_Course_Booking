@@ -1,2 +1,1 @@
-* linguist-vendored
-*.js linguist-vendored=false
+*.cs linguist-language=C#
